@@ -2,8 +2,11 @@
 
 import React, { useEffect, useState } from 'react'
 import { Inter } from 'next/font/google'
+import { Sidebar } from '@/components'
 import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
+// import Meta from '../components/Meta'
+
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [loggedin, setLoggedin] = useState(false);
@@ -19,8 +22,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
       <html lang="en">
         <body className={inter.className}>
-          <div><p>Sidebar</p></div>
-          {children}
+
+          <div className="header" >
+            <form>
+              <button onClick={() => {
+                localStorage.setItem('loggedin', 'no');
+                window.location.reload();
+              }
+              }>Logout</button>
+            </form>
+          </div>
+
+          <div className='page-container'>
+            <Sidebar />
+            <div>
+              {children}
+            </div>
+          </div>
         </body>
       </html>
     )
@@ -28,8 +46,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   else {
     return (
       <html lang="en">
+
         <body className={inter.className}>
-          <h1>Login page</h1>
+          <div className='page-container'>
+
+
+            <form>
+
+              <button onClick={() => {
+                localStorage.setItem('loggedin', 'yes');
+                window.location.reload();
+              }
+              }>Login</button>
+            </form>
+          </div>
         </body>
       </html>
     )
