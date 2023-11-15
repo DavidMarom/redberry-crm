@@ -5,13 +5,13 @@ import { Inter } from 'next/font/google'
 import { Sidebar } from '@/components'
 import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
-// import Meta from '../components/Meta'
-
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [loggedin, setLoggedin] = useState(false);
 
   useEffect(() => {
+    document.title = "Berry";
+
     if (localStorage.getItem('loggedin') === 'yes') {
       setLoggedin(true);
     }
@@ -22,7 +22,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
       <html lang="en">
         <body className={inter.className}>
-
           <div className="header" >
             <form>
               <button onClick={() => {

@@ -1,5 +1,4 @@
-"use client"
-import type { Metadata } from 'next'
+// "use client"
 import Image from 'next/image'
 
 export default function Home() {
@@ -7,16 +6,6 @@ export default function Home() {
     <div>
       <p>HOME</p>
       <Image src="/lichi.svg" alt="Lichi Logo" width={100} height={24} priority />
-      {/* <form>
-
-        <button onClick={() => {
-          localStorage.setItem('loggedin', 'yes');
-          window.location.reload();
-        }
-        }>Login</button>
-      </form> */}
     </div>
-
-
   )
 }
