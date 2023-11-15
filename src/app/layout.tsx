@@ -37,7 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           <div className='page-container'>
             <Sidebar />
-            <div>
+            <div className='pad-top-20'>
               {children}
             </div>
           </div>

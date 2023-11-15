@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const DARK = '#555555';
-const LIGHT = '#dddddd';
+const LIGHT = '#ffffff';
 
 export const Container = styled.div`
   height: ${({ height }) => height};
@@ -14,6 +14,8 @@ export const Container = styled.div`
   flex-direction: row;
   justify-content: space-between;
   overflow: hidden;
+  
+  filter: drop-shadow(0 0 0.75rem #00000010);
 
 `;
 
