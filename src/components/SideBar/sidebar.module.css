@@ -5,8 +5,9 @@
 
   width: 200px;
   height: 100vh;
-  background-color: #24283D;
+  background-color: #facfff;
   padding: 20px;
+  margin-right: 20px;
 }
 
 .sidebarbtn {
@@ -17,7 +18,7 @@
   height: 50px;
   margin-bottom: 10px;
   border-radius: 5px;
-  background-color: #2f3657;
+  background-color: #ca8bd5;
   color: #fff;
   text-decoration: none;
   padding: 10px;
@@ -26,6 +27,6 @@
 }
 
 .sidebarbtn:hover {
-  background-color: #49548a;
+  background-color: #73498a;
   padding-left: 15px;
 }
