@@ -5,7 +5,7 @@
 
   width: 200px;
   height: 100vh;
-  background-color: #facfff;
+  background-color: var(--brown03);
   padding: 20px;
   margin-right: 20px;
 }
@@ -18,8 +18,8 @@
   height: 50px;
   margin-bottom: 10px;
   border-radius: 5px;
-  background-color: #ca8bd5;
-  color: #fff;
+  background-color: var(--brown03);
+  color: var(--red01);
   text-decoration: none;
   padding: 10px;
   transition: all 0.2s ease;
@@ -27,6 +27,6 @@
 }
 
 .sidebarbtn:hover {
-  background-color: #73498a;
+  background-color: var(--sidebar-btn);
   padding-left: 15px;
 }
