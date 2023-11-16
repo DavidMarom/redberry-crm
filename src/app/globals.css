@@ -2,10 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --brown03: #E7DCD6;
+  --brown02: #CFB9B0;
+  --brown01: #652C16;
+  --green01: #156319;
+  --green02: #6FC21C;
+  --green03: #7CD623;
+  --red01: #AA021D;
+  --red02: #DA2249;
+  --red03: #F9A9C4;
+  --black: #222222;
+
+  --sidebar-btn: #F9A9C433;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,12 +33,9 @@
 
 body {
   color: #555;
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 .row {
@@ -33,7 +45,7 @@ body {
   width: 100%;
 }
 
-.center{
+.center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +61,7 @@ body {
   min-height: 100vh;
   height: 70%;
   /* background-color: #f1f1f1; */
-  
+
 }
 
 .header {
@@ -73,6 +85,6 @@ body {
   width: 100%;
 }
 
-.pad-top-20{
+.pad-top-20 {
   padding-top: 20px;
 }
