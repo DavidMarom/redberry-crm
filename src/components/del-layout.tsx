@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactNode, useEffect, useState } from 'react';
-import { Sidebar } from './'
+import { Sidebar } from '.'
 import { Inter } from 'next/font/google'
 
 

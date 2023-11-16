@@ -2,7 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-
+@font-face {
+  font-family: 'inika';
+  src: url('../../public/fonts/Inika-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -32,10 +37,22 @@
 }
 
 body {
-  color: #555;
+  color: var(--black);
   background: linear-gradient(to bottom,
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  /* color: #9d2b2b; */
+  font-family: 'inika', sans-serif;
 }
 
 .row {
