@@ -1,28 +1,34 @@
-const DB_USER = process.env.DB_USER;
-const DB_PASSWORD = process.env.DB_PASSWORD;
+// 'use client';
+import { MongoClient, ObjectId } from "mongodb";
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://" + DB_USER + ":" + DB_PASSWORD + "@serverlessinstance0.vpruh6i.mongodb.net/?retryWrites=true&w=majority";
-
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-    }
-});
-
-async function run() {
-    try {
-        // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
-        // Send a ping to confirm a successful connection
-        await client.db("admin").command({ ping: 1 });
-        console.log("Pinged your deployment. You successfully connected to MongoDB!");
-    } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
-    }
+export async function connectDatabase() {
+    const dbConnection = process.env.PUBLIC_DB_CONNECTION;
+    return await MongoClient.connect(dbConnection);
 }
-run().catch(console.dir);
+
+export async function insertDocument(client, collection, document) {
+    const db = client.db('rb');
+    const result = await db.collection(collection).insertOne(document);
+    return result;
+}
+
+export async function getAllDocuments(client, collection) {
+    const db = client.db('rb');
+    const documents = await db.collection(collection).find().toArray();
+    return documents;
+}
+
+export async function deleteDocument(client, collection, id) {
+    const db = client.db('rb');
+    try {
+        const objectId = new ObjectId(id);
+        const filter = { _id: objectId };
+
+        const result = await db.collection(collection).deleteOne(filter);
+        return result;
+    } catch (error) {
+        console.log(error)
+    }
+    return result;
+}
+

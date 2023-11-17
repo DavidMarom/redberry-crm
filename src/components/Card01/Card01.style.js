@@ -1,13 +1,11 @@
+"use client";
 import styled from 'styled-components';
-
-const DARK = '#555555';
-const LIGHT = '#ffffff';
 
 export const Container = styled.div`
   height: ${({ height }) => height};
   width: ${({ width }) => width};
   border-radius: 20px;
-  background-color: ${({ darkMode }) => (darkMode ? `${DARK}` : `${LIGHT}`)};
+  background-color: #ffffff;
   padding: 10px;
 
   display: flex;
