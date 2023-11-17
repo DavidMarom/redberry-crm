@@ -3,8 +3,8 @@ import React from 'react';
 const HomePage = () => {
     return (
         <div>
-            <h1>Page 2</h1>
-            <p>This is a page :)</p>
+            <h1>Mailing</h1>
+            <p>Manage mailing lists and push emails to users</p>
         </div>
     );
 };
