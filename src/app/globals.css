@@ -55,6 +55,10 @@ h6 {
   font-family: 'inika', sans-serif;
 }
 
+h1 {
+  font-size: 2rem;
+}
+
 .row {
   display: flex;
   flex-direction: row;

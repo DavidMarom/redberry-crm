@@ -22,3 +22,11 @@
 - **Atlassian Jira**
 - **Figma**
 - **Github** for version control, pull requests, and issue tracking
+
+# Join the team!
+This project is open to mid-level developers. You should have some experience with NEXT.js and typescrip
+
+# Developer Guidelines
+- For each Jira ticket, create a new branch. Name convention: `yourFirstName/RED-#ticketNumber` for example: `david/RED-23`
+- Once you are done with the ticket, create a pull request and assign it to David Marom
+- Have a beer 🍺

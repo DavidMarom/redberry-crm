@@ -4,8 +4,8 @@ import Image from 'next/image'
 export default function Home() {
   return (
     <div>
-      <p>HOME</p>
-      <Image src="/lichi.svg" alt="Lichi Logo" width={100} height={24} priority />
+      <h1>Overview</h1>
+      <p>TBD: Dashboard</p>
     </div>
   )
 }
