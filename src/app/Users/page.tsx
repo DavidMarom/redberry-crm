@@ -16,12 +16,14 @@ const HomePage = () => {
     }, []);
 
     console.log(process.env.PUBLIC_DB_CONNECTION);
+    console.log(process.env.NODE_ENV);
 
     return (
         <div>
             <h1>Users</h1>
             <p>Manage your users</p>
             <p>test: </p>{process.env.PUBLIC_DB_CONNECTION}
+            <p>env: </p>{process.env.NODE_ENV}
 
             
                 {users.map((user: any, idx: number) => (
