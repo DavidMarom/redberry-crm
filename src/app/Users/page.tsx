@@ -15,12 +15,13 @@ const HomePage = () => {
             .catch((error: any) => { console.log(error) });
     }, []);
 
+    console.log(process.env.PUBLIC_DB_CONNECTION);
 
     return (
         <div>
             <h1>Users</h1>
             <p>Manage your users</p>
-            {process.env.PUBLIC_DB_CONNECTION}
+            <p>test: </p>{process.env.PUBLIC_DB_CONNECTION}
 
             
                 {users.map((user: any, idx: number) => (
