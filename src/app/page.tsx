@@ -31,8 +31,7 @@ export default function Home() {
   return (
     <div>
       <h1>Overview</h1>
-      <p>TBD: Dashboard</p>
-      <button onClick={doSignup}>Login</button>
+      <button onClick={doSignup}>Login with google</button>
 
     </div>
   )
