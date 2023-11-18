@@ -1,6 +1,6 @@
 // 'use client';
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "@firebase/firestore";
+// import { getFirestore } from "@firebase/firestore";
 import { GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
@@ -12,8 +12,8 @@ const firebaseConfig = {
     appId: process.env.PUBLIC_REACT_APP_APP_ID,
 };
 
-console.log(firebaseConfig);
+console.log('firebaseConfig inititalized');
 
 const app = initializeApp(firebaseConfig);
 export const gprovider = new GoogleAuthProvider();
-export const db = getFirestore(app);
+// export const db = getFirestore(app);
