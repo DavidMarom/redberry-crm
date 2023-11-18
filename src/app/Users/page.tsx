@@ -22,6 +22,7 @@ const HomePage = () => {
         <div>
             <h1>Users</h1>
             <p>Manage your users</p>
+            <p>This is another deployment</p>
             <p>test: </p>{process.env.PUBLIC_DB_CONNECTION}
             <p>env: </p>{process.env.NODE_ENV}
 
