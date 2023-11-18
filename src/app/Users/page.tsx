@@ -16,8 +16,8 @@ const HomePage = () => {
 
     return (
         <div>
-            <h1>Users</h1>
-            <p>Manage your users</p>
+            <h1>Contacts</h1>
+            <p>Manage your contacts</p>
             {users.map((user: any, idx: number) => (
                 <p key={idx}>{user.userName}</p>
             ))}
