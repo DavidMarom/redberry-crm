@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   height: ${({ height }) => height};
   width: ${({ width }) => width};
+  margin-top: ${({ margintop }) => margintop};
   border-radius: 20px;
   background-color: #ffffff;
   padding: 10px;

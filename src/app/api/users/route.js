@@ -1,6 +1,5 @@
 import { connectDatabase, getAllDocuments } from "../../../services/mongo";
 
-
 export async function GET() {
     const client = await connectDatabase();
     const documents = await getAllDocuments(client, 'users');

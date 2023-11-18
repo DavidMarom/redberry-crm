@@ -5,6 +5,7 @@ import { Container, Column } from "./Card01.style"
 export default function Card01({
     width = "500px",
     height = "140px",
+    margintop = "20px",
     children,
 }) {
 
@@ -12,6 +13,7 @@ export default function Card01({
         <Container
             width={width}
             height={height}
+            margintop={margintop}
         >
             <Column>
                 {children}
@@ -23,5 +25,6 @@ export default function Card01({
 Card01.propTypes = {
     width: PropTypes.string,
     height: PropTypes.string,
+    margintop: PropTypes.string,
     children: PropTypes.node.isRequired,
 }

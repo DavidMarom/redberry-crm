@@ -109,3 +109,7 @@ h1 {
 .pad-top-20 {
   padding-top: 20px;
 }
+
+.inline {
+  display: inline;
+}

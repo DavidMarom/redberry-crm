@@ -10,27 +10,17 @@ const HomePage = () => {
         http.get('users')
             .then((response: any) => {
                 setUsers(response.data);
-                console.log(response.data);
             })
             .catch((error: any) => { console.log(error) });
     }, []);
-
-    console.log(process.env.PUBLIC_DB_CONNECTION);
-    console.log(process.env.NODE_ENV);
 
     return (
         <div>
             <h1>Users</h1>
             <p>Manage your users</p>
-            <p>This is another deployment</p>
-            <p>test: </p>{process.env.PUBLIC_DB_CONNECTION}
-            <p>env: </p>{process.env.NODE_ENV}
-
-            
-                {users.map((user: any, idx: number) => (
-                    <p key={idx}>{user.userName}</p>
-                ))}
-            
+            {users.map((user: any, idx: number) => (
+                <p key={idx}>{user.userName}</p>
+            ))}
         </div>
     );
 };
