@@ -19,10 +19,10 @@ export default function Header() {
         }).catch((error) => { console.log(error) });
     }
 
-
     return (
         <div className="header" >
             <button onClick={doSignOut}>Logout</button>
+            {img}
             <Image src={img} alt="Profile" width={40} height={24} priority />
         </div>
     )
