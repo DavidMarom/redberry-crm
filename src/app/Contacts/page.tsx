@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import http from '../../services/http';
 
-const HomePage = () => {
+const ContactsPage = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -25,4 +25,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default ContactsPage;
