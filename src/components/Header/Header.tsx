@@ -13,18 +13,14 @@ export default function Header() {
     const doSignOut = () => {
         const auth = getAuth();
         signOut(auth).then((res) => {
-            console.log(res);
-            console.log('---222--');
             setIsLogged(false);
-
         }).catch((error) => { console.log(error) });
     }
 
     return (
         <div className="header" >
             <button onClick={doSignOut}>Logout</button>
-            {img}
-            <Image src={img} alt="Profile" width={40} height={24} priority />
+            <img src={img} alt="Profile" width={40} height={24} />
         </div>
     )
 }
