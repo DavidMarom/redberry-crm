@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         const token = credential?.accessToken ?? null;
         const user = result.user;
         let usr = { name: user.displayName, mail: user.email, photoURL: user.photoURL, uid: user.uid, token: token };
-
+        console.log('-------------', usr.photoURL);
         setImg(usr.photoURL ?? '');
         setIsLogged(true)
 
