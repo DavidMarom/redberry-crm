@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 // import { useRouter } from 'next/navigation';
 import { Inter } from 'next/font/google'
-import { Sidebar, Card01 } from '@/components'
+import { Sidebar, Card01, Header } from '@/components'
 import { gprovider } from '@/services/firebase-config';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import Image from 'next/image'
@@ -12,23 +12,14 @@ import useUserStore from '@/store/user';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const [loggedin, setLoggedin] = useState(false);
-
-  const img = useUserStore((state) => state.img);
   const setImg = useUserStore((state) => state.setImg);
+  const isLogged = useUserStore((state) => state.isLogged);
+  const setIsLogged = useUserStore((state) => state.setIsLogged);
+
 
   useEffect(() => {
     document.title = "Redberry CRM";
   }, []);
-
-  const doSignOut = () => {
-    const auth = getAuth();
-    signOut(auth).then((res) => {
-      console.log(res);
-      setLoggedin(false);
-
-    }).catch((error) => { console.log(error) });
-  }
 
   async function doSignup() {
     const auth = getAuth();
@@ -40,28 +31,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         let usr = { name: user.displayName, mail: user.email, photoURL: user.photoURL, uid: user.uid, token: token };
 
         setImg(usr.photoURL ?? '');
-        localStorage.setItem('loggedin', 'yes');
-        setLoggedin(true)
+        setIsLogged(true)
 
       }).catch((error) => { console.log(error) });
   }
 
-  if (loggedin) {
+  if (isLogged) {
+
     return (
       <html lang="en">
         <body className={inter.className}>
-          <div className="header" >
 
-            <button onClick={() => { doSignOut() }
-            }>Logout</button>
-            <Image src={img} alt="Profile" width={40} height={24} priority />
-          </div>
+          <Header />
 
           <div className='page-container'>
             <Sidebar />
-            <div className='pad-top-20'>
-              {children}
-            </div>
+            <div className='pad-top-20'>{children}</div>
           </div>
         </body>
       </html>
