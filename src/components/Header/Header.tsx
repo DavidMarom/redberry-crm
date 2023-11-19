@@ -14,7 +14,7 @@ export default function Header() {
         const auth = getAuth();
         signOut(auth).then((res) => {
             console.log(res);
-            console.log('-----');
+            console.log('---222--');
             setIsLogged(false);
 
         }).catch((error) => { console.log(error) });
