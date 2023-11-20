@@ -19,6 +19,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     document.title = "Redberry CRM";
+    if (localStorage.getItem('user')) {
+      let usr = JSON.parse(localStorage.getItem('user') ?? '');
+      setImg(usr.photoURL ?? '');
+      setIsLogged(true)
+    }
   }, []);
 
   async function doSignup() {
@@ -29,7 +34,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         const token = credential?.accessToken ?? null;
         const user = result.user;
         let usr = { name: user.displayName, mail: user.email, photoURL: user.photoURL, uid: user.uid, token: token };
-        console.log('-------------', usr.photoURL);
+
+        localStorage.setItem('user', JSON.stringify(usr));
         setImg(usr.photoURL ?? '');
         setIsLogged(true)
 
@@ -41,9 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
       <html lang="en">
         <body className={inter.className}>
-
           <Header />
-
           <div className='page-container'>
             <Sidebar />
             <div className='pad-top-20'>{children}</div>

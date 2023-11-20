@@ -13,6 +13,7 @@ export default function Header() {
     const doSignOut = () => {
         const auth = getAuth();
         signOut(auth).then((res) => {
+            localStorage.removeItem('user');
             setIsLogged(false);
         }).catch((error) => { console.log(error) });
     }
