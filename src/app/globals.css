@@ -59,6 +59,14 @@ h1 {
   font-size: 2rem;
 }
 
+h2 {
+  font-size: 1.5rem;
+  color: var(--red02);
+}
+ h3 {
+  font-size: 1.25rem;
+}
+
 .row {
   display: flex;
   flex-direction: row;
@@ -81,8 +89,6 @@ h1 {
   width: 100%;
   min-height: 100vh;
   height: 70%;
-  /* background-color: #f1f1f1; */
-
 }
 
 .header {
@@ -112,4 +118,28 @@ h1 {
 
 .inline {
   display: inline;
+}
+
+.v-spacer {
+  height: 20px;
+}
+.v-spacer2 {
+  height: 200px;
+}
+
+.pad-r{
+  padding-left: 20px;
+}
+
+.font-s{
+  font-size: 0.8rem;
+}
+
+.link{
+  color: var(--blacl);
+  text-decoration: none;
+}
+.link:hover{
+  color: var(--red02);
+  text-decoration: underline;
 }

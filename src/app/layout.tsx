@@ -58,8 +58,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body className={inter.className}>
           <div className='page-container'>
             <div className="row">
-              <Card01 height='400px'>
+              <Card01 height='400px' width='450px' justifycontent='space-around'>
                 <div className='row'><Image src="/lichi.svg" alt="Lichi Logo" width={100} height={24} priority /></div>
+                <div className='v-spacer' />
                 <button onClick={doSignup}>Login with google</button>
               </Card01>
 

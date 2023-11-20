@@ -3,9 +3,11 @@ import PropTypes from "prop-types"
 import { Container, Column } from "./Card01.style"
 
 export default function Card01({
-    width = "500px",
+    width,
+    marginright = "20px",
     height = "140px",
     margintop = "20px",
+    justifycontent,
     children,
 }) {
 
@@ -14,6 +16,8 @@ export default function Card01({
             width={width}
             height={height}
             margintop={margintop}
+            marginright={marginright}
+            justifycontent={justifycontent}
         >
             <Column>
                 {children}
@@ -27,4 +31,6 @@ Card01.propTypes = {
     height: PropTypes.string,
     margintop: PropTypes.string,
     children: PropTypes.node.isRequired,
+    marginright: PropTypes.string,
+    justifycontent: PropTypes.string,
 }
