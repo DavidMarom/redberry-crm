@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react'
 // import { useRouter } from 'next/navigation';
 import { Inter } from 'next/font/google'
 import { Sidebar, Card01, Header } from '@/components'
-import { gprovider } from '@/services/firebase-config';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { googleSignup } from '@/services/auth';
 import Image from 'next/image'
 import './globals.css'
 import useUserStore from '@/store/user';
@@ -16,31 +15,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const isLogged = useUserStore((state) => state.isLogged);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
 
+  const signupHandler = () => {
+    const res = googleSignup()
+    res.then((res) => {
+      if (res) {
+        localStorage.setItem('user', JSON.stringify(res));
+        setImg(res.photoURL ?? '');
+        setIsLogged(true)
+      }
+    })
+  }
 
   useEffect(() => {
     document.title = "Redberry CRM";
     if (localStorage.getItem('user')) {
       let usr = JSON.parse(localStorage.getItem('user') ?? '');
-      setImg(usr.photoURL ?? '');
-      setIsLogged(true)
+      if (usr) {
+        setImg(usr.photoURL ?? '');
+        setIsLogged(true)
+      }
+
     }
   }, []);
 
-  async function doSignup() {
-    const auth = getAuth();
-    signInWithPopup(auth, gprovider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken ?? null;
-        const user = result.user;
-        let usr = { name: user.displayName, mail: user.email, photoURL: user.photoURL, uid: user.uid, token: token };
 
-        localStorage.setItem('user', JSON.stringify(usr));
-        setImg(usr.photoURL ?? '');
-        setIsLogged(true)
-
-      }).catch((error) => { console.log(error) });
-  }
 
   if (isLogged) {
 
@@ -65,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Card01 height='400px' width='450px' justifycontent='space-around'>
                 <div className='row'><Image src="/lichi.svg" alt="Lichi Logo" width={100} height={24} priority /></div>
                 <div className='v-spacer' />
-                <button onClick={doSignup}>Login with google</button>
+                <button onClick={signupHandler}>Login with google</button>
               </Card01>
 
             </div>
