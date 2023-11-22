@@ -18,6 +18,13 @@ export async function getAllDocuments(client, collection) {
     return documents;
 }
 
+export async function getUser(client, userId) {
+    const db = client.db('rb');
+    const filter = { uid: userId };
+    const result = await db.collection('users').findOne(filter);
+    return result;
+}
+
 export async function deleteDocument(client, collection, id) {
     const db = client.db('rb');
     try {
