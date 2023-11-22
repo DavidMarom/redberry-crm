@@ -1,4 +1,4 @@
-import { connectDatabase, getAllDocuments } from "../../../services/mongo";
+import { connectDatabase, getAllDocuments, insertDocument } from "../../../services/mongo";
 
 export async function GET() {
     const client = await connectDatabase();
