@@ -38,4 +38,3 @@ export async function deleteDocument(client, collection, id) {
     }
     return result;
 }
-
