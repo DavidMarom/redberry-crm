@@ -2,13 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 // import { useRouter } from 'next/navigation';
-import { Inter } from "next/font/google";
-import { Sidebar, Card01, Header } from "@/components";
-import { googleSignup } from "@/services/auth";
-import Image from "next/image";
-import "./globals.css";
-import useUserStore from "@/store/user";
-const inter = Inter({ subsets: ["latin"] });
+import { Inter } from 'next/font/google'
+import { Sidebar, Card01, Header } from '@/components'
+import { googleSignup } from '@/services/auth';
+import http from '@/services/http';
+
+import Image from 'next/image'
+import './globals.css'
+import useUserStore from '@/store/user';
+const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({
   children,
@@ -24,10 +26,25 @@ export default function RootLayout({
     const res = googleSignup();
     res.then((res) => {
       if (res) {
+        // Save the google user info to local storage
         localStorage.setItem("user", JSON.stringify(res));
         setUserName(res.name ?? "");
         setImg(res.photoURL ?? "");
         setIsLogged(true);
+
+        // Check if DB has the user
+        http.get(`users/${res.uid}`).then((response: any) => {
+
+          if (!response.data) {
+            // If not, add the user to DB
+            http.post('users', res).then((response: any) => {
+              console.log(response)
+            })
+          }
+        }
+        )
+
+        setIsLogged(true)
       }
     });
   };
