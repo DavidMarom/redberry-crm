@@ -44,12 +44,12 @@ const ContactsPage = () => {
         <div>
             <h1>Contacts</h1>
             <br />
-            <p>Contacts:</p>
+            <h2>Contacts:</h2>
             {contacts.map((contact: any, idx: number) => (
                 <p key={idx}>{contact.name}</p>
             ))}
 
-            <br/>
+            <br />
 
             <h2>Add contact</h2>
             <form onSubmit={submitHandler}>
@@ -57,7 +57,6 @@ const ContactsPage = () => {
                 <input type="text" name="name" id="name" />
                 <button type="submit">Add contact</button>
             </form>
-
         </div>
     );
 };
