@@ -6,10 +6,12 @@ import http from '../../services/http';
 const ContactsPage = () => {
     const [contacts, setContacts] = useState([]);
 
+    const user = localStorage.getItem('user');
+    const uid = user ? JSON.parse(user).uid : null;
+
     useEffect(() => {
-        http.get('contacts')
+        http.get(`contacts/${uid}`)
             .then((response: any) => {
-                console.log('------', response);
                 if (!response.data) {
                     alert('No contacts found');
 

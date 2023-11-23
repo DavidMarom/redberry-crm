@@ -19,11 +19,8 @@ export async function getAllDocuments(client, collection) {
 }
 
 export async function getDocumentsByFilter(client, collection, filter) {
-    console.log('========= filter', filter);
     const db = client.db('rb');
     const documents = await db.collection(collection).find(filter).toArray();
-    
-    console.log('========= documents', documents);
     return documents;
 }
 
