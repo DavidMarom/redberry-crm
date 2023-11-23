@@ -1,7 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
-// import { useRouter } from 'next/navigation';
+import React, { useEffect } from 'react'
 import { Inter } from 'next/font/google'
 import { Sidebar, Card01, Header } from '@/components'
 import { googleSignup } from '@/services/auth';
@@ -29,7 +28,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         // Check if DB has the user
         http.get(`users/${res.uid}`).then((response: any) => {
-
           if (!response.data) {
             // If not, add the user to DB
             http.post('users', res).then((response: any) => {
@@ -52,7 +50,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         setImg(usr.photoURL ?? '');
         setIsLogged(true)
       }
-
     }
   }, []);
 
