@@ -4,26 +4,20 @@ import React, { useEffect, useState } from 'react';
 import http from '../../services/http';
 
 const ContactsPage = () => {
-    const [users, setUsers] = useState([]);
-    const [user, setUser] = useState('');
+    const [contacts, setContacts] = useState([]);
 
     useEffect(() => {
-        http.get('users')
+        http.get('contacts')
             .then((response: any) => {
-                setUsers(response.data);
+                console.log('------', response);
+                if (!response.data) {
+                    alert('No contacts found');
+
+                } else {
+                    setContacts(response.data)
+                }
             })
             .catch((error: any) => { console.log(error) });
-
-        http.get('users/3rrt')
-                .then((response: any) => {
-                    if (!response.data){
-                        setUser('Not found')
-                        
-                    } else{
-                        setUser(response.data.userName)
-                    }
-                })
-                .catch((error: any) => { console.log(error) });
 
     }, []);
 
@@ -31,9 +25,9 @@ const ContactsPage = () => {
         <div>
             <h1>Contacts</h1>
             <br />
-            <p>Users (TBD: put contacts)</p>
-            {users.map((user: any, idx: number) => (
-                <p key={idx}>{user.name}</p>
+            <p>Contacts:</p>
+            {contacts.map((contact: any, idx: number) => (
+                <p key={idx}>{contact.name}</p>
             ))}
 
 

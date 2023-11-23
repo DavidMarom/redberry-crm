@@ -18,6 +18,15 @@ export async function getAllDocuments(client, collection) {
     return documents;
 }
 
+export async function getDocumentsByFilter(client, collection, filter) {
+    console.log('========= filter', filter);
+    const db = client.db('rb');
+    const documents = await db.collection(collection).find(filter).toArray();
+    
+    console.log('========= documents', documents);
+    return documents;
+}
+
 export async function getUser(client, userId) {
     const db = client.db('rb');
     const filter = { uid: userId };
