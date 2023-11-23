@@ -23,6 +23,23 @@ const ContactsPage = () => {
 
     }, []);
 
+    const submitHandler = (e: any) => {
+        e.preventDefault();
+        const name = e.target.name.value;
+
+        const contact = {
+            name,
+            owner: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') ?? '').uid : null
+        }
+
+        http.post('contacts', contact)
+            .then((response: any) => {
+                const newContacts = [...contacts, contact];
+                setContacts(newContacts as never[])
+            })
+            .catch((error: any) => { console.log(error) });
+    }
+
     return (
         <div>
             <h1>Contacts</h1>
@@ -32,6 +49,14 @@ const ContactsPage = () => {
                 <p key={idx}>{contact.name}</p>
             ))}
 
+            <br/>
+
+            <h2>Add contact</h2>
+            <form onSubmit={submitHandler}>
+                <label htmlFor="name">Name</label>
+                <input type="text" name="name" id="name" />
+                <button type="submit">Add contact</button>
+            </form>
 
         </div>
     );
