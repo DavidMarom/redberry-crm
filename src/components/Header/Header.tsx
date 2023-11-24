@@ -4,6 +4,7 @@ import React from "react";
 import { getAuth, signOut } from "firebase/auth";
 import useUserStore from "@/store/user";
 import { Container, LogoName } from "./Header.style";
+import { Row } from "@/components";
 import Image from "next/image";
 
 export default function Header() {
@@ -26,8 +27,10 @@ export default function Header() {
   return (
     <div className="header">
       <Container>
-        <Image src="/lichi.svg" alt="Lichi Logo" width={44} height={44} />
-        <LogoName>Redberry</LogoName>
+        <Row>
+          <Image src="/lichi.svg" alt="Lichi Logo" width={44} height={44} />
+          <LogoName>Redberry</LogoName>
+        </Row>
       </Container>
       <Container>
         <p>{userName}</p>

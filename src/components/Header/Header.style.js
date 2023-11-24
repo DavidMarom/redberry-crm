@@ -3,18 +3,20 @@ import styled from "styled-components";
 8;
 
 export const Container = styled.div`
-  min-width: 10vw;
-  max-width: 20vw;
+  /* width: 100%; */
   display: flex;
-  justify-content: center;
+
+  justify-content: space-between;
   align-items: center;
-  padding: 6px;
+  padding: 0px;
 
   & > * {
     margin: 5px;
   }
 
   & p {
+    margin-top: 6px;
+    margin-left: 8px;
   }
 
   & img {
