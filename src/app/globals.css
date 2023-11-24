@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'inika';
-  src: url('../../public/fonts/Inika-Regular.ttf') format('truetype');
+  font-family: "inika";
+  src: url("../../public/fonts/Inika-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -14,18 +14,18 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 
-  --brown03: #E7DCD6;
-  --brown02: #CFB9B0;
-  --brown01: #652C16;
+  --brown03: #e7dcd6;
+  --brown02: #cfb9b0;
+  --brown01: #652c16;
   --green01: #156319;
-  --green02: #6FC21C;
-  --green03: #7CD623;
-  --red01: #AA021D;
-  --red02: #DA2249;
-  --red03: #F9A9C4;
+  --green02: #6fc21c;
+  --green03: #7cd623;
+  --red01: #aa021d;
+  --red02: #da2249;
+  --red03: #f9a9c4;
   --black: #222222;
 
-  --sidebar-btn: #F9A9C433;
+  --sidebar-btn: #f9a9c433;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,9 +38,12 @@
 
 body {
   color: var(--black);
-  background: linear-gradient(to bottom,
+  background: linear-gradient(
+      to bottom,
       transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 
 div,
@@ -52,7 +55,7 @@ h4,
 h5,
 h6 {
   /* color: #9d2b2b; */
-  font-family: 'inika', sans-serif;
+  font-family: "inika", sans-serif;
 }
 
 h1 {
@@ -63,7 +66,7 @@ h2 {
   font-size: 1.5rem;
   color: var(--red02);
 }
- h3 {
+h3 {
   font-size: 1.25rem;
 }
 
@@ -97,7 +100,7 @@ h2 {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 50px;
+  height: 70px;
   background-color: #ffffff;
   padding: 0 10px;
 
@@ -127,19 +130,19 @@ h2 {
   height: 200px;
 }
 
-.pad-r{
+.pad-r {
   padding-left: 20px;
 }
 
-.font-s{
+.font-s {
   font-size: 0.8rem;
 }
 
-.link{
+.link {
   color: var(--blacl);
   text-decoration: none;
 }
-.link:hover{
+.link:hover {
   color: var(--red02);
   text-decoration: underline;
 }

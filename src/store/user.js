@@ -1,7 +1,10 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 const useUserStore = create((set) => ({
-  img: '',
+  name: "",
+  setUserName: (userName) => set(() => ({ name: userName })),
+
+  img: "",
   setImg: (str) => set(() => ({ img: str })),
 
   isLogged: false,
