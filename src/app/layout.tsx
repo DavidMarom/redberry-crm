@@ -66,7 +66,7 @@ export default function RootLayout({
           <Header />
           <div className="page-container">
             <Sidebar />
-            <div className="pad-top-20">{children}</div>
+            <div className="pad-top-20 width-100">{children}</div>
           </div>
         </body>
       </html>
