@@ -146,3 +146,28 @@ h3 {
   color: var(--red02);
   text-decoration: underline;
 }
+
+input {
+  border: none;
+  border-bottom: 1px solid var(--black);
+  outline: none;
+  padding: 5px;
+  margin: 5px;
+}
+
+select {
+  border: none;
+  border-bottom: 1px solid var(--black);
+  outline: none;
+  padding: 5px;
+  margin: 5px;
+}
+
+.button {
+  border: none;
+  outline: none;
+  padding: 5px;
+  margin: 5px;
+  background-color: var(--sidebar-btn);
+  cursor: pointer;
+}

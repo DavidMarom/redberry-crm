@@ -10,9 +10,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-    const { name, owner } = await request.json();
+    const { name, email, status, owner } = await request.json();
     const client = await connectDatabase();
-    const result = await insertDocument(client, 'contacts', { name, owner });
+    const result = await insertDocument(client, 'contacts', { name, email, status, owner });
     client.close();
     return new Response(JSON.stringify(result), {
         headers: { 'Content-Type': 'application/json' },
