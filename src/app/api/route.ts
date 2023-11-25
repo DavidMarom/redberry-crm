@@ -1,4 +1,5 @@
-const mailchimpClient = require("@mailchimp/mailchimp_transactional")("md-DJRXFri1VK8JqDmXYDdWPg");
+import { env } from "process";
+const mailchimpClient = require("@mailchimp/mailchimp_transactional")(env.PUBLIC_MANDRIL || "md-DJRXFri1VK8JqDmXYDdWPg");
 
 export async function GET() {
     const run = async () => {
