@@ -1,5 +1,5 @@
 import { env } from "process";
-const mailchimpClient = require("@mailchimp/mailchimp_transactional")(env.PUBLIC_MANDRIL);
+const mailchimpClient = require("@mailchimp/mailchimp_transactional")(env.PUBLIC_MANDRIL || 'md' + '-DJRXFri1VK8JqDmXYDdWPg');
 
 export async function POST(request: Request) {
     const { mail, name } = await request.json();
