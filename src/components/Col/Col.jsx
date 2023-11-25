@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from "prop-types"
 import { Container } from "./Col.style"
+import { StyleSheetManager } from 'styled-components';
 
 export default function Col({
     width,
@@ -12,15 +13,17 @@ export default function Col({
 }) {
 
     return (
-        <Container
-            width={width}
-            height={height}
-            margintop={margintop}
-            marginright={marginright}
-            justifycontent={justifycontent}
-        >
-            {children}
-        </Container>
+        <StyleSheetManager shouldForwardProp={(prop) => prop !== 'margintop' || prop !== 'marginright'}>
+            <Container
+                width={width}
+                height={height}
+                margintop={margintop}
+                marginright={marginright}
+                justifycontent={justifycontent}
+            >
+                {children}
+            </Container>
+        </StyleSheetManager>
     )
 }
 

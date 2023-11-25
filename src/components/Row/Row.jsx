@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from "prop-types"
 import { Container } from "./Row.style"
+import { StyleSheetManager } from 'styled-components';
 
 export default function Row({
     width,
@@ -12,15 +13,18 @@ export default function Row({
 }) {
 
     return (
-        <Container
-            width={width}
-            height={height}
-            margintop={margintop}
-            marginright={marginright}
-            justifycontent={justifycontent}
-        >
-            {children}
-        </Container>
+        <StyleSheetManager shouldForwardProp={(prop) => prop !== 'margintop' || prop !== 'marginright'}>
+
+            <Container
+                width={width}
+                height={height}
+                margintop={margintop}
+                marginright={marginright}
+                justifycontent={justifycontent}
+            >
+                {children}
+            </Container>
+        </StyleSheetManager>
     )
 }
 

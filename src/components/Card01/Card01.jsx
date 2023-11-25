@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from "prop-types"
 import { Container, Column } from "./Card01.style"
+import { StyleSheetManager } from 'styled-components';
 
 export default function Card01({
     width,
@@ -12,6 +13,8 @@ export default function Card01({
 }) {
 
     return (
+        <StyleSheetManager shouldForwardProp={(prop) => prop !== 'margintop' || prop !== 'marginright'}>
+
         <Container
             width={width}
             height={height}
@@ -23,6 +26,7 @@ export default function Card01({
                 {children}
             </Column>
         </Container>
+        </StyleSheetManager>
     )
 }
 
