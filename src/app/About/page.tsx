@@ -18,7 +18,6 @@ const AboutPage = () => {
                         Click here
                     </Link>
                 </div>
-                
             </Card01>
         </div>
     );

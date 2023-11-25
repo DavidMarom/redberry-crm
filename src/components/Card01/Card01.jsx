@@ -14,18 +14,17 @@ export default function Card01({
 
     return (
         <StyleSheetManager shouldForwardProp={(prop) => prop !== 'margintop' || prop !== 'marginright'}>
-
-        <Container
-            width={width}
-            height={height}
-            margintop={margintop}
-            marginright={marginright}
-            justifycontent={justifycontent}
-        >
-            <Column>
-                {children}
-            </Column>
-        </Container>
+            <Container
+                width={width}
+                height={height}
+                margintop={margintop}
+                marginright={marginright}
+                justifycontent={justifycontent}
+            >
+                <Column>
+                    {children}
+                </Column>
+            </Container>
         </StyleSheetManager>
     )
 }
