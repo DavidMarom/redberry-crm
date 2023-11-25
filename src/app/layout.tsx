@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Inter } from 'next/font/google'
 import { Sidebar, Card01, Header } from '@/components'
 import { googleSignup } from '@/services/auth';
 import http from '@/services/http';
-
 import Image from 'next/image'
 import './globals.css'
 import useUserStore from '@/store/user';
