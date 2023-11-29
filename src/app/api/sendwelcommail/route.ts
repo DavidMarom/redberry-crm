@@ -1,5 +1,5 @@
 
-const apiKey = process.env.PUBLIC_REACT_APP_MANDRIL;
+const apiKey = process.env.MANDRIL;
 const mailchimpClient = require("@mailchimp/mailchimp_transactional")(apiKey);
 
 export async function POST(request: Request) {
