@@ -35,7 +35,9 @@ export default function RootLayout({
         http.get(`users/${res.uid}`).then((response: any) => {
           if (!response.data) {
             // If not, add the user to DB and send welcome email
-            http.post('users', res).then((response: any) => { console.log(response) })
+            http.post('users', res)
+            .then((response: any) => { console.log(response) })
+            .catch((error: any) => { console.log(error) })
             sendWelcomeEmail(res.mail, res.name)
           }
         })
