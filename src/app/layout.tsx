@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { Inter } from 'next/font/google'
 import { Sidebar, Card01, Header } from '@/components'
 import { googleSignup } from '@/services/auth';
+import { sendWelcomeEmail } from '@/services/mailchimp';
 import http from '@/services/http';
 import Image from 'next/image'
 import './globals.css'
@@ -21,8 +22,8 @@ export default function RootLayout({
   const setIsLogged = useUserStore((state) => state.setIsLogged);
 
   const signupHandler = () => {
-    const res = googleSignup();
-    res.then((res) => {
+    const googleRes = googleSignup();
+    googleRes.then((res) => {
       if (res) {
         // Save the google user info to local storage
         localStorage.setItem("user", JSON.stringify(res));
@@ -34,20 +35,10 @@ export default function RootLayout({
         http.get(`users/${res.uid}`).then((response: any) => {
           if (!response.data) {
             // If not, add the user to DB and send welcome email
-            http.post('users', res).then((response: any) => {
-              console.log(response)
-            })
-
-            http.post('sendwelcommail', {
-              mail: res.mail,
-              name: res.name,
-            }
-            ).then((response: any) => {
-              console.log(response)
-            })
+            http.post('users', res).then((response: any) => { console.log(response) })
+            sendWelcomeEmail(res.mail, res.name)
           }
-        }
-        )
+        })
 
         setIsLogged(true)
       }
@@ -90,13 +81,7 @@ export default function RootLayout({
                 justifycontent="space-around"
               >
                 <div className="row">
-                  <Image
-                    src="/lichi.svg"
-                    alt="Lichi Logo"
-                    width={100}
-                    height={24}
-                    priority
-                  />
+                  <Image src="/lichi.svg" alt="Lichi Logo" width={100} height={24} priority />
                 </div>
                 <div className="v-spacer" />
                 <button onClick={signupHandler}>Login with google</button>
