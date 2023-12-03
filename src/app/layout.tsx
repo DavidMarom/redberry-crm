@@ -1,14 +1,15 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Inter } from 'next/font/google'
-import { Sidebar, Card01, Header } from '@/components'
-import { googleSignup } from '@/services/auth';
-import http from '@/services/http';
-import Image from 'next/image'
-import './globals.css'
-import useUserStore from '@/store/user';
-const inter = Inter({ subsets: ['latin'] })
+import { Inter } from "next/font/google";
+import { Sidebar, Card01, Header } from "@/components";
+import { googleSignup } from "@/services/auth";
+import http from "@/services/http";
+import Image from "next/image";
+import "./globals.css";
+import useUserStore from "@/store/user";
+import { Provider } from "./provider";
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -34,22 +35,22 @@ export default function RootLayout({
         http.get(`users/${res.uid}`).then((response: any) => {
           if (!response.data) {
             // If not, add the user to DB and send welcome email
-            http.post('users', res).then((response: any) => {
-              console.log(response)
-            })
+            http.post("users", res).then((response: any) => {
+              console.log(response);
+            });
 
-            http.post('sendwelcommail', {
-              mail: res.mail,
-              name: res.name,
-            }
-            ).then((response: any) => {
-              console.log(response)
-            })
+            http
+              .post("sendwelcommail", {
+                mail: res.mail,
+                name: res.name,
+              })
+              .then((response: any) => {
+                console.log(response);
+              });
           }
-        }
-        )
+        });
 
-        setIsLogged(true)
+        setIsLogged(true);
       }
     });
   };
@@ -82,27 +83,31 @@ export default function RootLayout({
     return (
       <html lang="en">
         <body className={inter.className}>
-          <div className="page-container">
-            <div className="row">
-              <Card01
-                height="400px"
-                width="450px"
-                justifycontent="space-around"
-              >
+          <Provider
+            children={
+              <div className="page-container">
                 <div className="row">
-                  <Image
-                    src="/lichi.svg"
-                    alt="Lichi Logo"
-                    width={100}
-                    height={24}
-                    priority
-                  />
+                  <Card01
+                    height="400px"
+                    width="450px"
+                    justifycontent="space-around"
+                  >
+                    <div className="row">
+                      <Image
+                        src="/lichi.svg"
+                        alt="Lichi Logo"
+                        width={100}
+                        height={24}
+                        priority
+                      />
+                    </div>
+                    <div className="v-spacer" />
+                    <button onClick={signupHandler}>Login with google</button>
+                  </Card01>
                 </div>
-                <div className="v-spacer" />
-                <button onClick={signupHandler}>Login with google</button>
-              </Card01>
-            </div>
-          </div>
+              </div>
+            }
+          ></Provider>
         </body>
       </html>
     );
