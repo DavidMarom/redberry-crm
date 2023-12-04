@@ -3,23 +3,25 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
+  ModalFooter,
   useDisclosure,
 } from "@nextui-org/react";
 import { useEffect } from "react";
 import useUserStore from "@/store/user";
 
-const PopUp = () => {
+const PopUp = ({
+  style,
+  title,
+  body,
+  footer,
+  placement = "top",
+  closePopUp,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const setUserProfile = useUserStore((state) => state.setUserProfile);
   const isUserProfileOpened = useUserStore(
     (state) => state.isUserProfileOpened
   );
-
-  const modalStyle = {
-    position: "absolute",
-    top: "0",
-    right: "0",
-  };
 
   useEffect(() => {
     isUserProfileOpened ? onOpen() : onClose;
@@ -27,16 +29,15 @@ const PopUp = () => {
 
   return (
     <Modal
-      style={modalStyle}
-      placement="bottom"
+      style={style}
+      placement={placement}
       isOpen={isOpen}
-      onClose={() => {
-        setUserProfile(false);
-      }}
+      onClose={closePopUp}
     >
       <ModalContent>
-        <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
-        <ModalBody></ModalBody>
+        <ModalHeader>{title}</ModalHeader>
+        <ModalBody>{body}</ModalBody>
+        <ModalFooter>{footer}</ModalFooter>
       </ModalContent>
     </Modal>
   );

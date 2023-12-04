@@ -1,6 +1,5 @@
 "use client";
 import styled from "styled-components";
-8;
 
 export const Container = styled.div`
   /* width: 100%; */

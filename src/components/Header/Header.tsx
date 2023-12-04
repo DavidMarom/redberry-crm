@@ -15,6 +15,18 @@ export default function Header() {
     (state) => state.isUserProfileOpened
   );
 
+  const modalSettingsObject = {
+    style: {
+      position: "absolute",
+      top: "0",
+      right: "0",
+    },
+    title: "title",
+    body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto earum quidem maxime dolorum explicabo dolore corporis laborum voluptatum repellat autem?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto earum quidem maxime dolorum explicabo dolore corporis laborum voluptatum repellat autem?",
+    footer: "fgfgfgfggfgfg",
+    placement: "bottom",
+  };
+
   const doSignOut = () => {
     const auth = getAuth();
     signOut(auth)
@@ -48,7 +60,18 @@ export default function Header() {
           }}
         />
         <button onClick={doSignOut}>Logout</button>
-        {isUserProfileOpened && <PopUp />}
+        {isUserProfileOpened && (
+          <PopUp
+            style={modalSettingsObject.style}
+            title={modalSettingsObject.title}
+            body={modalSettingsObject.body}
+            footer={modalSettingsObject.footer}
+            placement={modalSettingsObject.placement}
+            closePopUp={() => {
+              setUserProfile(false);
+            }}
+          />
+        )}
       </Container>
     </div>
   );
