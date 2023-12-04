@@ -13,7 +13,7 @@ const PopUp = ({
   style,
   title,
   body,
-  footer,
+  footer = "",
   placement = "top",
   closePopUp,
 }) => {

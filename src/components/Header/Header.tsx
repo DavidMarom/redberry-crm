@@ -5,6 +5,7 @@ import { Container, LogoName } from "./Header.style";
 import { Row } from "@/components";
 import Image from "next/image";
 import PopUp from "../UI/PopUp/PopUp";
+import { Avatar } from "@nextui-org/react";
 
 export default function Header() {
   const userName = useUserStore((state) => state.name);
@@ -15,28 +16,38 @@ export default function Header() {
     (state) => state.isUserProfileOpened
   );
 
-  const modalSettingsObject = {
-    style: {
-      position: "absolute",
-      top: "0",
-      right: "0",
-    },
-    title: "title",
-    body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto earum quidem maxime dolorum explicabo dolore corporis laborum voluptatum repellat autem?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto earum quidem maxime dolorum explicabo dolore corporis laborum voluptatum repellat autem?",
-    footer: "fgfgfgfggfgfg",
-    placement: "bottom",
-  };
-
   const doSignOut = () => {
     const auth = getAuth();
     signOut(auth)
       .then((res) => {
         localStorage.removeItem("user");
+        setUserProfile(false);
         setIsLogged(false);
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const modalSettingsObject = {
+    style: {
+      position: "absolute",
+      top: "0",
+      right: "0",
+      "text-align": "center",
+    },
+    title: (
+      <div className="flex flex-col w-full gap-2 items-center">
+        <p>{userName}</p>
+        <Avatar src={img} className="w-20 h-20 text-large" />
+      </div>
+    ),
+    body: (
+      <button className="flex" onClick={doSignOut}>
+        Logout
+      </button>
+    ),
+    placement: "bottom",
   };
 
   return (
@@ -59,13 +70,11 @@ export default function Header() {
             setUserProfile(true);
           }}
         />
-        <button onClick={doSignOut}>Logout</button>
         {isUserProfileOpened && (
           <PopUp
             style={modalSettingsObject.style}
             title={modalSettingsObject.title}
             body={modalSettingsObject.body}
-            footer={modalSettingsObject.footer}
             placement={modalSettingsObject.placement}
             closePopUp={() => {
               setUserProfile(false);
