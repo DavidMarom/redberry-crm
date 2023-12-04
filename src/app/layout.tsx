@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
+
 import { Inter } from "next/font/google";
 import { Sidebar, Card01, Header } from "@/components";
 import { googleSignup } from "@/services/auth";
@@ -10,6 +11,7 @@ import "./globals.css";
 import useUserStore from "@/store/user";
 import { Provider } from "./provider";
 const inter = Inter({ subsets: ["latin"] });
+ import { sendWelcomeEmail } from '@/services/mailchimp';
 
 export default function RootLayout({
   children,
@@ -22,8 +24,8 @@ export default function RootLayout({
   const setIsLogged = useUserStore((state) => state.setIsLogged);
 
   const signupHandler = () => {
-    const res = googleSignup();
-    res.then((res) => {
+    const googleRes = googleSignup();
+    googleRes.then((res) => {
       if (res) {
         // Save the google user info to local storage
         localStorage.setItem("user", JSON.stringify(res));
@@ -35,21 +37,12 @@ export default function RootLayout({
         http.get(`users/${res.uid}`).then((response: any) => {
           if (!response.data) {
             // If not, add the user to DB and send welcome email
-            http.post("users", res).then((response: any) => {
-              console.log(response);
-            });
-
-            http
-              .post("sendwelcommail", {
-                mail: res.mail,
-                name: res.name,
-              })
-              .then((response: any) => {
-                console.log(response);
-              });
+            http.post('users', res)
+            .then((response: any) => { console.log(response) })
+            .catch((error: any) => { console.log(error) })
+            sendWelcomeEmail(res.mail, res.name)
           }
-        });
-
+        })
         setIsLogged(true);
       }
     });
