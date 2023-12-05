@@ -11,6 +11,10 @@ const useUserStore = create((set) => ({
   img: "",
   setImg: (str) => set(() => ({ img: str })),
 
+  isUserProfileOpened: false,
+  setUserProfile: (booleanValue) =>
+    set(() => ({ isUserProfileOpened: booleanValue })),
+
   isLogged: false,
   setIsLogged: (bool) => set(() => ({ isLogged: bool })),
 }));

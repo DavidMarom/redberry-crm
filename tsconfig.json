@@ -22,6 +22,14 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/route.ts", "src/services/mongo.js", "src/app/api/users/route.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/api/route.ts",
+    "src/services/mongo.js",
+    "src/app/api/users/route.ts"
+  ],
   "exclude": ["node_modules"]
 }
