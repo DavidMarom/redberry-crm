@@ -1,3 +1,4 @@
+require('dotenv').config();
 
 const apiKey = process.env.PUBLIC_MANDRIL;
 const mailchimpClient = require("@mailchimp/mailchimp_transactional")(apiKey);

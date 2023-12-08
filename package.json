@@ -16,6 +16,7 @@
     "@nextui-org/react": "^2.2.9",
     "antd": "^5.11.3",
     "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
     "firebase": "^10.6.0",
     "framer-motion": "^10.16.12",
     "mongodb": "^6.3.0",
