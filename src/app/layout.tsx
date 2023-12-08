@@ -11,7 +11,7 @@ import "./globals.css";
 import useUserStore from "@/store/user";
 import { Provider } from "./provider";
 const inter = Inter({ subsets: ["latin"] });
- import { sendWelcomeEmail } from '@/services/mailchimp';
+import { sendWelcomeEmail } from '@/services/mailchimp';
 
 export default function RootLayout({
   children,
@@ -38,8 +38,8 @@ export default function RootLayout({
           if (!response.data) {
             // If not, add the user to DB and send welcome email
             http.post('users', res)
-            .then((response: any) => { console.log(response) })
-            .catch((error: any) => { console.log(error) })
+              .then((response: any) => { console.log(response) })
+              .catch((error: any) => { console.log(error) })
             sendWelcomeEmail(res.mail, res.name)
           }
         })

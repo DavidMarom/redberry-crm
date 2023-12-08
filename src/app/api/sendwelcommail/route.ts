@@ -1,6 +1,6 @@
 
-const apiKey = process.env.MANDRIL;
-const mailchimpClient = require("@mailchimp/mailchimp_transactional")("md-DJRXF" + "ri1VK8JqDmXYDdWPg");
+const apiKey = process.env.PUBLIC_MANDRIL;
+const mailchimpClient = require("@mailchimp/mailchimp_transactional")(apiKey);
 
 export async function POST(request: Request) {
     const { mail, name } = await request.json();
