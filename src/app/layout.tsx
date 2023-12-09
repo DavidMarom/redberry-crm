@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 
 import { Inter } from "next/font/google";
-import { Sidebar, Card01, Header } from "@/components";
+import { Sidebar, Btn, Header, Row, Col } from "@/components";
 import { googleSignup } from "@/services/auth";
 import http from "@/services/http";
 import Image from "next/image";
@@ -76,31 +76,24 @@ export default function RootLayout({
     return (
       <html lang="en">
         <body className={inter.className}>
-          <Provider
-            children={
-              <div className="page-container">
-                <div className="row">
-                  <Card01
-                    height="400px"
-                    width="450px"
-                    justifycontent="space-around"
-                  >
-                    <div className="row">
-                      <Image
-                        src="/lichi.svg"
-                        alt="Lichi Logo"
-                        width={100}
-                        height={24}
-                        priority
-                      />
-                    </div>
-                    <div className="v-spacer" />
-                    <button onClick={signupHandler}>Login with google</button>
-                  </Card01>
-                </div>
-              </div>
-            }
-          ></Provider>
+          <Header />
+
+          <Provider>
+            <div className="page-container2">
+              <Row justifycontent="space-around" width="100%" margintop="50px"><h1 className="main-title f-size-3rem">A lightweight CRM for</h1></Row>
+              <Row justifycontent="space-around" width="100%" margintop="0px"><h1 className="main-title f-size-3rem">your business</h1></Row>
+              <Row justifycontent="space-around" width="100%">
+                <Btn onclick={signupHandler} width="225px" margintop="110px">
+                    <div className="text-color-white f-size-22">Get Started</div>
+                    <Image src="/arrow-right.svg" alt="arrow" width={14} height={14} />
+
+                </Btn>
+              </Row>
+              <Row justifycontent="space-around" width="100%" margintop="0px"><p className="subtitle">No credit card needed | Unlimited time on free plan</p></Row>
+
+            </div>
+
+          </Provider>
         </body>
       </html>
     );

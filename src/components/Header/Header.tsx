@@ -59,28 +59,33 @@ export default function Header() {
         </Row>
       </Container>
       <Container>
-        <p>{userName}</p>
-        <img
-          src={img}
-          className="btn"
-          alt="Profile pic"
-          width={40}
-          height={24}
-          onClick={() => {
-            setUserProfile(true);
-          }}
-        />
-        {isUserProfileOpened && (
-          <PopUp
-            style={modalSettingsObject.style}
-            title={modalSettingsObject.title}
-            body={modalSettingsObject.body}
-            placement={modalSettingsObject.placement}
-            closePopUp={() => {
-              setUserProfile(false);
+
+        {localStorage.user && <>
+          <p>{userName}</p>
+          <img
+            src={img}
+            className="btn"
+            alt="Profile pic"
+            width={40}
+            height={24}
+            onClick={() => {
+              setUserProfile(true);
             }}
           />
-        )}
+
+
+          {isUserProfileOpened && (
+            <PopUp
+              style={modalSettingsObject.style}
+              title={modalSettingsObject.title}
+              body={modalSettingsObject.body}
+              placement={modalSettingsObject.placement}
+              closePopUp={() => {
+                setUserProfile(false);
+              }}
+            />
+          )}
+        </>}
       </Container>
     </div>
   );

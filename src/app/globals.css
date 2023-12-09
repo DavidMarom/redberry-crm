@@ -70,6 +70,11 @@ h3 {
   font-size: 1.25rem;
 }
 
+.main-title {
+  font-size: 2rem;
+  color: var(--brown01);
+}
+
 .row {
   display: flex;
   flex-direction: row;
@@ -89,6 +94,14 @@ h3 {
 .page-container {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  min-height: 100vh;
+  height: 70%;
+}
+
+.page-container2 {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-height: 100vh;
   height: 70%;
@@ -115,6 +128,14 @@ h3 {
   width: 100%;
 }
 
+.row-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 .pad-top-20 {
   padding-top: 20px;
 }
@@ -126,6 +147,7 @@ h3 {
 .v-spacer {
   height: 20px;
 }
+
 .v-spacer2 {
   height: 200px;
 }
@@ -181,4 +203,22 @@ select {
 
 .btn {
   cursor: pointer;
+}
+
+.text-color-white {
+  color: #ffffff !important;
+}
+
+.f-size-22 {
+  font-size: 22px;
+}
+
+.f-size-3rem {
+  font-size: 3rem;
+}
+
+.subtitle{
+  font-size: .9rem;
+  color: #7d7d7d;
+  margin-top: 20px;
 }
