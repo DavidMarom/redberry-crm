@@ -92,7 +92,8 @@ export default function Header() {
       </Container>
       <Container>
 
-        {window.localStorage.user ?
+
+        {isLogged ?
 
 
           <>
@@ -127,6 +128,7 @@ export default function Header() {
           </div>
 
         }
+
       </Container>
     </div>
   );
