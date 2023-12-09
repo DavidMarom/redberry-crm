@@ -92,7 +92,7 @@ export default function Header() {
       </Container>
       <Container>
 
-        {localStorage.user ?
+        {window.localStorage.user ?
 
 
           <>
