@@ -38,12 +38,9 @@
 
 body {
   color: var(--black);
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 div,
@@ -66,6 +63,7 @@ h2 {
   font-size: 1.5rem;
   color: var(--red02);
 }
+
 h3 {
   font-size: 1.25rem;
 }
@@ -164,6 +162,7 @@ h3 {
   color: var(--blacl);
   text-decoration: none;
 }
+
 .link:hover {
   color: var(--red02);
   text-decoration: underline;
@@ -217,8 +216,12 @@ select {
   font-size: 3rem;
 }
 
-.subtitle{
+.subtitle {
   font-size: .9rem;
   color: #7d7d7d;
   margin-top: 20px;
+}
+
+.margin-right-20 {
+  margin-right: 20px;
 }

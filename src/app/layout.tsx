@@ -80,7 +80,7 @@ export default function RootLayout({
 
           <Provider>
             <div className="page-container2">
-              <Row justifycontent="space-around" width="100%" margintop="50px"><h1 className="main-title f-size-3rem">A lightweight CRM for</h1></Row>
+              <Row justifycontent="space-around" width="100%" margintop="90px"><h1 className="main-title f-size-3rem">A lightweight CRM for</h1></Row>
               <Row justifycontent="space-around" width="100%" margintop="0px"><h1 className="main-title f-size-3rem">your business</h1></Row>
               <Row justifycontent="space-around" width="100%">
                 <Btn onclick={signupHandler} width="225px" margintop="110px">
