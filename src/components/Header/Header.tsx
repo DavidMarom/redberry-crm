@@ -9,8 +9,6 @@ import { Avatar } from "@nextui-org/react";
 import { googleSignup } from "@/services/auth";
 import http from "@/services/http";
 import { sendWelcomeEmail } from '@/services/mailchimp';
-import { firebaseConfig } from "@/services/firebase-config";
-
 
 export default function Header() {
   const userName = useUserStore((state) => state.name);
@@ -82,8 +80,6 @@ export default function Header() {
     ),
     placement: "bottom",
   };
-
-  console.log('firebaseConfig', firebaseConfig)
 
   return (
     <div className="header">
