@@ -7,18 +7,52 @@ import Link from 'next/link';
 const AboutPage = () => {
     return (
         <div>
-            <h1>About</h1>
-            <p>Redberry is still in development, here you can look into the development process:</p>
-            <Card01>
-                <div>
-                    <p className='inline'>Figma: </p>
-                    <Link href="https://www.figma.com/file/19hfxYoVxVRFsIxa25tEj4/Redberry?type=design&node-id=1%3A4&mode=design&t=yRW6OUvT6h3mhpFL-1"
-                        target="_blank"
-                        passHref>
-                        Click here
+            <h1>Join the development team!</h1>
+            <div className='row'>
+                <Card01 height='500px'>
+                    <h2>Want to join this project?</h2>
+                    <p>🚀 This project was setup using Next.js 14, TypeScript and AppRouter</p>
+                    <div className='v-spacer' />
+                    <h3>Tech Stack</h3>
+                    <div className='pad-r font-s'>
+                        <ul>
+                            <li>Next.js</li>
+                            <li>Typescript</li>
+                            <li>TailwindCSS</li>
+                            <li>MongoDB</li>
+                            <li>Zod</li>
+                            <li>React Hook Form</li>
+                            <li>Zustand</li>
+                            <li>Styled Components</li>
+                        </ul>
+                    </div>
+                    <div className='v-spacer' />
+                    <h3>Tools and Workflow</h3>
+                    <div className='pad-r font-s'>
+                        <ul>
+                            <li>Vercel</li>
+                            <li>Jira</li>
+                            <li>Figma</li>
+                            <li>Github</li>
+                            <li>Storybook</li>
+                        </ul>
+                    </div>
+                </Card01 >
+                <Card01 height="500px">
+                    <h2>Contact:</h2>
+                    <Link className="link" href="https://discord.gg/b4vaCHYyPr">
+                        <p>👉 Join us on Discord!</p>
                     </Link>
-                </div>
-            </Card01>
+                    <div className='v-spacer2' />
+                    <h2>Resources:</h2>
+                    <Link className="link" href="https://github.com/DavidMarom/redberry-crm">GitHub</Link>
+                    <div className='v-spacer' />
+                    <div className='v-spacer' />
+                    <div className='v-spacer' />
+                    <div className='v-spacer' />
+                    <p>* We are also looking for a designer</p>
+                </Card01>
+            </div>
         </div>
     );
 };
