@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
 import { GoogleAuthProvider } from "firebase/auth";
