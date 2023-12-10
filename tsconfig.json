@@ -30,6 +30,6 @@
     "src/app/api/route.ts",
     "src/services/mongo.js",
     "src/app/api/users/route.ts"
-, "src/components/Btn/Btn.jsx"  ],
+, "src/components/Btn/Btn.jsx", "src/app/PieChart.jsx"  ],
   "exclude": ["node_modules"]
 }

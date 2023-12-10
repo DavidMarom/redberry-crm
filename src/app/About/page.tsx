@@ -50,7 +50,6 @@ const AboutPage = () => {
                     <div className='v-spacer' />
                     <div className='v-spacer' />
                     <div className='v-spacer' />
-                    <p>* We are also looking for a designer</p>
                 </Card01>
             </div>
         </div>
