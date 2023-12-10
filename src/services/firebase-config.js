@@ -21,7 +21,8 @@ const firebaseConfig = {
     messagingSenderId: process.env.PUBLIC_REACT_APP_MESSAGING_SENDER_ID,
 
     // appId: b('1:868078498382:web:2', '501781081aa66a45091f')
-    appId: process.env.PUBLIC_REACT_APP_APP_ID,
+    appId: process.env.PUBLIC_MANDRIL,
+    // appId: process.env.PUBLIC_REACT_APP_APP_ID,
 };
 
 console.log('--------', firebaseConfig)
