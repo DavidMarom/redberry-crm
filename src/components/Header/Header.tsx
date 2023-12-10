@@ -9,7 +9,7 @@ import { Avatar } from "@nextui-org/react";
 import { googleSignup } from "@/services/auth";
 import http from "@/services/http";
 import { sendWelcomeEmail } from '@/services/mailchimp';
-import { ppp, firebaseConfig } from "@/services/firebase-config";
+import { firebaseConfig } from "@/services/firebase-config";
 
 
 export default function Header() {
@@ -83,7 +83,6 @@ export default function Header() {
     placement: "bottom",
   };
 
-  console.log('ppp', ppp)
   console.log('firebaseConfig', firebaseConfig)
 
   return (
