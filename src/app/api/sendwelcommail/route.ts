@@ -10,7 +10,7 @@ export async function POST(request: Request) {
         const response = await mailchimpClient.messages.send({
             message: {
                 "from_email": "info@redberry-crm.com",
-                "from_name": "Redberry CRM",
+                "from_name": "David from Redberry CRM",
                 "subject": "Welcome to Redberry CRM!",
                 "html": `
                 <img src="https://res.cloudinary.com/dojmo7vcc/image/upload/v1702237675/redberry/rb_pjm7sr.png" alt="Redberry CRM" />
