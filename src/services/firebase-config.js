@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider } from "firebase/auth";
 import { a, b, c, d } from './a';
 
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: a('AIzaSyDm_l9QnEC6N1L6ca9EfUtUFgD89fEjuO'),
     // apiKey: process.env.PUBLIC_REACT_APP_API_KEY,
 
@@ -24,6 +24,8 @@ const firebaseConfig = {
     // appId: process.env.PUBLIC_REACT_APP_APP_ID,
 
 };
+
+export const ppp = process.env.PUBLIC_REACT_APP_APP_ID;
 
 const app = initializeApp(firebaseConfig);
 export const gprovider = new GoogleAuthProvider();
