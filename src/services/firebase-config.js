@@ -26,7 +26,7 @@ const firebaseConfig = {
 };
 
 console.log('--------', firebaseConfig)
-console.log('--------', process.env.PUBLIC_MANDRIL)
+console.log('--------', process.env.PUBLIC_DB_CONNECTION)
 console.log('--------', process.env.PUBLIC_REACT_APP_STORAGE_BUCKET)
 
 const app = initializeApp(firebaseConfig);
