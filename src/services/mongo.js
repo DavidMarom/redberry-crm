@@ -1,6 +1,8 @@
 // 'use client';
 import { MongoClient, ObjectId } from "mongodb";
 
+console.log('----mon----', process.env.PUBLIC_DB_CONNECTION)
+
 export async function connectDatabase() {
     const dbConnection = process.env.PUBLIC_DB_CONNECTION;
     return await MongoClient.connect(dbConnection);
