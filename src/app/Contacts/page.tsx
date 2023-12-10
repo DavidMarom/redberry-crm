@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'antd'
 import { Col } from '@/components'
-import { columns } from './columns.js';
+import { Button, Popconfirm } from "antd";
 import http from '../../services/http';
 
 const ContactsPage = () => {
     const [contacts, setContacts] = useState([]);
+    const [loading, setLoading] = useState(false);
     const user = localStorage.getItem('user');
     const uid = user ? JSON.parse(user).uid : null;
 
@@ -50,9 +51,74 @@ const ContactsPage = () => {
             .catch((error: any) => { console.log(error) });
     }
 
+    const handleDelete = (id: any) => {
+        setLoading(true);
+        http.delete(`contacts`, { data: { _id: id } })
+            .then(() => {
+                const newContacts = contacts.filter((el: any) => el._id !== id);
+                setContacts(newContacts);
+                localStorage.setItem('setContacts', JSON.stringify(newContacts));
+                setLoading(false);
+            })
+            .catch((err) => { console.log(err) }
+            )
+    }
+
+    const handleCancel = () => { console.log('Action cancelled') };
+    const columns = [
+        {
+            title: '',
+            dataIndex: '_id',
+            key: '_id',
+            width: "1px",
+            render: () => '',
+        },
+        {
+            title: 'Name',
+            width: "300px",
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            width: "300px",
+            key: 'email',
+        },
+        {
+            title: 'Status',
+            dataIndex: 'status',
+            width: "200px",
+            key: 'status',
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (text: any, record: any) => (<div className="row">
+                {/* <Button style={{ backgroundColor: '#2196F3', color: 'white' }} type="primary" onClick={() => {
+                    router.push(`/Admin/${record._id}`)
+                }}
+                >Edit</Button> */}
+
+                {/* <div className="w-space-sm" /> */}
+
+                <Popconfirm
+                    title="Are you sure you want to delete?"
+                    onConfirm={() => { handleDelete(record._id) }}
+                    onCancel={handleCancel}
+                    okText="Yes"
+                    cancelText="No"
+                >
+                    <Button style={{ backgroundColor: '#f3218a', color: 'white' }} type="primary">Delete</Button>
+                </Popconfirm>
+            </div>
+            ),
+        }
+    ];
+
     return (
         <div>
-            <h1>Contacts</h1>
+            {loading ? <h1>Loading...</h1> : <h1>Contacts</h1>}
             <Table
                 dataSource={contacts}
                 columns={columns}

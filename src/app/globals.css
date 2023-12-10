@@ -225,3 +225,7 @@ select {
 .margin-right-20 {
   margin-right: 20px;
 }
+
+.ant-btn-primary {
+  background-color: #f3218a;
+}
