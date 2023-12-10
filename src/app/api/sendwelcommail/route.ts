@@ -11,7 +11,7 @@ export async function POST(request: Request) {
             message: {
                 "from_email": "info@redberry-crm.com",
                 "from_name": "Redberry CRM",
-                "subject": "🚀 Welcome to Redberry CRM!",
+                "subject": "Welcome to Redberry CRM!",
                 "html": `
                 <img src="https://res.cloudinary.com/dojmo7vcc/image/upload/v1702237675/redberry/rb_pjm7sr.png" alt="Redberry CRM" />
                 <h1>Welcome to redberry CRM !</h1>
