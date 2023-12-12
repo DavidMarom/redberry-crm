@@ -8,7 +8,7 @@ function SideBar() {
             <Link href="/"><div className={styles.sidebarbtn}>Overview</div></Link>
             <Link href="/Contacts"><div className={styles.sidebarbtn}>Contacts</div></Link>
             <Link href="/Mailing"><div className={styles.sidebarbtn}>Mailing</div></Link>
-            <Link href="/About"><div className={styles.sidebarbtn}>About</div></Link>
+            <Link href="/About"><div className={styles.sidebarbtn}>Developers</div></Link>
         </div>
     )
 }
