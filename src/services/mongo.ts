@@ -6,7 +6,7 @@ export async function connectDatabase() {
     return await MongoClient.connect(dbConnection);
 }
 
-export async function insertDocument(client: any, collection: string, document: string) {
+export async function insertDocument(client: any, collection: string, document: object) {
     const db = client.db('rb');
     const result = await db.collection(collection).insertOne(document);
     return result;
@@ -18,7 +18,7 @@ export async function getAllDocuments(client: any, collection: string) {
     return documents;
 }
 
-export async function getDocumentsByFilter(client: any, collection: string, filter: string) {
+export async function getDocumentsByFilter(client: any, collection: string, filter: object) {
     const db = client.db('rb');
     const documents = await db.collection(collection).find(filter).toArray();
     return documents;
