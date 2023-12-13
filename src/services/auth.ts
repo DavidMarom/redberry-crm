@@ -2,6 +2,8 @@
 
 import { gprovider } from '@/services/firebase-config';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+// import useUserStore from "@/store/user";
+import { setUserProfile, setIsLogged } from "@/store/user";
 
 interface GoogleObject {
     name: string | null;
@@ -22,3 +24,17 @@ export function googleSignup(): Promise<GoogleObject | null | void> {
             return usr;
         }).catch((error) => { console.log(error); return null; });
 }
+
+export function googleSignOut() {
+    const auth = getAuth();
+
+    signOut(auth)
+        .then((res) => {
+            localStorage.removeItem("user");
+            setUserProfile(false);
+            setIsLogged(false);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};

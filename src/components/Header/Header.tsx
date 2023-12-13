@@ -1,26 +1,26 @@
 "use client";
-import { getAuth, signOut } from "firebase/auth";
+import { googleSignOut, googleSignup } from "@/services/auth";
 import useUserStore from "@/store/user";
 import { Container, LogoName } from "./Header.style";
 import { Row } from "@/components";
 import Image from "next/image";
 import PopUp from "../UI/PopUp/PopUp";
 import { Avatar } from "@nextui-org/react";
-import { googleSignup } from "@/services/auth";
 import http from "@/services/http";
 import { sendWelcomeEmail } from '@/services/mailchimp';
 
 export default function Header() {
   const userName = useUserStore((state) => state.name);
   const img: string = useUserStore((state) => state.img);
-  const setIsLogged = useUserStore((state) => state.setIsLogged);
-  const setUserProfile = useUserStore((state) => state.setUserProfile);
+
   const isUserProfileOpened = useUserStore(
     (state) => state.isUserProfileOpened
   );
   const setUserName = useUserStore((state) => state.setUserName);
   const setImg = useUserStore((state) => state.setImg);
   const isLogged = useUserStore((state) => state.isLogged);
+  const setIsLogged = useUserStore((state) => state.setIsLogged);
+  const setUserProfile = useUserStore((state) => state.setUserProfile);
 
   const signupHandler = () => {
     const googleRes = googleSignup();
@@ -47,19 +47,6 @@ export default function Header() {
     });
   };
 
-  const doSignOut = () => {
-    const auth = getAuth();
-    signOut(auth)
-      .then((res) => {
-        localStorage.removeItem("user");
-        setUserProfile(false);
-        setIsLogged(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   const modalSettingsObject = {
     style: {
       position: "absolute",
@@ -74,7 +61,7 @@ export default function Header() {
       </div>
     ),
     body: (
-      <button className="flex" onClick={doSignOut}>
+      <button className="flex" onClick={googleSignOut}>
         Logout
       </button>
     ),
@@ -93,8 +80,6 @@ export default function Header() {
 
 
         {isLogged ?
-
-
           <>
             <p>{userName}</p>
             <img
