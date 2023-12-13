@@ -84,8 +84,8 @@ export default function RootLayout({
               <Row justifycontent="space-around" width="100%" margintop="0px"><h1 className="main-title f-size-3rem">your business</h1></Row>
               <Row justifycontent="space-around" width="100%">
                 <Btn onclick={signupHandler} width="225px" margintop="110px">
-                    <div className="text-color-white f-size-22">Get Started</div>
-                    <Image src="/arrow-right.svg" alt="arrow" width={14} height={14} />
+                  <div className="text-color-white f-size-22">Get Started</div>
+                  <Image src="/arrow-right.svg" alt="arrow" width={14} height={14} priority />
 
                 </Btn>
               </Row>

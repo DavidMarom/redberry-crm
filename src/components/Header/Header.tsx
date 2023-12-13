@@ -72,7 +72,7 @@ export default function Header() {
     <div className="header">
       <Container>
         <Row>
-          <Image src="/lichi.svg" alt="Lichi Logo" width={44} height={44} />
+          <Image src="/lichi.svg" alt="Lichi Logo" width={44} height={44} priority />
           <LogoName>Redberry</LogoName>
         </Row>
       </Container>
