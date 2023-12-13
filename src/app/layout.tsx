@@ -12,6 +12,7 @@ import useUserStore from "@/store/user";
 import { Provider } from "./provider";
 const inter = Inter({ subsets: ["latin"] });
 import { sendWelcomeEmail } from '@/services/mailchimp';
+import { Button } from "@nextui-org/react";
 
 export default function RootLayout({
   children,
@@ -20,6 +21,8 @@ export default function RootLayout({
 }) {
   const setUserName = useUserStore((state) => state.setUserName);
   const setImg = useUserStore((state) => state.setImg);
+  const setEmail = useUserStore((state) => state.setEmail);
+
   const isLogged = useUserStore((state) => state.isLogged);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
 
@@ -31,6 +34,8 @@ export default function RootLayout({
         localStorage.setItem("user", JSON.stringify(res));
         setUserName(res.name ?? "");
         setImg(res.photoURL ?? "");
+        setEmail(res.mail ?? "");
+
         setIsLogged(true);
 
         // Check if DB has the user
@@ -64,35 +69,38 @@ export default function RootLayout({
     return (
       <html lang="en">
         <body className={inter.className}>
-          <Header />
-          <div className="page-container">
-            <Sidebar />
-            <div className="pad-top-20 width-100">{children}</div>
-          </div>
+          <Provider>
+            <Header />
+            <main className="flex flex-row h-[calc(100dvh-64px)]">
+              <Sidebar />
+              <div className=" overflow-y-scroll w-[calc(100dvw-224px)] px-2 bg-background text-foreground">{children}</div>
+            </main>
+          </Provider>
         </body>
       </html>
     );
   } else {
     return (
       <html lang="en">
-        <body className={inter.className}>
-          <Header />
-
+        <body className={"bg-background"}>
           <Provider>
-            <div className="page-container2">
-              <Row justifycontent="space-around" width="100%" margintop="90px"><h1 className="main-title f-size-3rem">A lightweight CRM for</h1></Row>
-              <Row justifycontent="space-around" width="100%" margintop="0px"><h1 className="main-title f-size-3rem">your business</h1></Row>
-              <Row justifycontent="space-around" width="100%">
-                <Btn onclick={signupHandler} width="225px" margintop="110px">
-                    <div className="text-color-white f-size-22">Get Started</div>
-                    <Image src="/arrow-right.svg" alt="arrow" width={14} height={14} />
-
-                </Btn>
-              </Row>
-              <Row justifycontent="space-around" width="100%" margintop="0px"><p className="subtitle">No credit card needed | Unlimited time on free plan</p></Row>
-
-            </div>
-
+            <Header />
+            <main className="flex flex-col h-[calc(100dvh-64px)] gap-6 items-center justify-center">
+              <header className="text-center text-ellipsis text-default ">
+                <h1 className="text-6xl">
+                  A lightweight CRM for <br />
+                  your business
+                </h1>
+              </header>
+              <div className="flex flex-col justify-center items-center">
+                <Button color="default" variant="solid" size="lg"
+                  radius="full" className="w-[192px] h-16" onPress={signupHandler}>
+                  <div className="text-color-white f-size-22">Get Started</div>
+                  <Image src="/arrow-right.svg" alt="arrow" width={14} height={14} />
+                </Button>
+                <p className="text-default-100 text-sm pt-5">No credit card needed | Unlimited time on free plan</p>
+              </div>
+            </main>
           </Provider>
         </body>
       </html>

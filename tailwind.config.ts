@@ -16,8 +16,37 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
+    colors: {
+    }
   },
   darkMode: "class",
-  plugins: [nextui()]
+  plugins: [nextui(
+    {
+      themes:{
+        light:{
+          layout:{},
+          colors:{  
+            background:"FFFFFF",
+            default:{
+              DEFAULT:'#652C16',
+              "50":"#E7DCD6",
+              "100":"#7d7d7d"
+            },
+            danger:{
+              DEFAULT:"#DA2249",
+              "50":"#F9A9C4"
+            }
+
+          }
+        },
+        dark:{
+          layout:{},
+          colors:{
+
+          }
+        }
+      }
+    }
+  )]
 }
 export default config

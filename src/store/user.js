@@ -17,6 +17,8 @@ const useUserStore = create((set) => ({
 
   isLogged: false,
   setIsLogged: (bool) => set(() => ({ isLogged: bool })),
+  email: "",
+  setEmail: (str) => set(() => ({ email: str })),
 }));
 
 export default useUserStore;
