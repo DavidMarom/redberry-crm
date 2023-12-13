@@ -11,6 +11,7 @@ const ContactsPage = () => {
     const [loading, setLoading] = useState(false);
     const user = localStorage.getItem("user");
     const uid = user ? JSON.parse(user).uid : null;
+
     useEffect(() => {
         setLoading(true);
         if (localStorage.getItem("contacts") != null) {
@@ -54,7 +55,9 @@ const ContactsPage = () => {
             .post("contacts", contact)
             .then((response: any) => {
                 setLoading(false);
-                const newContacts = [...contacts, contact, { _id: response.data.insertedId }];
+                const newContact = { ...contact, _id: response.data.insertedId }
+                const newContacts = [...contacts, newContact];
+                // const newContacts = [...contacts, contact, { _id: response.data.insertedId }];
                 setContacts(newContacts as never[]);
             })
             .catch((error: any) => {
@@ -81,9 +84,8 @@ const ContactsPage = () => {
             });
     };
 
-    const handleCancel = () => {
-        console.log("Action cancelled");
-    };
+    const handleCancel = () => { console.log("Action cancelled") };
+
     const columns = [
         {
             title: "",
@@ -143,6 +145,7 @@ const ContactsPage = () => {
         },
     ];
 
+
     return (
         <div>
             {loading ? <h1>Loading...</h1> : <h1>Contacts</h1>}
@@ -178,9 +181,10 @@ const ContactsPage = () => {
                         <option value="Inactive">Inactive</option>
                     </select>
 
-                    <button className="button" type="submit">
+                    {loading ? <p>Loading...</p> : <button className="button" type="submit">
                         Add contact
-                    </button>
+                    </button>}
+
                 </Col>
             </form>
         </div>
