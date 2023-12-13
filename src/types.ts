@@ -9,3 +9,11 @@ const UserSchema = z.object({
 });
 
 export type UserType = z.infer<typeof UserSchema>;
+
+export interface GoogleObject {
+    name: string | null;
+    mail: string | null;
+    photoURL: string | null;
+    uid: string | null;
+    token: string | null;
+}

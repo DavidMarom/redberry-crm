@@ -2,16 +2,8 @@
 
 import { gprovider } from '@/services/firebase-config';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
-// import useUserStore from "@/store/user";
 import { setUserProfile, setIsLogged } from "@/store/user";
-
-interface GoogleObject {
-    name: string | null;
-    mail: string | null;
-    photoURL: string | null;
-    uid: string | null;
-    token: string | null;
-}
+import { GoogleObject } from "@/types";
 
 export function googleSignup(): Promise<GoogleObject | null | void> {
     const auth = getAuth();

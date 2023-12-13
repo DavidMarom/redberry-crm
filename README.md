@@ -1,7 +1,7 @@
 # Redberry CRM
-## A lightweight CRM system for small businesses.
+## A lightweight CRM system for your business.
 
-🚀 This is a side-project for developers who want to showcase a NEXT.js project in their portfolio.
+🚀 No sign up required. Just login with your Google account and start using it.
 
 [redberry-crm.com](https://www.redberry-crm.com/)
 
