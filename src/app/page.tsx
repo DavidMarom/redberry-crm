@@ -2,10 +2,11 @@
 import React from 'react';
 import { Card01 } from '@/components';
 import PieChart from './PieChart';
+import { ContactsType } from '@/types';
 
 export default function Home() {
 
-  const countStatus = (contacts: any) => {
+  const countStatus = (contacts: ContactsType) => {
     let statusCount = [0, 0, 0];
     contacts.forEach((contact: any) => {
       if (contact.status === 'Blocked') {
@@ -24,7 +25,7 @@ export default function Home() {
       <h1>Overview</h1>
       <br />
       <Card01>
-        <PieChart countData={countStatus(JSON.parse(localStorage.getItem('contacts') ?? ''))}/>
+        <PieChart countData={countStatus(JSON.parse(localStorage.getItem('contacts') ?? ''))} />
       </Card01>
     </div>
   )
