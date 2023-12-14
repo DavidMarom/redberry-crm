@@ -10,7 +10,7 @@ export default function Home() {
       <h1>Overview</h1>
       <br />
       <Card01>
-        <PieChart countData={countStatus(JSON.parse(localStorage.getItem('contacts') ?? ''))} />
+        {localStorage.getItem('contacts') ? <PieChart countData={countStatus(JSON.parse(localStorage.getItem('contacts') ?? ''))} /> : <h3>No data</h3>}
       </Card01>
     </div>
   )
