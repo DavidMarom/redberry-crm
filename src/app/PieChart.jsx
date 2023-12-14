@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
-const PieChart = () => {
+const PieChart = ({countData}) => {
     const chartRef = useRef(null);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const PieChart = () => {
             datasets: [
                 {
                     label: 'Dataset 1',
-                    data: [5, 20, 30],
+                    data: countData,
                     backgroundColor: [
                         'rgb(255, 99, 132)',
                         'rgb(75, 192, 192)',
