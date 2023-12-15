@@ -8,7 +8,7 @@ export default function Btn({
     height = "70px",
     margintop = "20px",
     children,
-    background = "#652c16",
+    background = "#6FC21C",
     color = "#fff",
     onclick = () => { }
 }) {

@@ -14,18 +14,21 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 
-  --brown03: #e7dcd6;
-  --brown02: #cfb9b0;
   --brown01: #652c16;
-  --green01: #156319;
-  --green02: #6fc21c;
-  --green03: #7cd623;
-  --red01: #aa021d;
   --red02: #da2249;
-  --red03: #f9a9c4;
   --black: #222222;
 
   --sidebar-btn: #f9a9c433;
+
+  --whiteClr: #ffffff;
+  --secondary_200: #D6D6D6;
+  --primary_200: #76A179;
+  --primary_050: #89AF88;
+
+  --accent_primary: #6FC21C;
+  --grey_800: #484E4C;
+
+  --tertiary_300: #6B9284;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,6 +37,10 @@
     --background-start-rgb: 255, 255, 255;
     --background-end-rgb: 240, 240, 240;
   }
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -70,7 +77,7 @@ h3 {
 
 .main-title {
   font-size: 2rem;
-  color: var(--brown01);
+  color: var(--grey_800);
 }
 
 .row {
@@ -228,4 +235,11 @@ select {
 
 .ant-btn-primary {
   background-color: #f3218a;
+}
+
+.status-indicator {
+  width: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 }
