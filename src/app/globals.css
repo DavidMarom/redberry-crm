@@ -232,3 +232,10 @@ select {
 .ant-btn-primary {
   background-color: #f3218a;
 }
+
+.status-indicator{
+  width: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}

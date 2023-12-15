@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import { Col } from "@/components";
+import { StatusIndicator } from "./StatusIndicator";
 import { Button, Popconfirm } from "antd";
 import http from "../../services/http";
 
@@ -57,7 +58,6 @@ const ContactsPage = () => {
                 setLoading(false);
                 const newContact = { ...contact, _id: response.data.insertedId }
                 const newContacts = [...contacts, newContact];
-                // const newContacts = [...contacts, contact, { _id: response.data.insertedId }];
                 setContacts(newContacts as never[]);
             })
             .catch((error: any) => {
@@ -111,6 +111,20 @@ const ContactsPage = () => {
             dataIndex: "status",
             width: "200px",
             key: "status",
+            // render: (val: string) => {
+            //     let color = "#D9D9D9";
+            //     if (val === "Active") color = "#52C41A";
+            //     if (val === "Blocked") color = "#F3218A";
+
+            //     return (
+            //         <div className="status-indicator">
+            //             <span style={{ color: color, fontWeight: "bold", marginRight: "5px" }}>● </span>
+            //             {val}
+            //         </div>
+            //     );
+            // }
+            render: (val: string) => <StatusIndicator val={val} />
+
         },
         {
             title: "Action",
