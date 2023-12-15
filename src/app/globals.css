@@ -26,6 +26,18 @@
   --black: #222222;
 
   --sidebar-btn: #f9a9c433;
+
+  /* NEW */
+  --whiteClr: #ffffff;
+  --secondary_200: #D6D6D6;
+  --primary_200: #76A179;
+  --primary_050: #D7E8C2;
+
+  --accent_primary: #6FC21C;
+  --grey_800: #484E4C;
+
+  --tertiary_300: #6B9284;
+
 }
 
 @media (prefers-color-scheme: dark) {
