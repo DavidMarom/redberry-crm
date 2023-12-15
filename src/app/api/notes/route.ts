@@ -1,9 +1,9 @@
-import { connectDatabase, insertDocument ,deleteDocument} from "../../../services/mongo";
+import { connectDatabase, insertDocument, deleteDocument } from "../../../services/mongo";
 
 export async function POST(request: Request) {
-    const { name, email, status, owner } = await request.json();
+    const { text, owner } = await request.json();
     const client = await connectDatabase();
-    const result = await insertDocument(client, 'notes', { name, email, status, owner });
+    const result = await insertDocument(client, 'notes', { text, owner });
     client.close();
     return new Response(JSON.stringify(result), {
         headers: { 'Content-Type': 'application/json' },

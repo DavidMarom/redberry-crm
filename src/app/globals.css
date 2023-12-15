@@ -243,3 +243,21 @@ select {
   flex-direction: row;
   justify-content: flex-start;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 250px));
+  gap: 10px;
+}
+
+.grid-item {
+background-color: var(--whiteClr);
+  filter: drop-shadow(0 0 0.75rem #00000010);
+  padding: 5px;
+  text-align: flex-start;
+  border-radius: 4px;
+}
+
+.full-width {
+  width: 100%;
+}
