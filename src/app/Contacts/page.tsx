@@ -117,12 +117,6 @@ const ContactsPage = () => {
             key: "action",
             render: (text: any, record: any) => (
                 <div className="row">
-                    {/* <Button style={{ backgroundColor: '#2196F3', color: 'white' }} type="primary" onClick={() => {
-                    router.push(`/Admin/${record._id}`)
-                }}
-                >Edit</Button> */}
-
-                    {/* <div className="w-space-sm" /> */}
 
                     <Popconfirm
                         title="Are you sure you want to delete?"

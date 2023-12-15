@@ -17,3 +17,13 @@ export interface GoogleObject {
     uid: string | null;
     token: string | null;
 }
+
+const contactsSchema = z.array(z.object({
+    name: z.string(),
+    email: z.string(),
+    status: z.string(),
+    owner: z.string(),
+    _id: z.string()
+}))
+
+export type ContactsType = z.infer<typeof contactsSchema>
