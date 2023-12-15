@@ -39,6 +39,10 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   color: var(--black);
   background: linear-gradient(to bottom,
@@ -233,7 +237,7 @@ select {
   background-color: #f3218a;
 }
 
-.status-indicator{
+.status-indicator {
   width: 70px;
   display: flex;
   flex-direction: row;

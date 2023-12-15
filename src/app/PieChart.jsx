@@ -26,7 +26,7 @@ const PieChart = ({countData}) => {
         };
 
         const config = {
-            type: 'pie',
+            type: 'doughnut',
             data: data,
             options: {
                 responsive: true,
