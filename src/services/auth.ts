@@ -21,8 +21,10 @@ export function googleSignOut() {
     const auth = getAuth();
 
     signOut(auth)
-        .then((res) => {
+        .then(() => {
             localStorage.removeItem("user");
+            localStorage.removeItem("contacts");
+            localStorage.removeItem("notes");
             setUserProfile(false);
             setIsLogged(false);
         })
