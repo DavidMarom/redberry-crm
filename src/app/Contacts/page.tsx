@@ -7,38 +7,44 @@ import { StatusIndicator } from "./StatusIndicator";
 import { Button, Popconfirm } from "antd";
 import http from "../../services/http";
 
+import { getContactsByOwner } from "../../services/contacts";
+import useNavigationStore from "@/store/navigation";
+
 const ContactsPage = () => {
     const [contacts, setContacts] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const isContactsLoading = useNavigationStore((state) => state.isContactsLoading);
+    const setContactLoading = useNavigationStore((state) => state.setContactLoading);
+    const unsetContactLoading = useNavigationStore((state) => state.unsetContactLoading);
+    
     const user = localStorage.getItem("user");
     const uid = user ? JSON.parse(user).uid : null;
 
     useEffect(() => {
-        setLoading(true);
         if (localStorage.getItem("contacts") != null) {
             setContacts(JSON.parse(localStorage.getItem("contacts") ?? ""));
         }
 
-        http
-            .get(`contacts/${uid}`)
-            .then((response: any) => {
-                setLoading(false);
-                if (!response.data) {
-                    alert("No contacts found");
-                } else {
-                    setContacts(response.data);
-                    localStorage.setItem("contacts", JSON.stringify(response.data));
-                }
-            })
-            .catch((error: any) => {
-                setLoading(false);
-                console.log(error);
-            });
+        getContactsByOwner(uid);
+
+        // http.get(`contacts/${uid}`)
+        //     .then((response: any) => {
+        //         setLoading(false);
+        //         if (!response.data) {
+        //             alert("No contacts found");
+        //         } else {
+        //             setContacts(response.data);
+        //             localStorage.setItem("contacts", JSON.stringify(response.data));
+        //         }
+        //     })
+        //     .catch((error: any) => {
+        //         setLoading(false);
+        //         console.log(error);
+        //     });
     }, []);
 
     const submitHandler = (e: any) => {
         e.preventDefault();
-        setLoading(true);
+        setContactLoading();
         const name = e.target.name.value;
         const email = e.target.email.value;
         const status = e.target.status.value;
@@ -52,35 +58,33 @@ const ContactsPage = () => {
                 : null,
         };
 
-        http
-            .post("contacts", contact)
+        http.post("contacts", contact)
             .then((response: any) => {
-                setLoading(false);
+                setContactLoading();
                 const newContact = { ...contact, _id: response.data.insertedId }
                 const newContacts = [...contacts, newContact];
                 setContacts(newContacts as never[]);
                 localStorage.setItem("contacts", JSON.stringify(newContacts));
             })
             .catch((error: any) => {
-                setLoading(false);
+                unsetContactLoading();
                 console.log(error);
             });
     };
 
     const handleDelete = (id: any) => {
-        setLoading(true);
-        http
-            .delete(`contacts`, { data: { _id: id } })
+        setContactLoading();
+        http.delete(`contacts`, { data: { _id: id } })
             .then(() => {
                 const newContacts = contacts.filter(
                     (contact: any) => contact._id !== id
                 );
                 setContacts(newContacts);
                 localStorage.setItem("contacts", JSON.stringify(newContacts));
-                setLoading(false);
+                unsetContactLoading();
             })
             .catch((err) => {
-                setLoading(false);
+                unsetContactLoading();
                 console.log(err);
             });
     };
@@ -112,20 +116,7 @@ const ContactsPage = () => {
             dataIndex: "status",
             width: "200px",
             key: "status",
-            // render: (val: string) => {
-            //     let color = "#D9D9D9";
-            //     if (val === "Active") color = "#52C41A";
-            //     if (val === "Blocked") color = "#F3218A";
-
-            //     return (
-            //         <div className="status-indicator">
-            //             <span style={{ color: color, fontWeight: "bold", marginRight: "5px" }}>● </span>
-            //             {val}
-            //         </div>
-            //     );
-            // }
             render: (val: string) => <StatusIndicator val={val} />
-
         },
         {
             title: "Action",
@@ -157,12 +148,12 @@ const ContactsPage = () => {
 
     return (
         <div>
-            {loading ? <h1>Loading...</h1> : <h1>Contacts</h1>}
+            {isContactsLoading ? <h1>Loading...</h1> : <h1>Contacts</h1>}
             <Table
                 dataSource={contacts}
                 columns={columns}
                 size={"small"}
-                loading={loading}
+                loading={isContactsLoading}
                 pagination={{
                     showSizeChanger: true,
                     showTotal: (total, range) =>
@@ -190,7 +181,7 @@ const ContactsPage = () => {
                         <option value="Inactive">Inactive</option>
                     </select>
 
-                    {loading ? <p>Loading...</p> : <button className="button" type="submit">
+                    {isContactsLoading ? <p>Loading...</p> : <button className="button" type="submit">
                         Add contact
                     </button>}
 
