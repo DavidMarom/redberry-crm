@@ -59,6 +59,7 @@ const ContactsPage = () => {
                 const newContact = { ...contact, _id: response.data.insertedId }
                 const newContacts = [...contacts, newContact];
                 setContacts(newContacts as never[]);
+                localStorage.setItem("contacts", JSON.stringify(newContacts));
             })
             .catch((error: any) => {
                 setLoading(false);

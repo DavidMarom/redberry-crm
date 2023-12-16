@@ -1,13 +1,13 @@
 import { connectDatabase, getAllDocuments, insertDocument ,deleteDocument} from "../../../services/mongo";
 
-export async function GET() {
-    const client = await connectDatabase();
-    const documents = await getAllDocuments(client, 'contacts');
-    client.close();
-    return new Response(JSON.stringify(documents), {
-        headers: { 'Content-Type': 'application/json' },
-    });
-}
+// export async function GET() {
+//     const client = await connectDatabase();
+//     const documents = await getAllDocuments(client, 'contacts');
+//     client.close();
+//     return new Response(JSON.stringify(documents), {
+//         headers: { 'Content-Type': 'application/json' },
+//     });
+// }
 
 export async function POST(request: Request) {
     const { name, email, status, owner } = await request.json();

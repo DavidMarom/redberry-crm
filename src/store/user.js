@@ -8,6 +8,9 @@ const useUserStore = create((set) => ({
   name: "",
   setUserName: (userName) => set(() => ({ name: userName })),
 
+  email: "",
+  setEmail: (email) => set(() => ({ email: email })),
+
   img: "",
   setImg: (str) => set(() => ({ img: str })),
 
