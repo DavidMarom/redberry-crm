@@ -1,27 +1,28 @@
 "use client";
-import { googleSignOut, googleSignup } from "@/services/auth";
+import { getAuth, signOut } from "firebase/auth";
 import useUserStore from "@/store/user";
-import { Container, LogoName } from "./Header.style";
-import { Row } from "@/components";
-import Image from "next/image";
-import PopUp from "../UI/PopUp/PopUp";
-import { Avatar } from "@nextui-org/react";
+import { Avatar, Button, Card, CardHeader, Divider, Image, Navbar, NavbarBrand, NavbarContent, Popover, PopoverContent, PopoverTrigger, User } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
+
+import { googleSignup } from "@/services/auth";
 import http from "@/services/http";
 import { sendWelcomeEmail } from '@/services/mailchimp';
+import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 
 export default function Header() {
   const userName = useUserStore((state) => state.name);
   const img: string = useUserStore((state) => state.img);
-
-  const isUserProfileOpened = useUserStore(
-    (state) => state.isUserProfileOpened
-  );
+  const setIsLogged = useUserStore((state) => state.setIsLogged);
   const setUserName = useUserStore((state) => state.setUserName);
+  const email = useUserStore((state) => state.email);
+
+  const setEmail = useUserStore((state) => state.setEmail);
+
   const setImg = useUserStore((state) => state.setImg);
   const isLogged = useUserStore((state) => state.isLogged);
-  const setIsLogged = useUserStore((state) => state.setIsLogged);
-  const setUserProfile = useUserStore((state) => state.setUserProfile);
 
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  
   const signupHandler = () => {
     const googleRes = googleSignup();
     googleRes.then((res) => {
@@ -30,8 +31,8 @@ export default function Header() {
         localStorage.setItem("user", JSON.stringify(res));
         setUserName(res.name ?? "");
         setImg(res.photoURL ?? "");
+        setEmail(res.mail ?? "");
         setIsLogged(true);
-
         // Check if DB has the user
         http.get(`users/${res.uid}`).then((response: any) => {
           if (!response.data) {
@@ -47,73 +48,78 @@ export default function Header() {
     });
   };
 
-  const modalSettingsObject = {
-    style: {
-      position: "absolute",
-      top: "0",
-      right: "0",
-      "text-align": "center",
-    },
-    title: (
-      <div className="flex flex-col w-full gap-2 items-center">
-        <p>{userName}</p>
-        <Avatar src={img} className="w-20 h-20 text-large" />
-      </div>
-    ),
-    body: (
-      <button className="flex" onClick={googleSignOut}>
-        Logout
-      </button>
-    ),
-    placement: "bottom",
+  const doSignOut = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then((res) => {
+        localStorage.removeItem("user");
+        setIsLogged(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-
+  
   return (
-    <div className="header">
-      <Container>
-        <Row>
-          <Image src="/lichi.svg" alt="Lichi Logo" width={44} height={44} priority />
-          <LogoName>Redberry</LogoName>
-        </Row>
-      </Container>
-      <Container>
+    <Navbar position="sticky" maxWidth="full" >
+      <NavbarBrand >
+        <Image
+          src="/lichi.svg"
+          alt="Lichi Logo"
+          width={44}
+          height={44}
+        />
+        <span className="text-danger-500 text-xl">Redberry</span>
 
+      </NavbarBrand>
+
+      <NavbarContent justify="end">
 
         {isLogged ?
-          <>
-            <p>{userName}</p>
-            <img
-              src={img}
-              className="btn"
-              alt="Profile pic"
-              width={40}
-              height={24}
-              onClick={() => {
-                setUserProfile(true);
-              }}
-            />
 
-
-            {isUserProfileOpened && (
-              <PopUp
-                style={modalSettingsObject.style}
-                title={modalSettingsObject.title}
-                body={modalSettingsObject.body}
-                placement={modalSettingsObject.placement}
-                closePopUp={() => {
-                  setUserProfile(false);
-                }}
+          <Popover className="mr-6">
+            <PopoverTrigger>
+              <Avatar
+                name={userName}
+                src={img}
               />
-            )}
-          </>
+            </PopoverTrigger>
+            <PopoverContent>
+              <div className="p-3 text-foreground">
+                <div className="flex flex-col gap-3 items-center text-center">
+                  <Image
+                    alt={userName + " Profile Logo"}
+                    height={40}
+                    radius="sm"
+                    src={img}
+                    width={40}
+                  />
+                  <div className="flex flex-col">
+                    <p className="text-md">{userName}</p>
+                    <p className="text-small text-default-500">{email}</p>
+                  </div>
+                </div>
+                <Divider className="my-4" />
+                insert profile related navigation here
+
+                <Divider className="my-4" />
+                <div className="flex flex-row w-full justify-center items-center gap-4">
+                <ThemeSwitcher />
+
+                  <Button color="danger" variant="bordered" onClick={doSignOut}>
+                    Logout
+                  </Button>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
           :
           <div className="margin-right-20">
-            <button className="btn margin-right-20" onClick={signupHandler}>Login</button>
+            <Button color="danger" variant="bordered" onClick={signupHandler}>Login</Button>
           </div>
 
         }
-
-      </Container>
-    </div>
+      </NavbarContent>
+    </Navbar>
   );
 }
