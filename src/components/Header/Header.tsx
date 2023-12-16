@@ -1,10 +1,9 @@
 "use client";
-import { getAuth, signOut } from "firebase/auth";
 import useUserStore from "@/store/user";
 import { Avatar, Button, Card, CardHeader, Divider, Image, Navbar, NavbarBrand, NavbarContent, Popover, PopoverContent, PopoverTrigger, User } from "@nextui-org/react";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 
-import { googleSignup } from "@/services/auth";
+import { googleSignup, googleSignOut } from "@/services/auth";
 import http from "@/services/http";
 import { sendWelcomeEmail } from '@/services/mailchimp';
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
@@ -48,27 +47,10 @@ export default function Header() {
     });
   };
 
-  const doSignOut = () => {
-    const auth = getAuth();
-    signOut(auth)
-      .then((res) => {
-        localStorage.removeItem("user");
-        setIsLogged(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   return (
     <Navbar position="sticky" maxWidth="full" >
       <NavbarBrand >
-        <Image
-          src="/lichi.svg"
-          alt="Lichi Logo"
-          width={44}
-          height={44}
-        />
+        <Image src="/lichi.svg" alt="Lichi Logo" width={44} height={44} />
         <span className="text-danger-500 text-xl">Redberry</span>
 
       </NavbarBrand>
@@ -103,7 +85,7 @@ export default function Header() {
                 <Divider className="my-4" />
                 <div className="flex flex-row w-full justify-center items-center gap-4">
 
-                  <Button color="primary" variant="light" onClick={doSignOut}>
+                  <Button color="primary" variant="light" onClick={googleSignOut}>
                     Logout
                   </Button>
 
