@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import http from "../../services/http";
+import Image from "next/image";
 
 const NotesPage = () => {
     const [notes, setNotes] = useState([]);
@@ -16,8 +17,7 @@ const NotesPage = () => {
             setNotes(JSON.parse(localStorage.getItem("notes") ?? ""));
         }
 
-        http
-            .get(`notes/${uid}`)
+        http.get(`notes/${uid}`)
             .then((response: any) => {
                 setLoading(false);
                 if (!response.data) {
@@ -36,8 +36,7 @@ const NotesPage = () => {
 
     const handleDelete = (id: any) => {
         setLoading(true);
-        http
-            .delete(`notes`, { data: { _id: id } })
+        http.delete(`notes`, { data: { _id: id } })
             .then(() => {
                 const newNotes = notes.filter(
                     (note: any) => note._id !== id
@@ -78,13 +77,18 @@ const NotesPage = () => {
             {loading ? <h1>Loading...</h1> : <h1>Notes</h1>}
             <div className='grid-container '>
                 <div className='grid-item'>
-                    <input onChange={handleChange} type="text" value={input} />
-                    <button onClick={submitHandler}>Add</button>
+                    <textarea onChange={handleChange} value={input} />
+                    <div className='row-r'>
+                        <button onClick={submitHandler}>
+                            <Image src="/enter.svg" alt="Enter" width={22} height={22} />
+                        </button>
+                    </div>
                 </div>
                 {
                     notes.map((note: any) => (
                         <div className='grid-item' key={note._id}>
-                            <button className="row-r" onClick={() => { handleDelete(note._id) }}>x</button>
+                            <button className="row-r" onClick={() => { handleDelete(note._id) }}><Image src="/x.svg" alt="Lichi Logo" width={18} height={18} />
+                            </button>
                             <div>{note.text}</div>
                         </div>
                     ))

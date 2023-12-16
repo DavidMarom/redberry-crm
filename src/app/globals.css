@@ -253,16 +253,22 @@ select {
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 250px));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
   gap: 10px;
 }
 
 .grid-item {
 background-color: var(--whiteClr);
   filter: drop-shadow(0 0 0.75rem #00000010);
-  padding: 5px;
+  padding: 10px;
   text-align: flex-start;
-  border-radius: 4px;
+  border-radius: 10px;
+  min-height: 150px;
+}
+
+.grid-item textarea {
+  /* background-color: var(--primary_050); */
+  width: 100%;
 }
 
 .full-width {

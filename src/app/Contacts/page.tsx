@@ -15,7 +15,7 @@ const ContactsPage = () => {
     const isContactsLoading = useNavigationStore((state) => state.isContactsLoading);
     const setContactLoading = useNavigationStore((state) => state.setContactLoading);
     const unsetContactLoading = useNavigationStore((state) => state.unsetContactLoading);
-    
+
     const user = localStorage.getItem("user");
     const uid = user ? JSON.parse(user).uid : null;
 
@@ -23,23 +23,7 @@ const ContactsPage = () => {
         if (localStorage.getItem("contacts") != null) {
             setContacts(JSON.parse(localStorage.getItem("contacts") ?? ""));
         }
-
         getContactsByOwner(uid);
-
-        // http.get(`contacts/${uid}`)
-        //     .then((response: any) => {
-        //         setLoading(false);
-        //         if (!response.data) {
-        //             alert("No contacts found");
-        //         } else {
-        //             setContacts(response.data);
-        //             localStorage.setItem("contacts", JSON.stringify(response.data));
-        //         }
-        //     })
-        //     .catch((error: any) => {
-        //         setLoading(false);
-        //         console.log(error);
-        //     });
     }, []);
 
     const submitHandler = (e: any) => {
@@ -133,10 +117,7 @@ const ContactsPage = () => {
                         okText="Yes"
                         cancelText="No"
                     >
-                        <Button
-                            style={{ backgroundColor: "#f3218a", color: "white" }}
-                            type="primary"
-                        >
+                        <Button type="dashed">
                             Delete
                         </Button>
                     </Popconfirm>
