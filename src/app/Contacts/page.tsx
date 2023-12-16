@@ -16,7 +16,10 @@ const ContactsPage = () => {
 
     useEffect(() => {
         if (localStorage.getItem("contacts") != null) { setContacts(JSON.parse(localStorage.getItem("contacts") ?? "")) }
-        getContactsByOwner(uid);
+        getContactsByOwner(uid).then((response: any) => {
+            setContacts(response);
+            localStorage.setItem("contacts", JSON.stringify(response));
+        });
     }, []);
 
     const submitHandler = (e: any) => {

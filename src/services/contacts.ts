@@ -1,16 +1,21 @@
 import http from '@/services/http';
-import { setContacts } from "@/store/contacts";
+
+// export function getContactsByOwner(ownerId: string) {
+//     http.get(`contacts/${ownerId}`)
+//         .then((response: any) => {
+//             if (!response.data) { alert("No contacts found") }
+//             else {
+//                 setContacts(response.data);
+//                 localStorage.setItem("contacts", JSON.stringify(response.data));
+//             }
+//         })
+//         .catch((error: any) => { console.log(error) })
+// }
 
 export function getContactsByOwner(ownerId: string) {
-    http.get(`contacts/${ownerId}`)
-        .then((response: any) => {
-            if (!response.data) { alert("No contacts found") }
-            else {
-                setContacts(response.data);
-                localStorage.setItem("contacts", JSON.stringify(response.data));
-            }
-        })
-        .catch((error: any) => { console.log(error) })
+    return http.get(`contacts/${ownerId}`)
+        .then((response: any) => response.data)
+        .catch((error: any) => error)
 }
 
 export function addContact(contact: any) {
