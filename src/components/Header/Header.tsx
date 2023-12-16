@@ -113,7 +113,7 @@ export default function Header() {
           </Popover>
           :
           <div className="margin-right-20">
-            <Button color="danger" variant="bordered" onClick={signupHandler}>Login</Button>
+            <Button color="primary" variant="light" onClick={signupHandler}>Login →</Button>
           </div>
 
         }
