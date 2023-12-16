@@ -18,6 +18,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const setUser = useUserStore((state) => state.setUser);
   const setUserName = useUserStore((state) => state.setUserName);
   const setImg = useUserStore((state) => state.setImg);
   const isLogged = useUserStore((state) => state.isLogged);
@@ -29,6 +30,7 @@ export default function RootLayout({
       if (res) {
         // Save the google user info to local storage
         localStorage.setItem("user", JSON.stringify(res));
+        setUser(res);
         setUserName(res.name ?? "");
         setImg(res.photoURL ?? "");
         setIsLogged(true);

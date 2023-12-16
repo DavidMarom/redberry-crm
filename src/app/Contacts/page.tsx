@@ -7,24 +7,23 @@ import { StatusIndicator } from "./StatusIndicator";
 import { Button, Popconfirm } from "antd";
 import http from "../../services/http";
 
-import { getContactsByOwner } from "../../services/contacts";
+import { getContactsByOwner, addContact } from "../../services/contacts";
 import useNavigationStore from "@/store/navigation";
+import useContactsStore from "@/store/contacts";
+import useUserStore from "@/store/user";
 
 const ContactsPage = () => {
-    const [contacts, setContacts] = useState([]);
+    // const [contacts, setContacts] = useState([]);
     const isContactsLoading = useNavigationStore((state) => state.isContactsLoading);
     const setContactLoading = useNavigationStore((state) => state.setContactLoading);
     const unsetContactLoading = useNavigationStore((state) => state.unsetContactLoading);
 
-    const user = localStorage.getItem("user");
-    const uid = user ? JSON.parse(user).uid : null;
+    const setContacts = useContactsStore((state) => state.setContacts);
+    const contacts = useContactsStore((state) => state.contacts);
 
-    useEffect(() => {
-        if (localStorage.getItem("contacts") != null) {
-            setContacts(JSON.parse(localStorage.getItem("contacts") ?? ""));
-        }
-        getContactsByOwner(uid);
-    }, []);
+    const user = useUserStore((state) => state.user);
+
+    useEffect(() => { getContactsByOwner(user.uid) }, []);
 
     const submitHandler = (e: any) => {
         e.preventDefault();
@@ -37,23 +36,10 @@ const ContactsPage = () => {
             name,
             email,
             status,
-            owner: localStorage.getItem("user")
-                ? JSON.parse(localStorage.getItem("user") ?? "").uid
-                : null,
+            owner: user.uid,
         };
 
-        http.post("contacts", contact)
-            .then((response: any) => {
-                unsetContactLoading();
-                const newContact = { ...contact, _id: response.data.insertedId }
-                const newContacts = [...contacts, newContact];
-                setContacts(newContacts as never[]);
-                localStorage.setItem("contacts", JSON.stringify(newContacts));
-            })
-            .catch((error: any) => {
-                unsetContactLoading();
-                console.log(error);
-            });
+        addContact(contact);
     };
 
     const handleDelete = (id: any) => {
@@ -125,7 +111,6 @@ const ContactsPage = () => {
             ),
         },
     ];
-
 
     return (
         <div>

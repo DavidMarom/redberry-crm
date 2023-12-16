@@ -1,5 +1,5 @@
 import http from '@/services/http';
-import { setContacts } from "@/store/contacts";
+import { setContacts, contacts } from "@/store/contacts";
 import { setContactLoading, unsetContactLoading } from "@/store/navigation";
 
 export function getContactsByOwner(ownerId: string) {
@@ -15,5 +15,17 @@ export function getContactsByOwner(ownerId: string) {
             }
         })
         .catch((error: any) => { console.log(error) });
+}
 
+export function addContact(contact: any) {
+    http.post("contacts", contact)
+        .then((response: any) => {
+            const newContact = { ...contact, _id: response.data.insertedId }
+            const newContacts = [...contacts, newContact];
+            setContacts(newContacts as never[]);
+        })
+        .catch((error: any) => {
+            console.log(error);
+        })
+        .finally(() => { unsetContactLoading(); });
 }

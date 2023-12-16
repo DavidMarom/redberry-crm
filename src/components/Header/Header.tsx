@@ -53,6 +53,8 @@ export default function Header() {
     signOut(auth)
       .then((res) => {
         localStorage.removeItem("user");
+        localStorage.removeItem("contacts");
+        localStorage.removeItem("notes");
         setIsLogged(false);
       })
       .catch((error) => {

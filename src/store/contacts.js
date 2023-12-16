@@ -6,6 +6,7 @@ const useContactsStore = create((set) => ({
 }));
 
 // I need to export this for the contacts service
+export const { contacts } = useContactsStore.getState();
 export const { setContacts } = useContactsStore.getState();
 
 export default useContactsStore;
