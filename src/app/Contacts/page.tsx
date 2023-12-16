@@ -60,7 +60,7 @@ const ContactsPage = () => {
 
         http.post("contacts", contact)
             .then((response: any) => {
-                setContactLoading();
+                unsetContactLoading();
                 const newContact = { ...contact, _id: response.data.insertedId }
                 const newContacts = [...contacts, newContact];
                 setContacts(newContacts as never[]);
