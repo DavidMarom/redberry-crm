@@ -22,7 +22,7 @@ export default function Header() {
   const isLogged = useUserStore((state) => state.isLogged);
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  
+
   const signupHandler = () => {
     const googleRes = googleSignup();
     googleRes.then((res) => {
@@ -59,7 +59,7 @@ export default function Header() {
         console.log(error);
       });
   };
-  
+
   return (
     <Navbar position="sticky" maxWidth="full" >
       <NavbarBrand >
@@ -77,7 +77,7 @@ export default function Header() {
 
         {isLogged ?
 
-          <Popover className="mr-6">
+          <Popover className="mr-6 w-96">
             <PopoverTrigger>
               <Avatar
                 name={userName}
@@ -96,19 +96,17 @@ export default function Header() {
                   />
                   <div className="flex flex-col">
                     <p className="text-md">{userName}</p>
-                    <p className="text-small text-default-500">{email}</p>
+                    <p className="text-small text-default-500">{JSON.parse(localStorage.getItem("user") ?? "").mail}</p>
                   </div>
                 </div>
-                <Divider className="my-4" />
-                insert profile related navigation here
 
                 <Divider className="my-4" />
                 <div className="flex flex-row w-full justify-center items-center gap-4">
-                <ThemeSwitcher />
 
-                  <Button color="danger" variant="bordered" onClick={doSignOut}>
+                  <Button color="primary" variant="light" onClick={doSignOut}>
                     Logout
                   </Button>
+
                 </div>
               </div>
             </PopoverContent>
