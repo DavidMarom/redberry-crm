@@ -7,7 +7,7 @@ import { StatusIndicator } from "./StatusIndicator";
 import { Button, Popconfirm } from "antd";
 import http from "../../services/http";
 
-import { getContactsByOwner } from "../../services/contacts";
+import { getContactsByOwner, addContact } from "../../services/contacts";
 import useNavigationStore from "@/store/navigation";
 
 const ContactsPage = () => {
@@ -42,18 +42,27 @@ const ContactsPage = () => {
                 : null,
         };
 
-        http.post("contacts", contact)
+        addContact(contact)
             .then((response: any) => {
                 unsetContactLoading();
-                const newContact = { ...contact, _id: response.data.insertedId }
+                const newContact = { ...contact, _id: response.insertedId }
                 const newContacts = [...contacts, newContact];
                 setContacts(newContacts as never[]);
                 localStorage.setItem("contacts", JSON.stringify(newContacts));
             })
-            .catch((error: any) => {
-                unsetContactLoading();
-                console.log(error);
-            });
+
+        // http.post("contacts", contact)
+        //     .then((response: any) => {
+        //         unsetContactLoading();
+        //         const newContact = { ...contact, _id: response.data.insertedId }
+        //         const newContacts = [...contacts, newContact];
+        //         setContacts(newContacts as never[]);
+        //         localStorage.setItem("contacts", JSON.stringify(newContacts));
+        //     })
+        //     .catch((error: any) => {
+        //         unsetContactLoading();
+        //         console.log(error);
+        //     });
     };
 
     const handleDelete = (id: any) => {
