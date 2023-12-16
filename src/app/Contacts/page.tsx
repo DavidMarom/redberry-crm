@@ -5,81 +5,51 @@ import { Table } from "antd";
 import { Col } from "@/components";
 import { StatusIndicator } from "./StatusIndicator";
 import { Button, Popconfirm } from "antd";
-import http from "../../services/http";
-
-import { getContactsByOwner, addContact } from "../../services/contacts";
-import useNavigationStore from "@/store/navigation";
+import { getContactsByOwner, addContact, deleteContact } from "../../services/contacts";
 
 const ContactsPage = () => {
+    const [loading, setLoading] = useState(false);
     const [contacts, setContacts] = useState([]);
-    const isContactsLoading = useNavigationStore((state) => state.isContactsLoading);
-    const setContactLoading = useNavigationStore((state) => state.setContactLoading);
-    const unsetContactLoading = useNavigationStore((state) => state.unsetContactLoading);
 
     const user = localStorage.getItem("user");
     const uid = user ? JSON.parse(user).uid : null;
 
     useEffect(() => {
-        if (localStorage.getItem("contacts") != null) {
-            setContacts(JSON.parse(localStorage.getItem("contacts") ?? ""));
-        }
+        if (localStorage.getItem("contacts") != null) { setContacts(JSON.parse(localStorage.getItem("contacts") ?? "")) }
         getContactsByOwner(uid);
     }, []);
 
     const submitHandler = (e: any) => {
         e.preventDefault();
-        setContactLoading();
+        setLoading(true);
         const name = e.target.name.value;
         const email = e.target.email.value;
         const status = e.target.status.value;
+        const owner = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") ?? "").uid : null
 
-        const contact = {
-            name,
-            email,
-            status,
-            owner: localStorage.getItem("user")
-                ? JSON.parse(localStorage.getItem("user") ?? "").uid
-                : null,
-        };
+        const contact = { name, email, status, owner };
 
         addContact(contact)
             .then((response: any) => {
-                unsetContactLoading();
+                setLoading(false);
                 const newContact = { ...contact, _id: response.insertedId }
                 const newContacts = [...contacts, newContact];
                 setContacts(newContacts as never[]);
                 localStorage.setItem("contacts", JSON.stringify(newContacts));
             })
-
-        // http.post("contacts", contact)
-        //     .then((response: any) => {
-        //         unsetContactLoading();
-        //         const newContact = { ...contact, _id: response.data.insertedId }
-        //         const newContacts = [...contacts, newContact];
-        //         setContacts(newContacts as never[]);
-        //         localStorage.setItem("contacts", JSON.stringify(newContacts));
-        //     })
-        //     .catch((error: any) => {
-        //         unsetContactLoading();
-        //         console.log(error);
-        //     });
+            .catch((err) => { console.log(err) });
     };
 
-    const handleDelete = (id: any) => {
-        setContactLoading();
-        http.delete(`contacts`, { data: { _id: id } })
+    const handleDelete = (id: string) => {
+        setLoading(true);
+        deleteContact(id)
             .then(() => {
-                const newContacts = contacts.filter(
-                    (contact: any) => contact._id !== id
-                );
+                setLoading(false)
+                const newContacts = contacts.filter((contact: any) => contact._id !== id);
                 setContacts(newContacts);
                 localStorage.setItem("contacts", JSON.stringify(newContacts));
-                unsetContactLoading();
             })
-            .catch((err) => {
-                unsetContactLoading();
-                console.log(err);
-            });
+            .catch((err) => { console.log(err) });
     };
 
     const handleCancel = () => { console.log("Action cancelled") };
@@ -138,12 +108,12 @@ const ContactsPage = () => {
 
     return (
         <div>
-            {isContactsLoading ? <h1>Loading...</h1> : <h1>Contacts</h1>}
+            {loading ? <h1>Loading...</h1> : <h1>Contacts</h1>}
             <Table
                 dataSource={contacts}
                 columns={columns}
                 size={"small"}
-                loading={isContactsLoading}
+                loading={loading}
                 pagination={{
                     showSizeChanger: true,
                     showTotal: (total, range) =>
@@ -171,7 +141,7 @@ const ContactsPage = () => {
                         <option value="Inactive">Inactive</option>
                     </select>
 
-                    {isContactsLoading ? <p>Loading...</p> : <button className="button" type="submit">
+                    {loading ? <p>Loading...</p> : <button className="button" type="submit">
                         Add contact
                     </button>}
 
