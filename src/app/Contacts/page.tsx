@@ -152,6 +152,7 @@ const ContactsPage = () => {
                     <select id="status">
                         <option value="Active">Active</option>
                         <option value="Inactive">Inactive</option>
+                        <option value="Blocked">Blocked</option>
                     </select>
 
                     {loading ? <p>Loading...</p> : <button className="button" type="submit">
