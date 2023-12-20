@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import http from "../../services/http";
+import { getNotesByOwner, addNote, deleteNote } from "../../services/notes";
 import Image from "next/image";
 
 const NotesPage = () => {
@@ -12,43 +12,29 @@ const NotesPage = () => {
     const uid = user ? JSON.parse(user).uid : null;
 
     useEffect(() => {
-        setLoading(true);
-        if (localStorage.getItem("notes") != null) {
-            setNotes(JSON.parse(localStorage.getItem("notes") ?? ""));
-        }
+        if (localStorage.getItem("notes") != null) { setNotes(JSON.parse(localStorage.getItem("notes") ?? "")) }
+        const lastFetch = localStorage.getItem('lastFetch');
+        if (lastFetch === null) { localStorage.setItem("lastFetch", Date.now().toString()) }
 
-        http.get(`notes/${uid}`)
-            .then((response: any) => {
-                setLoading(false);
-                if (!response.data) {
-                    alert("No notes found");
-                } else {
-
-                    setNotes(response.data);
-                    localStorage.setItem("notes", JSON.stringify(response.data));
-                }
-            })
-            .catch((error: any) => {
-                setLoading(false);
-                console.log(error);
+        if (lastFetch && (Date.now() - parseInt(lastFetch)) > 6000) {
+            localStorage.setItem("lastFetch", Date.now().toString());
+            getNotesByOwner(uid).then((response: any) => {
+                setNotes(response);
+                localStorage.setItem("notes", JSON.stringify(response));
             });
+        }
     }, []);
 
-    const handleDelete = (id: any) => {
+    const handleDelete = (id: string) => {
         setLoading(true);
-        http.delete(`notes`, { data: { _id: id } })
+        deleteNote(id)
             .then(() => {
-                const newNotes = notes.filter(
-                    (note: any) => note._id !== id
-                );
+                setLoading(false)
+                const newNotes = notes.filter((note: any) => note._id !== id);
                 setNotes(newNotes);
                 localStorage.setItem("notes", JSON.stringify(newNotes));
-                setLoading(false);
             })
-            .catch((err) => {
-                setLoading(false);
-                console.log(err);
-            });
+            .catch((err) => { console.log(err) });
     };
 
     const handleChange = (event: any) => { setInput(event.target.value) }
@@ -56,21 +42,16 @@ const NotesPage = () => {
     const submitHandler = () => {
         setLoading(true);
         const note = { text: input, owner: uid };
-        http
-            .post("notes", note)
+            addNote(note)
             .then((response: any) => {
                 setLoading(false);
-                setInput("");
-                const newNote = { ...note, _id: response.data.insertedId }
+                const newNote = { ...note, _id: response.insertedId }
                 const newNotes = [...notes, newNote];
                 setNotes(newNotes as never[]);
                 localStorage.setItem("notes", JSON.stringify(newNotes));
             })
-            .catch((error: any) => {
-                console.log(error);
-            });
+            .catch((err) => { console.log(err) });
     }
-
 
     return (
         <div className='full-width'>
