@@ -16,20 +16,16 @@ const ContactsPage = () => {
 
     useEffect(() => {
         if (localStorage.getItem("contacts") != null) { setContacts(JSON.parse(localStorage.getItem("contacts") ?? "")) }
-
         const lastFetch = localStorage.getItem('lastFetch');
         if (lastFetch === null) { localStorage.setItem("lastFetch", Date.now().toString()) }
 
         if (lastFetch && (Date.now() - parseInt(lastFetch)) > 6000) {
-            console.log("=== Fetching new data ===")
             localStorage.setItem("lastFetch", Date.now().toString());
-
             getContactsByOwner(uid).then((response: any) => {
                 setContacts(response);
                 localStorage.setItem("contacts", JSON.stringify(response));
             });
-        } else { console.log("=== Using cached data ===") }
-
+        }
     }, []);
 
     const submitHandler = (e: any) => {
@@ -38,7 +34,9 @@ const ContactsPage = () => {
         const name = e.target.name.value;
         const email = e.target.email.value;
         const status = e.target.status.value;
-        const owner = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") ?? "").uid : null
+        const owner = uid;
+
+
 
         const contact = { name, email, status, owner };
 
