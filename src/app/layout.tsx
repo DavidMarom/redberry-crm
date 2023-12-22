@@ -1,7 +1,5 @@
 "use client";
-
 import React, { useEffect } from "react";
-
 import { Inter } from "next/font/google";
 import { Sidebar, Btn, Header, Row, Col } from "@/components";
 import { googleSignup } from "@/services/auth";
@@ -13,11 +11,7 @@ import { Provider } from "./provider";
 const inter = Inter({ subsets: ["latin"] });
 import { sendWelcomeEmail } from '@/services/mailchimp';
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const setUserName = useUserStore((state) => state.setUserName);
   const setImg = useUserStore((state) => state.setImg);
   const isLogged = useUserStore((state) => state.isLogged);

@@ -258,7 +258,7 @@ select {
 }
 
 .grid-item {
-background-color: var(--whiteClr);
+  background-color: var(--whiteClr);
   filter: drop-shadow(0 0 0.75rem #00000010);
   padding: 10px;
   text-align: flex-start;
@@ -273,4 +273,9 @@ background-color: var(--whiteClr);
 
 .full-width {
   width: 100%;
+}
+
+.drop {
+  box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.05);
+
 }
