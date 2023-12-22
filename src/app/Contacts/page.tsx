@@ -35,9 +35,6 @@ const ContactsPage = () => {
         const email = e.target.email.value;
         const status = e.target.status.value;
         const owner = uid;
-
-
-
         const contact = { name, email, status, owner };
 
         addContact(contact)
