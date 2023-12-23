@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import http from '@/services/http';
@@ -11,8 +11,11 @@ import { Button } from "@nextui-org/react";
 const AboutPage = () => {
     const router = useRouter();
 
+    const [sending, setSending] = useState(false);
+
     function handleSend(event: any) {
         event.preventDefault();
+        setSending(true);
         const data = new FormData(event.target);
         const value = Object.fromEntries(data.entries());
         http.post('send-mail', value)
@@ -50,7 +53,7 @@ const AboutPage = () => {
                         <textarea id="body" name="body" />
 
                         <br />
-                        <Button color="primary" type="submit">Send</Button>
+                        {!sending && <Button color="primary" type="submit">Send</Button>}
 
                     </div>
                 </form>
