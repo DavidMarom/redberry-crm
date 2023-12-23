@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { Inter } from "next/font/google";
-import { Sidebar, Btn, Header, Row, Col } from "@/components";
+import { Sidebar, Btn, Header, Row, Footer } from "@/components";
 import { googleSignup } from "@/services/auth";
 import http from "@/services/http";
 import Image from "next/image";
@@ -63,6 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Sidebar />
             <div className="pad-top-20 width-100">{children}</div>
           </div>
+          <Footer />
         </body>
       </html>
     );
@@ -88,6 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
 
           </Provider>
+          <Footer />
         </body>
       </html>
     );

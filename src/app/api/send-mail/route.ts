@@ -23,7 +23,7 @@ export async function POST(request: Request) {
                 <br />
                 <img src="https://res.cloudinary.com/dojmo7vcc/image/upload/v1702237675/redberry/rb_pjm7sr.png" alt="Redberry CRM" />
                 <br />
-                Sent via Redberry CRM
+                Sent via <a href="https://www.redberry-crm.com/" targer="_blank">Redberry CRM</a>
                 `,
                 "to": [
                     {
