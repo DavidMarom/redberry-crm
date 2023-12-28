@@ -29,10 +29,6 @@ export const EditContactPopup = () => {
                 });
                 setContacts(newContacts);
 
-                // useContactsStore.setState((state) => {
-                //     state.contactToEdit = null;
-                // });
-
                 triggerPopup(0);
             })
             .catch((error) => {
