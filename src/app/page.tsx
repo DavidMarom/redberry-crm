@@ -11,13 +11,12 @@ import { dataExpired, updateLastFetch, setToStorage, getFromStorage } from '@/ut
 export default function Home() {
   const setContacts = useContactsStore(state => state.setContacts);
   const contacts = useContactsStore(state => state.contacts);
-
   const user = getFromStorage("user");
 
   useEffect(() => {
     if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
-    const lastFetch = localStorage.getItem('lastFetch');
-    if (lastFetch === null) { updateLastFetch() }
+    // const lastFetch = getFromStorage('lastFetch');
+    // if (lastFetch === null) { updateLastFetch() }
 
     if (dataExpired()) {
       updateLastFetch();
