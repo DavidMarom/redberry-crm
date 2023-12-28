@@ -2,10 +2,7 @@ import { create } from "zustand";
 
 const useContactsStore = create((set) => ({
   contacts: [],
-  setContacts: () => set((state) => ({ contacts: state })),
-
-  // activeContact: {},
-  // setActiveContact: (contact) => set({ activeContact: contact }),
+  setContacts: (contacts) => set({ contacts: contacts }),
 
   contactToEdit: {},
   setContactToEdit: (contact) => set({ contactToEdit: contact }),

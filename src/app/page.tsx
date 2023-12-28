@@ -1,26 +1,29 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Card01 } from '@/components';
 import PieChart from './PieChart';
 import { countStatus } from '@/utils/contactsUtils';
 import { getContactsByOwner } from "../services/contacts";
 import { ContactsType } from '@/types';
+import useContactsStore from '@/store/contacts';
+import { dataExpired, updateLastFetch, setToStorage, getFromStorage } from '@/utils/utils';
 
 export default function Home() {
-  const [contacts, setContacts] = useState<ContactsType>([]);
-  const user = localStorage.getItem("user");
-  const uid = user ? JSON.parse(user).uid : null;
+  const setContacts = useContactsStore(state => state.setContacts);
+  const contacts = useContactsStore(state => state.contacts);
+
+  const user = getFromStorage("user");
 
   useEffect(() => {
-    if (localStorage.getItem("contacts") != null) { setContacts(JSON.parse(localStorage.getItem("contacts") ?? "")) }
+    if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
     const lastFetch = localStorage.getItem('lastFetch');
-    if (lastFetch === null) { localStorage.setItem("lastFetch", Date.now().toString()) }
+    if (lastFetch === null) { updateLastFetch() }
 
-    if (lastFetch && (Date.now() - parseInt(lastFetch)) > 6000) {
-      localStorage.setItem("lastFetch", Date.now().toString());
-      getContactsByOwner(uid).then((response: ContactsType) => {
+    if (dataExpired()) {
+      updateLastFetch();
+      getContactsByOwner(user.uid).then((response: ContactsType) => {
         setContacts(response);
-        localStorage.setItem("contacts", JSON.stringify(response));
+        setToStorage("contacts", response);
       });
     }
   }, []);
@@ -30,7 +33,7 @@ export default function Home() {
       <h1>Overview</h1>
       <br />
       <Card01>
-        {localStorage.getItem('contacts') ? <PieChart countData={countStatus(JSON.parse(localStorage.getItem('contacts') ?? ''))} /> : <h3>No data</h3>}
+        {<PieChart countData={countStatus(contacts)} /> || <h3>No data</h3>}
       </Card01>
     </div>
   )
