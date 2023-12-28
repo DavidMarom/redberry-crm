@@ -41,5 +41,16 @@ export async function deleteDocument(client: any, collection: string, id: string
     } catch (error) {
         console.log(error)
     }
-    // return result;
+}
+
+export async function updateDocument(client: any, collection: string, id: string, update: object) {
+    const db = client.db('rb');
+    try {
+        const objectId = new ObjectId(id);
+        const filter = { _id: objectId };
+        const result = await db.collection(collection).updateOne(filter, update);
+        return result;
+    } catch (error) {
+        console.log(error)
+    }
 }
