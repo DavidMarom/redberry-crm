@@ -9,14 +9,12 @@ import { getContactsByOwner, addContact, deleteContact } from "../../services/co
 import usePopupStore from "@/store/popup";
 import useContactsStore from "@/store/contacts";
 
-
 const ContactsPage = () => {
     const [loading, setLoading] = useState(false);
     const setContacts = useContactsStore((state) => state.setContacts);
     const contacts = useContactsStore((state) => state.contacts);
     const triggerPopup = usePopupStore((state) => state.triggerPopup);
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
-
 
     const user = localStorage.getItem("user");
     const uid = user ? JSON.parse(user).uid : null;
