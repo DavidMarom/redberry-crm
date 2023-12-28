@@ -6,10 +6,15 @@ import { Col } from "@/components";
 import { StatusIndicator } from "./StatusIndicator";
 import { Button, Popconfirm } from "antd";
 import { getContactsByOwner, addContact, deleteContact } from "../../services/contacts";
+import usePopupStore from "@/store/popup";
+import useContactsStore from "@/store/contacts";
 
 const ContactsPage = () => {
     const [loading, setLoading] = useState(false);
-    const [contacts, setContacts] = useState([]);
+    const setContacts = useContactsStore((state) => state.setContacts);
+    const contacts = useContactsStore((state) => state.contacts);
+    const triggerPopup = usePopupStore((state) => state.triggerPopup);
+    const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
 
     const user = localStorage.getItem("user");
     const uid = user ? JSON.parse(user).uid : null;
@@ -94,20 +99,21 @@ const ContactsPage = () => {
             key: "action",
             render: (text: any, record: any) => (
                 <div className="row">
-
                     <Popconfirm
                         title="Are you sure you want to delete?"
-                        onConfirm={() => {
-                            handleDelete(record._id);
-                        }}
+                        onConfirm={() => { handleDelete(record._id) }}
                         onCancel={handleCancel}
                         okText="Yes"
                         cancelText="No"
                     >
-                        <Button type="dashed">
-                            Delete
-                        </Button>
+                        <Button type="dashed">Delete</Button>
                     </Popconfirm>
+                    <Button type="dashed" onClick={() => {
+                        setContactToEdit(record)
+                        console.log(record)
+                        triggerPopup(1)
+                    }}>Edit</Button>
+
                 </div>
             ),
         },

@@ -2,7 +2,11 @@ import { create } from "zustand";
 
 const useContactsStore = create((set) => ({
   contacts: [],
-  setContacts: () => set((state) => ({ contacts: state })),
+  setContacts: (contacts) => set({ contacts: contacts }),
+
+  contactToEdit: {},
+  setContactToEdit: (contact) => set({ contactToEdit: contact }),
+
 }));
 
 // I need to export this for the contacts service

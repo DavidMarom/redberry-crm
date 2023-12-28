@@ -10,6 +10,7 @@ import useUserStore from "@/store/user";
 import { Provider } from "./provider";
 const inter = Inter({ subsets: ["latin"] });
 import { sendWelcomeEmail } from '@/services/mailchimp';
+import { PopupProvider } from '@/services/popupProvider'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const setUserName = useUserStore((state) => state.setUserName);
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang="en">
         <body className={inter.className}>
           <Header />
+          <PopupProvider />
           <div className="page-container">
             <Sidebar />
             <div className="pad-top-20 width-100">{children}</div>
@@ -72,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang="en">
         <body className={inter.className}>
           <Header />
-
+          <PopupProvider />
           <Provider>
             <div className="page-container2">
               <Row justifycontent="space-around" width="100%" margintop="90px"><h1 className="main-title f-size-3rem">A lightweight CRM for</h1></Row>

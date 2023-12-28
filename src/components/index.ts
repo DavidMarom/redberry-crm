@@ -6,3 +6,4 @@ export { default as Btn } from './Btn/Btn.jsx';
 export { default as Row } from './Row/Row.jsx';
 export { default as Header } from './Header/Header';
 export { default as Footer } from './Footer/Footer';
+export { default as Popup } from './Popup/Popup';

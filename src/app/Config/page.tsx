@@ -9,6 +9,10 @@ const AboutPage = () => {
             <p>This page is coming soon...</p>
             <p>Here you will be able to config your business details</p>
 
+            <br />
+            <br />
+            <br />
+            v1.0.1
         </div>
     );
 };
