@@ -6,19 +6,38 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@mui/material';
 import { contactFormSchema } from '@/types';
+import { updateContact } from '@/services/contacts';
 import usePopupStore from '../../store/popup';
 import useContactsStore from '../../store/contacts';
 
 export const EditContactPopup = () => {
     const triggerPopup = usePopupStore((state) => state.triggerPopup);
     const contactToEdit = useContactsStore((state) => state.contactToEdit);
+    const setContacts = useContactsStore((state) => state.setContacts);
 
     const { control, handleSubmit, formState: { errors }, setError } = useForm({ resolver: zodResolver(contactFormSchema) });
 
     const onSubmit = (data) => {
+        updateContact(contactToEdit._id, data)
+            .then(() => {
 
-        console.log(data)
-        // triggerPopup(0)
+                const newContacts = useContactsStore.getState().contacts.map((contact) => {
+                    if (contact._id === contactToEdit._id) {
+                        return { ...contact, ...data }
+                    }
+                    return contact;
+                });
+                setContacts(newContacts);
+
+                // useContactsStore.setState((state) => {
+                //     state.contactToEdit = null;
+                // });
+
+                triggerPopup(0);
+            })
+            .catch((error) => {
+                setError(error);
+            });
     }
 
     return (

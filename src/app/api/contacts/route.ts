@@ -1,13 +1,4 @@
-import { connectDatabase, getAllDocuments, insertDocument ,deleteDocument} from "../../../services/mongo";
-
-// export async function GET() {
-//     const client = await connectDatabase();
-//     const documents = await getAllDocuments(client, 'contacts');
-//     client.close();
-//     return new Response(JSON.stringify(documents), {
-//         headers: { 'Content-Type': 'application/json' },
-//     });
-// }
+import { connectDatabase, insertDocument, deleteDocument, updateDocument } from "../../../services/mongo";
 
 export async function POST(request: Request) {
     const { name, email, status, owner } = await request.json();
@@ -28,3 +19,15 @@ export async function DELETE(request: Request) {
         headers: { 'Content-Type': 'application/json' },
     });
 }
+
+export async function PATCH(request: Request) {
+    const body = await request.json();
+    const client = await connectDatabase();
+    const update = { $set: { name: body.name, email: body.email, status: body.status }};
+    const documents = await updateDocument(client, 'contacts', body._id, update);
+    client.close();
+    return new Response(JSON.stringify(documents), {
+        headers: { 'Content-Type': 'application/json' },
+    });
+}
+
