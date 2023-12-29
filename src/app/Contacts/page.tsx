@@ -40,9 +40,10 @@ const ContactsPage = () => {
         setLoading(true);
         const name = e.target.name.value;
         const email = e.target.email.value;
+        const phone = e.target.phone.value;
         const status = e.target.status.value;
         const owner = user.uid;
-        const contact = { name, email, status, owner };
+        const contact = { name, email, phone, status, owner };
 
         addContact(contact)
             .then((response: any) => {
@@ -79,7 +80,7 @@ const ContactsPage = () => {
         },
         {
             title: "Name",
-            width: "300px",
+            width: "280px",
             dataIndex: "name",
             key: "name",
         },
@@ -88,6 +89,12 @@ const ContactsPage = () => {
             dataIndex: "email",
             width: "300px",
             key: "email",
+        },
+        {
+            title: "Phone",
+            dataIndex: "phone",
+            width: "180px",
+            key: "phone",
         },
         {
             title: "Status",
@@ -156,10 +163,16 @@ const ContactsPage = () => {
                 <Col>
                     <label htmlFor="name">Name</label>
                     <input type="text" name="name" id="name" />
-<br />
+                    <br />
+
                     <label htmlFor="email">Email</label>
                     <input type="text" name="email" id="email" />
-                <br />
+                    <br />
+
+                    <label htmlFor="phone">Phone</label>
+                    <input type="text" name="phone" id="phone" />
+                    <br />
+
                     <label htmlFor="status">Status</label>
                     <select id="status">
                         <option value="Active">Active</option>
