@@ -1,17 +1,16 @@
 "use client";
-
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-
 import http from '@/services/http';
 import { Card01 } from '@/components';
 import { Button } from "@nextui-org/react";
-
+import useContactsStore from "@/store/contacts";
 
 const AboutPage = () => {
     const router = useRouter();
-
     const [sending, setSending] = useState(false);
+    const contactToEdit = useContactsStore((state) => state.contactToEdit);
+    const [mailFields, setMailFields] = useState(contactToEdit.email);
 
     function handleSend(event: any) {
         event.preventDefault();
@@ -20,10 +19,8 @@ const AboutPage = () => {
         const value = Object.fromEntries(data.entries());
         http.post('send-mail', value)
             .then((response: any) => {
-                console.log(response)
                 alert('Email sent!')
                 router.push('/');
-
             })
             .catch((error: any) => { console.log(error) })
     }
@@ -35,7 +32,7 @@ const AboutPage = () => {
                 <form onSubmit={handleSend} >
                     <div className="mail-grid-container">
                         <label htmlFor="mail">Email:</label>
-                        <input type="email" id="mail" name="mail" />
+                        <input type="email" id="mail" name="mail" value={mailFields} onChange={(e) => { setMailFields(e.target.value) }} />
 
                         <label htmlFor="recName">Recipient Name:</label>
                         <input type="text" id="recName" name="recName" />
@@ -43,13 +40,13 @@ const AboutPage = () => {
                         <label htmlFor="fromName">From Name:</label>
                         <input type="text" id="fromName" name="fromName" />
 
-                        <label htmlFor="subject">Subject:</label>
+                        <label htmlFor="subject">Email Subject:</label>
                         <input type="text" id="subject" name="subject" />
 
-                        <label htmlFor="bodyTitle">Title:</label>
+                        <label htmlFor="bodyTitle">Body Title:</label>
                         <input type='text' id="bodyTitle" name="bodyTitle" />
 
-                        <label htmlFor="body">Message body:</label>
+                        <label htmlFor="body">Body Message:</label>
                         <textarea id="body" name="body" />
 
                         <br />
