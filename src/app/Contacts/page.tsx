@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import { Table } from "antd";
 import { Col } from "@/components";
 import { StatusIndicator } from "./StatusIndicator";
-import { Button, Popconfirm } from "antd";
+import { Popconfirm } from "antd";
 import { getContactsByOwner, addContact, deleteContact } from "../../services/contacts";
-import { dataExpired, updateLastFetch, setToStorage, getFromStorage } from '@/utils/utils';
+import { dataExpired, updateLastFetch, setToStorage, getFromStorage, addKeysToResponse } from '@/utils/utils';
 import { ContactsType } from '@/types';
 import usePopupStore from "@/store/popup";
 import useContactsStore from "@/store/contacts";
@@ -19,17 +19,16 @@ const ContactsPage = () => {
     const contacts = useContactsStore((state) => state.contacts);
     const triggerPopup = usePopupStore((state) => state.triggerPopup);
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
-
     const user = getFromStorage("user");
 
     useEffect(() => {
         if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
 
-        if (dataExpired()) {
+        if (dataExpired() || !getFromStorage("contacts")) {
             updateLastFetch();
             getContactsByOwner(user.uid).then((response: ContactsType) => {
-                setContacts(response);
-                setToStorage("contacts", response);
+                setContacts(addKeysToResponse(response));
+                setToStorage("contacts", addKeysToResponse(response));
             });
         }
     }, []);
@@ -79,6 +78,13 @@ const ContactsPage = () => {
             render: () => "",
         },
         {
+            title: '',
+            dataIndex: 'key',
+            key: 'key',
+            width: "1px",
+            render: () => "",
+        },
+        {
             title: "Name",
             width: "280px",
             dataIndex: "name",
@@ -101,6 +107,25 @@ const ContactsPage = () => {
             dataIndex: "status",
             width: "190px",
             key: "status",
+            filters: [
+                {
+                    text: "Active",
+                    value: "Active",
+                },
+                {
+                    text: "Inactive",
+                    value: "Inactive",
+                },
+                {
+                    text: "Blocked",
+                    value: "Blocked",
+                },
+                {
+                    text: "Awaiting call",
+                    value: "Awaiting call",
+                },
+            ],
+            onFilter: (value: any, record: any) => record.status.indexOf(value) === 0,
             render: (val: string) => <StatusIndicator val={val} />
         },
         {
@@ -137,7 +162,6 @@ const ContactsPage = () => {
         },
     ];
 
-
     return (
         <div>
             {loading ? <h1>Loading...</h1> : <h1>Contacts</h1>}
@@ -173,9 +197,7 @@ const ContactsPage = () => {
                         </select>
                         {loading ? <p>Loading...</p> : <button className="button" type="submit">Add it ☝️</button>}
                     </div>
-
                 </Col>
-
             </form>
         </div>
     );
