@@ -156,11 +156,11 @@ const ContactsPage = () => {
                 <Col>
                     <label htmlFor="name">Name</label>
                     <input type="text" name="name" id="name" />
-
+<br />
                     <label htmlFor="email">Email</label>
                     <input type="text" name="email" id="email" />
-
-                    <label htmlFor="status">Select an option:</label>
+                <br />
+                    <label htmlFor="status">Status</label>
                     <select id="status">
                         <option value="Active">Active</option>
                         <option value="Inactive">Inactive</option>
