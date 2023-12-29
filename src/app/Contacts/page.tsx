@@ -97,7 +97,7 @@ const ContactsPage = () => {
             render: (val: string) => <StatusIndicator val={val} />
         },
         {
-            title: "Action",
+            title: "",
             key: "action",
             render: (text: any, record: any) => (
                 <div className="row">
@@ -108,16 +108,22 @@ const ContactsPage = () => {
                         okText="Yes"
                         cancelText="No"
                     >
-                        <Button type="dashed">Delete</Button>
+                        <button><img src="/trash.svg" alt="mail" width={20} /></button>
                     </Popconfirm>
-                    <Button type="dashed" onClick={() => {
+
+                    <button className="marg-l-20" onClick={() => {
                         setContactToEdit(record);
                         triggerPopup(1);
-                    }}>Edit</Button>
-                    <Button type="dashed" onClick={() => {
+                    }}>
+                        <img src="/pencil.svg" alt="mail" width={20} />
+                    </button>
+
+                    <button className="marg-l-20" onClick={() => {
                         setContactToEdit(record);
                         router.push('/Email')
-                    }}>Send Email</Button>
+                    }}>
+                        <img src="/mail.svg" alt="mail" width={20} />
+                    </button>
 
                 </div>
             ),
@@ -150,11 +156,11 @@ const ContactsPage = () => {
                 <Col>
                     <label htmlFor="name">Name</label>
                     <input type="text" name="name" id="name" />
-
+<br />
                     <label htmlFor="email">Email</label>
                     <input type="text" name="email" id="email" />
-
-                    <label htmlFor="status">Select an option:</label>
+                <br />
+                    <label htmlFor="status">Status</label>
                     <select id="status">
                         <option value="Active">Active</option>
                         <option value="Inactive">Inactive</option>
