@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
 import { Table } from "antd";
 import { Col } from "@/components";
 import { StatusIndicator } from "./StatusIndicator";
@@ -12,6 +13,7 @@ import usePopupStore from "@/store/popup";
 import useContactsStore from "@/store/contacts";
 
 const ContactsPage = () => {
+    const router = useRouter();
     const [loading, setLoading] = useState(false);
     const setContacts = useContactsStore((state) => state.setContacts);
     const contacts = useContactsStore((state) => state.contacts);
@@ -109,10 +111,13 @@ const ContactsPage = () => {
                         <Button type="dashed">Delete</Button>
                     </Popconfirm>
                     <Button type="dashed" onClick={() => {
-                        setContactToEdit(record)
-                        console.log(record)
-                        triggerPopup(1)
+                        setContactToEdit(record);
+                        triggerPopup(1);
                     }}>Edit</Button>
+                    <Button type="dashed" onClick={() => {
+                        setContactToEdit(record);
+                        router.push('/Email')
+                    }}>Send Email</Button>
 
                 </div>
             ),
