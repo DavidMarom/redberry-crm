@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import { Table } from "antd";
 import { Col } from "@/components";
 import { StatusIndicator } from "./StatusIndicator";
-import { Button, Popconfirm } from "antd";
+import { Popconfirm } from "antd";
 import { getContactsByOwner, addContact, deleteContact } from "../../services/contacts";
-import { dataExpired, updateLastFetch, setToStorage, getFromStorage } from '@/utils/utils';
+import { dataExpired, updateLastFetch, setToStorage, getFromStorage, addKeysToResponse } from '@/utils/utils';
 import { ContactsType } from '@/types';
 import usePopupStore from "@/store/popup";
 import useContactsStore from "@/store/contacts";
@@ -19,17 +19,16 @@ const ContactsPage = () => {
     const contacts = useContactsStore((state) => state.contacts);
     const triggerPopup = usePopupStore((state) => state.triggerPopup);
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
-
     const user = getFromStorage("user");
 
     useEffect(() => {
         if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
 
-        if (dataExpired()) {
+        if (dataExpired() || !getFromStorage("contacts")) {
             updateLastFetch();
             getContactsByOwner(user.uid).then((response: ContactsType) => {
-                setContacts(response);
-                setToStorage("contacts", response);
+                setContacts(addKeysToResponse(response));
+                setToStorage("contacts", addKeysToResponse(response));
             });
         }
     }, []);
@@ -41,9 +40,10 @@ const ContactsPage = () => {
         const name = e.target.name.value;
         const email = e.target.email.value;
         const phone = e.target.phone.value;
+        const note = e.target.note.value;
         const status = e.target.status.value;
         const owner = user.uid;
-        const contact = { name, email, phone, status, owner };
+        const contact = { name, email, phone, status, owner, note };
 
         addContact(contact)
             .then((response: any) => {
@@ -75,37 +75,70 @@ const ContactsPage = () => {
             title: "",
             dataIndex: "_id",
             key: "_id",
+            width: "0px",
+            render: () => null,
+        },
+        {
+            title: '',
+            dataIndex: 'key',
+            key: 'key',
             width: "1px",
-            render: () => "",
+            render: () => null,
         },
         {
             title: "Name",
-            width: "280px",
+            // width: "280px",
             dataIndex: "name",
             key: "name",
         },
         {
             title: "Email",
             dataIndex: "email",
-            width: "300px",
+            // width: "300px",
             key: "email",
         },
         {
             title: "Phone",
             dataIndex: "phone",
-            width: "150px",
+            // width: "150px",
             key: "phone",
         },
         {
             title: "Status",
             dataIndex: "status",
-            width: "190px",
+            // width: "190px",
             key: "status",
+            filters: [
+                {
+                    text: "Active",
+                    value: "Active",
+                },
+                {
+                    text: "Inactive",
+                    value: "Inactive",
+                },
+                {
+                    text: "Blocked",
+                    value: "Blocked",
+                },
+                {
+                    text: "Awaiting call",
+                    value: "Awaiting call",
+                },
+            ],
+            onFilter: (value: any, record: any) => record.status.indexOf(value) === 0,
             render: (val: string) => <StatusIndicator val={val} />
+        },
+        {
+            title: "Note",
+            dataIndex: "note",
+            // width: "150px",
+            key: "note",
         },
         {
             title: "",
             key: "action",
+            width: "150px",
             render: (text: any, record: any) => (
                 <div className="row">
                     <Popconfirm
@@ -137,9 +170,8 @@ const ContactsPage = () => {
         },
     ];
 
-
     return (
-        <div>
+        <div className="page-container2">
             {loading ? <h1>Loading...</h1> : <h1>Contacts</h1>}
             <Table
                 dataSource={contacts}
@@ -159,12 +191,13 @@ const ContactsPage = () => {
             ></Table>
 
             <form onSubmit={submitHandler}>
-                <Col height="150px">
+                <Col height="150px" width="auto">
                     <h2>Add a contact:</h2>
                     <div className="contact-grid-container">
                         <input type="text" name="name" id="name" className="width-90-p" placeholder="Name" />
                         <input type="text" name="email" id="email" className="width-90-p" placeholder="Email" />
                         <input type="text" name="phone" id="phone" className="width-90-p" placeholder="Phone" />
+                        <input type="text" name="note" id="note" className="width-90-p" placeholder="Note" />
                         <select id="status" className="width-90-p">
                             <option value="Active">Active</option>
                             <option value="Inactive">Inactive</option>
@@ -173,9 +206,7 @@ const ContactsPage = () => {
                         </select>
                         {loading ? <p>Loading...</p> : <button className="button" type="submit">Add it ☝️</button>}
                     </div>
-
                 </Col>
-
             </form>
         </div>
     );
