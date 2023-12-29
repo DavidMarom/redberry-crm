@@ -19,6 +19,13 @@ const AboutPage = () => {
         setSending(true);
         const data = new FormData(event.target);
         const value = Object.fromEntries(data.entries());
+
+        let newText = '';
+        if (typeof value.body === 'string') {
+            newText = value.body.replace(/\n/g, "<br>");
+        }
+        value.body = newText;
+
         http.post('send-mail', value)
             .then((response: any) => {
                 alert('Email sent!')
