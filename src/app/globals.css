@@ -202,9 +202,9 @@ select {
   outline: none;
   padding: 5px;
   margin: 5px;
-  background-color: #8db790;
+  background-color: var(--accent_primary);
   color: var(--whiteClr);
-  border-radius: 5px;
+  border-radius: 2px;
   cursor: pointer;
 }
 
