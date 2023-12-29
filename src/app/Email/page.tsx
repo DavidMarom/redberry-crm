@@ -12,7 +12,7 @@ const AboutPage = () => {
     const contactToEdit = useContactsStore((state) => state.contactToEdit);
     const [mailFields, setMailFields] = useState(contactToEdit.email);
     const [nameFields, setNameFields] = useState(contactToEdit.name);
-    const [bodyTitle, setBodyTitle] = useState('Hi ' + contactToEdit.name + '!');
+    const [bodyTitle, setBodyTitle] = useState('Hi ' + '!');
 
     function handleSend(event: any) {
         event.preventDefault();
@@ -37,7 +37,7 @@ const AboutPage = () => {
                         <input type="email" id="mail" name="mail" value={mailFields} onChange={(e) => { setMailFields(e.target.value) }} />
 
                         <label htmlFor="recName">Recipient Name:</label>
-                        <input type="text" id="recName" name="recName" value={nameFields} onChange={(e) => { setNameFields(e.target.value) }}/>
+                        <input type="text" id="recName" name="recName" value={nameFields} onChange={(e) => { setNameFields(e.target.value) }} />
 
                         <label htmlFor="fromName">From Name:</label>
                         <input type="text" id="fromName" name="fromName" />
