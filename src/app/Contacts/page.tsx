@@ -15,7 +15,7 @@ import useContactsStore from "@/store/contacts";
 const ContactsPage = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const setContacts: (contacts: any[]) => void = useContactsStore((state) => state.setContacts);
+    const setContacts = useContactsStore((state) => state.setContacts);
     const contacts = useContactsStore((state) => state.contacts);
     const triggerPopup = usePopupStore((state) => state.triggerPopup);
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);

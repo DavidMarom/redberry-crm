@@ -6,4 +6,5 @@ const useCounterStore = create((set) => ({
   decrement: () => set((state) => ({ count: state.count - 1 })),
 }));
 
-export default useCounterStore;
+// TODO: remove this file after QA
+// export default useCounterStore;

@@ -35,7 +35,7 @@ export type ContactsType = z.infer<typeof contactsSchema>
 export const contactFormSchema = z.object({
     name: z.string().min(2, { message: 'At least 2 characters long' }),
     email: z.string().email({ message: 'Invalid email' }),
-    phone: z.string(),
-    note: z.string(),
+    phone: z.string().optional(),
+    note: z.string().optional(),
     status: z.string(),    
 });
