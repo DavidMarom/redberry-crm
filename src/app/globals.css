@@ -202,7 +202,9 @@ select {
   outline: none;
   padding: 5px;
   margin: 5px;
-  background-color: var(--sidebar-btn);
+  background-color: #8db790;
+  color: var(--whiteClr);
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -211,6 +213,14 @@ select {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+}
+
+.width-90-p {
+  width: 90%;
+}
+
+.width-50-p {
+  width: 50%;
 }
 
 .btn {
@@ -244,7 +254,7 @@ select {
 }
 
 .status-indicator {
-  width: 70px;
+  width: 110px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -266,7 +276,6 @@ select {
 }
 
 .grid-item textarea {
-  /* background-color: var(--primary_050); */
   width: 100%;
 }
 
@@ -279,13 +288,17 @@ select {
 }
 
 .mail-grid-container {
-
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  /* grid-template-rows: repeat(4, 1fr); */
   grid-column-gap: 10px;
   grid-row-gap: 20px;
+}
 
+.contact-grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 20px;
 }
 
 textarea {
@@ -297,6 +310,6 @@ textarea {
   font-size: 0.7rem;
 }
 
-.marg-l-20{
+.marg-l-20 {
   margin-left: 20px;
 }

@@ -7,12 +7,14 @@ import http from "@/services/http";
 import Image from "next/image";
 import "./globals.css";
 import useUserStore from "@/store/user";
-import { Provider } from "./provider";
+// import { Provider } from "./provider";
 const inter = Inter({ subsets: ["latin"] });
 import { sendWelcomeEmail } from '@/services/mailchimp';
 import { PopupProvider } from '@/services/popupProvider'
 import { getFromStorage } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
+import { NextUIProvider } from "@nextui-org/react";
+
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const setUserName = useUserStore((state) => state.setUserName);
@@ -80,7 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body className={inter.className}>
           <Header />
           <PopupProvider />
-          <Provider>
+          <NextUIProvider>
             <div className="page-container2">
               <Row justifycontent="space-around" width="100%" margintop="90px"><h1 className="main-title f-size-3rem">A lightweight CRM for</h1></Row>
               <Row justifycontent="space-around" width="100%" margintop="0px"><h1 className="main-title f-size-3rem">your business</h1></Row>
@@ -95,7 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
             </div>
 
-          </Provider>
+          </NextUIProvider>
           <Footer />
         </body>
       </html>

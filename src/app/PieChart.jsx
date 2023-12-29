@@ -9,7 +9,7 @@ const PieChart = ({countData}) => {
         const ctx = chartRef.current.getContext('2d');
 
         const data = {
-            labels: ['Blocked', 'Active', 'Inactive'],
+            labels: ['Blocked', 'Active', 'Inactive', 'Awaiting call'],
             datasets: [
                 {
                     label: 'Dataset 1',
@@ -17,8 +17,9 @@ const PieChart = ({countData}) => {
                     backgroundColor: [
                         'rgb(255, 99, 132)',
                         'rgb(75, 192, 192)',
-                        'rgb(255, 159, 64)',
-                        'rgb(255, 205, 86)',
+                        'rgb(159, 159, 159)',
+                        'rgb(243, 192, 73)',
+                        'rgb(255, 99, 132)',
                         'rgb(54, 162, 235)'
                     ]
                 }
