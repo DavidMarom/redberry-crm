@@ -6,6 +6,7 @@ const ContactGetSchema = z.object({
         name: z.string(),
         email: z.string(),
         phone: z.string(),
+        note: z.string(),
         status: z.string(),
         owner: z.string()
     })

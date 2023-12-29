@@ -75,6 +75,17 @@ export const EditContactPopup = () => {
                         )}
                     />
                     <br /><br />
+                    <label>Note</label>
+                    <Controller
+                        name="note" control={control} defaultValue={contactToEdit.note}
+                        render={({ field }) => (
+                            <div className='error'>
+                                <Input {...field} />
+                                <span>{errors.note?.message}</span>
+                            </div>
+                        )}
+                    />
+                    <br /><br />
 
                     <label>Status</label>
                     <Controller
