@@ -11,12 +11,15 @@ import { Provider } from "./provider";
 const inter = Inter({ subsets: ["latin"] });
 import { sendWelcomeEmail } from '@/services/mailchimp';
 import { PopupProvider } from '@/services/popupProvider'
+import { getFromStorage } from '@/utils/utils';
+import useContactsStore from "@/store/contacts";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const setUserName = useUserStore((state) => state.setUserName);
   const setImg = useUserStore((state) => state.setImg);
   const isLogged = useUserStore((state) => state.isLogged);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
+  const setContacts = useContactsStore((state) => state.setContacts);
 
   const signupHandler = () => {
     const googleRes = googleSignup();
@@ -45,6 +48,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     document.title = "Redberry CRM";
+    if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
+
     if (localStorage.getItem("user")) {
       let user = JSON.parse(localStorage.getItem("user") ?? "");
       if (user) {

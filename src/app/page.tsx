@@ -14,9 +14,7 @@ export default function Home() {
   const user = getFromStorage("user");
 
   useEffect(() => {
-    if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
-    // const lastFetch = getFromStorage('lastFetch');
-    // if (lastFetch === null) { updateLastFetch() }
+    if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts")) }
 
     if (dataExpired()) {
       updateLastFetch();

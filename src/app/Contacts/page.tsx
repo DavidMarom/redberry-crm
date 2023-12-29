@@ -6,6 +6,8 @@ import { Col } from "@/components";
 import { StatusIndicator } from "./StatusIndicator";
 import { Button, Popconfirm } from "antd";
 import { getContactsByOwner, addContact, deleteContact } from "../../services/contacts";
+import { dataExpired, updateLastFetch, setToStorage, getFromStorage } from '@/utils/utils';
+import { ContactsType } from '@/types';
 import usePopupStore from "@/store/popup";
 import useContactsStore from "@/store/contacts";
 
@@ -16,22 +18,20 @@ const ContactsPage = () => {
     const triggerPopup = usePopupStore((state) => state.triggerPopup);
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
 
-    const user = localStorage.getItem("user");
-    const uid = user ? JSON.parse(user).uid : null;
+    const user = getFromStorage("user");
 
     useEffect(() => {
-        if (localStorage.getItem("contacts") != null) { setContacts(JSON.parse(localStorage.getItem("contacts") ?? "")) }
-        const lastFetch = localStorage.getItem('lastFetch');
-        if (lastFetch === null) { localStorage.setItem("lastFetch", Date.now().toString()) }
+        if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
 
-        if (lastFetch && (Date.now() - parseInt(lastFetch)) > 6000) {
-            localStorage.setItem("lastFetch", Date.now().toString());
-            getContactsByOwner(uid).then((response: any) => {
+        if (dataExpired()) {
+            updateLastFetch();
+            getContactsByOwner(user.uid).then((response: ContactsType) => {
                 setContacts(response);
-                localStorage.setItem("contacts", JSON.stringify(response));
+                setToStorage("contacts", response);
             });
         }
     }, []);
+
 
     const submitHandler = (e: any) => {
         e.preventDefault();
@@ -39,7 +39,7 @@ const ContactsPage = () => {
         const name = e.target.name.value;
         const email = e.target.email.value;
         const status = e.target.status.value;
-        const owner = uid;
+        const owner = user.uid;
         const contact = { name, email, status, owner };
 
         addContact(contact)
