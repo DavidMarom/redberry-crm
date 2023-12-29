@@ -93,13 +93,13 @@ const ContactsPage = () => {
         {
             title: "Phone",
             dataIndex: "phone",
-            width: "180px",
+            width: "150px",
             key: "phone",
         },
         {
             title: "Status",
             dataIndex: "status",
-            width: "200px",
+            width: "190px",
             key: "status",
             render: (val: string) => <StatusIndicator val={val} />
         },
@@ -158,33 +158,24 @@ const ContactsPage = () => {
                 }}
             ></Table>
 
-            <h2>Add contact</h2>
             <form onSubmit={submitHandler}>
-                <Col>
-                    <label htmlFor="name">Name</label>
-                    <input type="text" name="name" id="name" />
-                    <br />
-
-                    <label htmlFor="email">Email</label>
-                    <input type="text" name="email" id="email" />
-                    <br />
-
-                    <label htmlFor="phone">Phone</label>
-                    <input type="text" name="phone" id="phone" />
-                    <br />
-
-                    <label htmlFor="status">Status</label>
-                    <select id="status">
-                        <option value="Active">Active</option>
-                        <option value="Inactive">Inactive</option>
-                        <option value="Blocked">Blocked</option>
-                    </select>
-
-                    {loading ? <p>Loading...</p> : <button className="button" type="submit">
-                        Add contact
-                    </button>}
+                <Col height="150px">
+                    <h2>Add a contact:</h2>
+                    <div className="contact-grid-container">
+                        <input type="text" name="name" id="name" className="width-90-p" placeholder="Name" />
+                        <input type="text" name="email" id="email" className="width-90-p" placeholder="Email" />
+                        <input type="text" name="phone" id="phone" className="width-90-p" placeholder="Phone" />
+                        <select id="status" className="width-90-p">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                            <option value="Blocked">Blocked</option>
+                            <option value="Awaiting call">Awaiting call</option>
+                        </select>
+                        {loading ? <p>Loading...</p> : <button className="button" type="submit">Add it ☝️</button>}
+                    </div>
 
                 </Col>
+
             </form>
         </div>
     );

@@ -1,23 +1,18 @@
 "use client";
 import useUserStore from "@/store/user";
-import { Avatar, Button, Card, CardHeader, Divider, Image, Navbar, NavbarBrand, NavbarContent, Popover, PopoverContent, PopoverTrigger, User } from "@nextui-org/react";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
+import { Avatar, Button, Divider, Image, Navbar, NavbarBrand, NavbarContent, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import { googleSignup, googleSignOut } from "@/services/auth";
 import http from "@/services/http";
 import { sendWelcomeEmail } from '@/services/mailchimp';
-import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 
 export default function Header() {
   const userName = useUserStore((state) => state.name);
   const img: string = useUserStore((state) => state.img);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
   const setUserName = useUserStore((state) => state.setUserName);
-  // const email = useUserStore((state) => state.email);
   const setEmail = useUserStore((state) => state.setEmail);
   const setImg = useUserStore((state) => state.setImg);
   const isLogged = useUserStore((state) => state.isLogged);
-
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const signupHandler = () => {
     const googleRes = googleSignup();

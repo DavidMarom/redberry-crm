@@ -8,7 +8,7 @@ export default function Col({
     marginright,
     height = "140px",
     margintop = "20px",
-    justifycontent,
+    justifycontent = "space-between",
     children,
 }) {
 
