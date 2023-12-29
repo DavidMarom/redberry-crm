@@ -14,17 +14,13 @@ export const EditContactPopup = () => {
     const triggerPopup = usePopupStore((state) => state.triggerPopup);
     const contactToEdit = useContactsStore((state) => state.contactToEdit);
     const setContacts = useContactsStore((state) => state.setContacts);
-
     const { control, handleSubmit, formState: { errors }, setError } = useForm({ resolver: zodResolver(contactFormSchema) });
 
     const onSubmit = (data) => {
         updateContact(contactToEdit._id, data)
             .then(() => {
-
                 const newContacts = useContactsStore.getState().contacts.map((contact) => {
-                    if (contact._id === contactToEdit._id) {
-                        return { ...contact, ...data }
-                    }
+                    if (contact._id === contactToEdit._id) { return { ...contact, ...data } }
                     return contact;
                 });
                 setContacts(newContacts);
@@ -39,7 +35,7 @@ export const EditContactPopup = () => {
     return (
         <Popup >
             <Card01 width='600px' height='100vh' direction='column'>
-                <div className='row-between'><button onClick={() => { triggerPopup(0) }}>X</button></div>
+                <div className='row-between'><div /><button onClick={() => { triggerPopup(0) }}>X</button></div>
                 <h1>Edit {contactToEdit.name}</h1>
                 <br /><br />
 
@@ -63,6 +59,18 @@ export const EditContactPopup = () => {
                             <div className='error'>
                                 <Input {...field} />
                                 <span>{errors.email?.message}</span>
+                            </div>
+                        )}
+                    />
+                    <br /><br />
+                    
+                    <label>Phone</label>
+                    <Controller
+                        name="phone" control={control} defaultValue={contactToEdit.phone}
+                        render={({ field }) => (
+                            <div className='error'>
+                                <Input {...field} />
+                                <span>{errors.phone?.message}</span>
                             </div>
                         )}
                     />
