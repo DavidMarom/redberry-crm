@@ -1,24 +1,18 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import useUserStore from "@/store/user";
 import { Avatar, Button, Divider, Image, Navbar, NavbarBrand, NavbarContent, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import { googleSignup, googleSignOut } from "@/services/auth";
 import http from "@/services/http";
 import { sendWelcomeEmail } from '@/services/mailchimp';
-import { getFromStorage, setToStorage } from '@/utils/utils';
+import { setToStorage } from '@/utils/utils';
 
 
 export default function Header() {
   const setStoreUser = useUserStore((state) => state.setStoreUser);
   const storeUser = useUserStore((state) => state.storeUser);
-
-  const userName = useUserStore((state) => state.name);
-  // const img: string = useUserStore((state) => state.img);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
-  const setUserName = useUserStore((state) => state.setUserName);
-  const setEmail = useUserStore((state) => state.setEmail);
-  const setImg = useUserStore((state) => state.setImg);
   const isLogged = useUserStore((state) => state.isLogged);
 
   const signupHandler = () => {
@@ -29,9 +23,6 @@ export default function Header() {
         setToStorage("user", res);
         setStoreUser(res ?? "");
 
-        setUserName(res.name ?? "");
-        setImg(res.photoURL ?? "");
-        setEmail(res.mail ?? "");
         setIsLogged(true);
         // Check if DB has the user
         http.get(`users/${res.uid}`).then((response: any) => {
@@ -58,14 +49,14 @@ export default function Header() {
       <NavbarContent justify="end">
         {isLogged ?
           <Popover className="mr-6 w-96">
-            <PopoverTrigger><Avatar name={userName} src={storeUser.photoURL} /></PopoverTrigger>
+            <PopoverTrigger><Avatar name={storeUser.name} src={storeUser.photoURL} /></PopoverTrigger>
             <PopoverContent>
               <div className="p-3 text-foreground">
                 <div className="flex flex-col gap-3 items-center text-center">
                   <Image alt={storeUser.name + " Profile Logo"} height={40} radius="sm" src={storeUser.photoURL} width={40} />
                   <div className="flex flex-col">
-                    <p className="text-md">{userName}</p>
-                    <p className="text-small text-default-500">{JSON.parse(localStorage.getItem("user") ?? "").mail}</p>
+                    <p className="text-md">{storeUser.name}</p>
+                    <p className="text-small text-default-500">{storeUser.mail}</p>
                   </div>
                 </div>
 

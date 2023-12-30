@@ -5,15 +5,6 @@ const useUserStore = create((set) => ({
   setStoreUser: (storeUser) => set(() => ({ storeUser: storeUser })),
   logoutUser: () => set(() => ({ user: null })),
 
-  name: "",
-  setUserName: (userName) => set(() => ({ name: userName })),
-
-  email: "",
-  setEmail: (email) => set(() => ({ email: email })),
-
-  img: "",
-  setImg: (str) => set(() => ({ img: str })),
-
   isUserProfileOpened: false,
   setUserProfile: (booleanValue) =>
     set(() => ({ isUserProfileOpened: booleanValue })),

@@ -17,9 +17,6 @@ import { NextUIProvider } from "@nextui-org/react";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const setStoreUser = useUserStore((state) => state.setStoreUser);
   const storeUser = useUserStore((state) => state.storeUser);
-
-  // const setUserName = useUserStore((state) => state.setUserName);
-  // const setImg = useUserStore((state) => state.setImg);
   const isLogged = useUserStore((state) => state.isLogged);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
   const setContacts = useContactsStore((state) => state.setContacts);
@@ -28,12 +25,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     const googleRes = googleSignup();
     googleRes.then((res) => {
       if (res) {
-        // Save the google user info to local storage
+        // Save the google user info to local storage and store
         setToStorage("user", res);
         setStoreUser(res ?? "");
-
-        // setUserName(res.name ?? "");
-        // setImg(res.photoURL ?? "");
         setIsLogged(true);
 
         // Check if DB has the user
@@ -57,9 +51,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
     if (getFromStorage("user")) {
       setStoreUser(getFromStorage("user"));
-
-      // setUserName(getFromStorage("user").name);
-      // setImg(getFromStorage("user").photoURL);
       setIsLogged(true);
     }
   }
