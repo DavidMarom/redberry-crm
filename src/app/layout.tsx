@@ -56,8 +56,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }
     , []);
 
-console.log(storeUser)
-
   if (isLogged) {
     return (
       <html lang="en">
