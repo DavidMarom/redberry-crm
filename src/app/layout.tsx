@@ -15,8 +15,11 @@ import useContactsStore from "@/store/contacts";
 import { NextUIProvider } from "@nextui-org/react";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const setUserName = useUserStore((state) => state.setUserName);
-  const setImg = useUserStore((state) => state.setImg);
+  const setStoreUser = useUserStore((state) => state.setStoreUser);
+  const storeUser = useUserStore((state) => state.storeUser);
+
+  // const setUserName = useUserStore((state) => state.setUserName);
+  // const setImg = useUserStore((state) => state.setImg);
   const isLogged = useUserStore((state) => state.isLogged);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
   const setContacts = useContactsStore((state) => state.setContacts);
@@ -27,8 +30,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       if (res) {
         // Save the google user info to local storage
         setToStorage("user", res);
-        setUserName(res.name ?? "");
-        setImg(res.photoURL ?? "");
+        setStoreUser(res ?? "");
+
+        // setUserName(res.name ?? "");
+        // setImg(res.photoURL ?? "");
         setIsLogged(true);
 
         // Check if DB has the user
@@ -51,14 +56,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
 
     if (getFromStorage("user")) {
-      let user = getFromStorage("user") ?? "";
-      if (user) {
-        setUserName(user.name ?? "");
-        setImg(user.photoURL ?? "");
-        setIsLogged(true);
-      }
+      setStoreUser(getFromStorage("user"));
+
+      // setUserName(getFromStorage("user").name);
+      // setImg(getFromStorage("user").photoURL);
+      setIsLogged(true);
     }
-  }, []);
+  }
+    , []);
+
+console.log(storeUser)
 
   if (isLogged) {
     return (
