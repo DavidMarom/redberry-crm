@@ -5,7 +5,6 @@ const mailchimpClient = require("@mailchimp/mailchimp_transactional")(apiKey);
 
 export async function POST(request: Request) {
     const { mail, recName, fromName, subject, bodyTitle, body } = await request.json();
-    console.log('Sending to:', mail, recName, fromName, subject, bodyTitle, body);
     const run = async () => {
         const response = await mailchimpClient.messages.send({
             message: {

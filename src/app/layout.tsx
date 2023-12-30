@@ -7,30 +7,27 @@ import http from "@/services/http";
 import Image from "next/image";
 import "./globals.css";
 import useUserStore from "@/store/user";
-// import { Provider } from "./provider";
 const inter = Inter({ subsets: ["latin"] });
 import { sendWelcomeEmail } from '@/services/mailchimp';
-import { PopupProvider } from '@/services/popupProvider'
-import { getFromStorage } from '@/utils/utils';
+import { PopupProvider } from '@/services/popupProvider';
+import { getFromStorage, setToStorage } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
 import { NextUIProvider } from "@nextui-org/react";
 
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const setUserName = useUserStore((state) => state.setUserName);
-  const setImg = useUserStore((state) => state.setImg);
+  const setStoreUser = useUserStore((state) => state.setStoreUser);
+  const storeUser = useUserStore((state) => state.storeUser);
   const isLogged = useUserStore((state) => state.isLogged);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
   const setContacts = useContactsStore((state) => state.setContacts);
 
-  const signupHandler = () => {
+  const signupHandler = async () => {
     const googleRes = googleSignup();
     googleRes.then((res) => {
       if (res) {
-        // Save the google user info to local storage
-        localStorage.setItem("user", JSON.stringify(res));
-        setUserName(res.name ?? "");
-        setImg(res.photoURL ?? "");
+        // Save the google user info to local storage and store
+        setToStorage("user", res);
+        setStoreUser(res ?? "");
         setIsLogged(true);
 
         // Check if DB has the user
@@ -52,15 +49,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     document.title = "Redberry CRM";
     if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
 
-    if (localStorage.getItem("user")) {
-      let user = JSON.parse(localStorage.getItem("user") ?? "");
-      if (user) {
-        setUserName(user.name ?? "");
-        setImg(user.photoURL ?? "");
-        setIsLogged(true);
-      }
+    if (getFromStorage("user")) {
+      setStoreUser(getFromStorage("user"));
+      setIsLogged(true);
     }
-  }, []);
+  }
+    , []);
 
   if (isLogged) {
     return (
@@ -90,13 +84,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Btn onclick={signupHandler} width="225px" margintop="110px">
                   <div className="text-color-white f-size-22">Get Started</div>
                   <Image src="/arrow-right.svg" alt="arrow" width={14} height={14} priority />
-
                 </Btn>
               </Row>
               <Row justifycontent="space-around" width="100%" margintop="0px"><p className="subtitle">No credit card needed | Unlimited time on free plan</p></Row>
-
             </div>
-
           </NextUIProvider>
           <Footer />
         </body>

@@ -6,7 +6,7 @@ import { Card01 } from '@/components';
 import { Button } from "@nextui-org/react";
 import useContactsStore from "@/store/contacts";
 
-const AboutPage = () => {
+const Email = () => {
     const router = useRouter();
     const [sending, setSending] = useState(false);
     const contactToEdit = useContactsStore((state) => state.contactToEdit);
@@ -27,7 +27,7 @@ const AboutPage = () => {
         value.body = newText;
 
         http.post('send-mail', value)
-            .then((response: any) => {
+            .then(() => {
                 alert('Email sent!')
                 router.push('/');
             })
@@ -69,4 +69,4 @@ const AboutPage = () => {
     );
 };
 
-export default AboutPage;
+export default Email;
