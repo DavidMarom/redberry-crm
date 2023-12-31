@@ -11,16 +11,10 @@ const PopUp = ({
   closePopUp,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const storeUser = useUserStore((state) => state.storeUser);
-
   const setUserProfile = useUserStore((state) => state.setUserProfile);
-  const isUserProfileOpened = useUserStore(
-    (state) => state.isUserProfileOpened
-  );
+  const isUserProfileOpened = useUserStore((state) => state.isUserProfileOpened);
 
-  useEffect(() => {
-    isUserProfileOpened ? onOpen() : onClose;
-  }, [setUserProfile]);
+  useEffect(() => { isUserProfileOpened ? onOpen() : onClose }, [setUserProfile]);
 
   return (
     <Modal

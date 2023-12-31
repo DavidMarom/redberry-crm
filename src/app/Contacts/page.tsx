@@ -51,7 +51,7 @@ const ContactsPage = () => {
                 const newContact = { ...contact, _id: response.insertedId }
                 const newContacts = [...contacts, newContact];
                 setContacts(newContacts as never[]);
-                localStorage.setItem("contacts", JSON.stringify(newContacts));
+                setToStorage("contacts", newContacts);
             })
             .catch((err) => { console.log(err) });
     };
@@ -63,7 +63,7 @@ const ContactsPage = () => {
                 setLoading(false)
                 const newContacts = contacts.filter((contact: any) => contact._id !== id);
                 setContacts(newContacts);
-                localStorage.setItem("contacts", JSON.stringify(newContacts));
+                setToStorage("contacts", newContacts);
             })
             .catch((err) => { console.log(err) });
     };
