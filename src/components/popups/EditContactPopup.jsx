@@ -49,7 +49,7 @@ export const EditContactPopup = () => {
                         name="name" control={control} defaultValue={contactToEdit.name}
                         render={({ field }) => (
                             <div className='error'>
-                                <Input {...field} />
+                                <Input {...field} className="full-width" />
                                 <span>{errors.name?.message}</span>
                             </div>
                         )}
@@ -61,7 +61,7 @@ export const EditContactPopup = () => {
                         name="email" control={control} defaultValue={contactToEdit.email}
                         render={({ field }) => (
                             <div className='error'>
-                                <Input {...field} />
+                                <Input {...field} className="full-width"/>
                                 <span>{errors.email?.message}</span>
                             </div>
                         )}
@@ -73,7 +73,7 @@ export const EditContactPopup = () => {
                         name="phone" control={control} defaultValue={contactToEdit.phone}
                         render={({ field }) => (
                             <div className='error'>
-                                <Input {...field} />
+                                <Input {...field} className="full-width"/>
                                 <span>{errors.phone?.message}</span>
                             </div>
                         )}
@@ -84,7 +84,7 @@ export const EditContactPopup = () => {
                         name="note" control={control} defaultValue={contactToEdit.note}
                         render={({ field }) => (
                             <div className='error'>
-                                <Input {...field} />
+                                <Input {...field} className="full-width" />
                                 <span>{errors.note?.message}</span>
                             </div>
                         )}
@@ -110,7 +110,7 @@ export const EditContactPopup = () => {
 
 
 
-                    <Button type="submit">Save</Button>
+                    <Button type="submit" variant="contained" color="primary">Save</Button>
                 </form>
 
                 <div />

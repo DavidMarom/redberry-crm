@@ -1,11 +1,4 @@
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-} from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 import { useEffect } from "react";
 import useUserStore from "@/store/user";
 
@@ -19,13 +12,9 @@ const PopUp = ({
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const setUserProfile = useUserStore((state) => state.setUserProfile);
-  const isUserProfileOpened = useUserStore(
-    (state) => state.isUserProfileOpened
-  );
+  const isUserProfileOpened = useUserStore((state) => state.isUserProfileOpened);
 
-  useEffect(() => {
-    isUserProfileOpened ? onOpen() : onClose;
-  }, [setUserProfile]);
+  useEffect(() => { isUserProfileOpened ? onOpen() : onClose }, [setUserProfile]);
 
   return (
     <Modal
