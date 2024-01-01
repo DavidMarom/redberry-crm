@@ -14,6 +14,7 @@ import { getFromStorage, setToStorage } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
 import { NextUIProvider } from "@nextui-org/react";
 import { QueryClientProvider, QueryClient } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const setStoreUser = useUserStore((state) => state.setStoreUser);
@@ -71,6 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="pad-top-20 width-100">{children}</div>
             </div>
             <Footer />
+            <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </body>
       </html>
