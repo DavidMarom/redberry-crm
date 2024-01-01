@@ -12,15 +12,16 @@ const NotesPage = () => {
     const uid = user ? JSON.parse(user).uid : null;
     const { data, isLoading, isFetching, error } = useQuery("notes", () => getNotesByOwner(uid));
     const [input, setInput] = useState("");
+    const [disabled, setDisabled] = useState(false);
 
-    const deleteMutation = useMutation((id: string) => deleteNote(id), { onSuccess: () => { queryClient.invalidateQueries('notes') } })
+    const deleteMutation = useMutation((id: string) => deleteNote(id), { onSuccess: () => { setDisabled(false); queryClient.invalidateQueries('notes') } })
     const addMutation = useMutation((note: any) => addNote(note), { onSuccess: () => { queryClient.invalidateQueries('notes') } })
     const handleChange = (event: any) => { setInput(event.target.value) }
     const submitHandler = () => { addMutation.mutate({ text: input, owner: uid }) }
 
     return (
         <div className='full-width'>
-            {isFetching || isLoading ? <h1>Loading...</h1> : <h1>Notes</h1>}
+            {isFetching || isLoading || disabled ? <h1>Loading...</h1> : <h1>Notes</h1>}
             <div className='grid-container '>
                 <div className='grid-item'>
                     <textarea onChange={handleChange} value={input} />
@@ -33,15 +34,14 @@ const NotesPage = () => {
                 {
                     data && data.map((note: any) => (
                         <div className='grid-item' key={note._id}>
-                            <button className="row-r" onClick={() => deleteMutation.mutate(note._id)}><Image src="/x.svg" alt="Lichi Logo" width={18} height={18} />
-                            </button>
+                            <button className="row-r" onClick={() => { setDisabled(true); deleteMutation.mutate(note._id) }}><Image src="/x.svg" alt="Lichi Logo" width={18} height={18} /></button>
                             {deleteMutation.isError && <div>Something went wrong</div>}
                             <div>{note.text}</div>
                         </div>
                     ))
                 }
             </div>
-        </div >
+        </div>
     );
 };
 
