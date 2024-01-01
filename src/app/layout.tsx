@@ -13,6 +13,11 @@ import { PopupProvider } from '@/services/popupProvider';
 import { getFromStorage, setToStorage } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
 import { NextUIProvider } from "@nextui-org/react";
+import { QueryClientProvider, QueryClient } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+export const queryClient = new QueryClient();
+
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const setStoreUser = useUserStore((state) => state.setStoreUser);
@@ -56,17 +61,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }
     , []);
 
+
+
+
   if (isLogged) {
     return (
       <html lang="en">
         <body className={inter.className}>
-          <Header />
-          <PopupProvider />
-          <div className="page-container">
-            <Sidebar />
-            <div className="pad-top-20 width-100">{children}</div>
-          </div>
-          <Footer />
+          <QueryClientProvider client={queryClient}>
+            <Header />
+            <PopupProvider />
+            <div className="page-container">
+              <Sidebar />
+              <div className="pad-top-20 width-100">{children}</div>
+            </div>
+            <Footer />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
         </body>
       </html>
     );
@@ -86,7 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <Image src="/arrow-right.svg" alt="arrow" width={14} height={14} priority />
                 </Btn>
               </Row>
-              <Row justifycontent="space-around" width="100%" margintop="0px"><p className="subtitle">No credit card needed | Unlimited time on free plan</p></Row>
+              <Row justifycontent="space-around" width="100%" margintop="0px"><p className="subtitle">🚀 It's free, and always will be!</p></Row>
             </div>
           </NextUIProvider>
           <Footer />
