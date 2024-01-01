@@ -97,7 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <Image src="/arrow-right.svg" alt="arrow" width={14} height={14} priority />
                 </Btn>
               </Row>
-              <Row justifycontent="space-around" width="100%" margintop="0px"><p className="subtitle">No credit card needed | Unlimited time on free plan</p></Row>
+              <Row justifycontent="space-around" width="100%" margintop="0px"><p className="subtitle">🚀 It's free, and always will be!</p></Row>
             </div>
           </NextUIProvider>
           <Footer />
