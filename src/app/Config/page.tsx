@@ -12,7 +12,7 @@ const AboutPage = () => {
             <br />
             <br />
             <br />
-            v1.2.0
+            v1.2.1
         </div>
     );
 };
