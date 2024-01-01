@@ -8,33 +8,19 @@ import Image from "next/image";
 
 const NotesPage = () => {
 
-    const { data, isLoading, error } = useQuery("notes", () => getNotesByOwner(uid));
-    const [notes, setNotes] = useState(data ?? []);
-    const [loading, setLoading] = useState(false);
-    const [input, setInput] = useState("");
     const user = localStorage.getItem("user");
     const uid = user ? JSON.parse(user).uid : null;
+    const { data, isLoading, isFetching, error } = useQuery("notes", () => getNotesByOwner(uid));
+    const [input, setInput] = useState("");
 
     const deleteMutation = useMutation((id: string) => deleteNote(id), { onSuccess: () => { queryClient.invalidateQueries('notes') } })
+    const addMutation = useMutation((note: any) => addNote(note), { onSuccess: () => { queryClient.invalidateQueries('notes') } })
     const handleChange = (event: any) => { setInput(event.target.value) }
-
-    const submitHandler = () => {
-        setLoading(true);
-        const note = { text: input, owner: uid };
-        addNote(note)
-            .then((response: any) => {
-                setLoading(false);
-                const newNote = { ...note, _id: response.insertedId }
-                const newNotes = [...notes, newNote];
-                setNotes(newNotes as never[]);
-                localStorage.setItem("notes", JSON.stringify(newNotes));
-            })
-            .catch((err) => { console.log(err) });
-    }
+    const submitHandler = () => { addMutation.mutate({ text: input, owner: uid }) }
 
     return (
         <div className='full-width'>
-            {isLoading ? <h1>Loading...</h1> : <h1>Notes</h1>}
+            {isFetching || isLoading ? <h1>Loading...</h1> : <h1>Notes</h1>}
             <div className='grid-container '>
                 <div className='grid-item'>
                     <textarea onChange={handleChange} value={input} />
