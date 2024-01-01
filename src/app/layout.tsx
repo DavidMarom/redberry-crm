@@ -16,8 +16,12 @@ import { NextUIProvider } from "@nextui-org/react";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
-export const queryClient = new QueryClient();
+import Hotjar from '@hotjar/browser';
+const siteId = 3810147;
+const hotjarVersion = 6;
+Hotjar.init(siteId, hotjarVersion);
 
+export const queryClient = new QueryClient();
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const setStoreUser = useUserStore((state) => state.setStoreUser);
