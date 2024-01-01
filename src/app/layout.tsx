@@ -13,6 +13,11 @@ import { PopupProvider } from '@/services/popupProvider';
 import { getFromStorage, setToStorage } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
 import { NextUIProvider } from "@nextui-org/react";
+import { QueryClientProvider, QueryClient } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+export const queryClient = new QueryClient();
+
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const setStoreUser = useUserStore((state) => state.setStoreUser);
@@ -56,17 +61,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }
     , []);
 
+
+
+
   if (isLogged) {
     return (
       <html lang="en">
         <body className={inter.className}>
-          <Header />
-          <PopupProvider />
-          <div className="page-container">
-            <Sidebar />
-            <div className="pad-top-20 width-100">{children}</div>
-          </div>
-          <Footer />
+          <QueryClientProvider client={queryClient}>
+            <Header />
+            <PopupProvider />
+            <div className="page-container">
+              <Sidebar />
+              <div className="pad-top-20 width-100">{children}</div>
+            </div>
+            <Footer />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
         </body>
       </html>
     );
