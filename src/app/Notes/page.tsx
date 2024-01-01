@@ -2,30 +2,20 @@
 
 import React, { useState } from 'react';
 import { getNotesByOwner, addNote, deleteNote } from "../../services/notes";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
+import { queryClient } from "@/app/layout";
 import Image from "next/image";
 
 const NotesPage = () => {
-    const { data, isLoading, error } = useQuery("notes", () => getNotesByOwner(uid), { staleTime: 300000 });
 
+    const { data, isLoading, error } = useQuery("notes", () => getNotesByOwner(uid));
     const [notes, setNotes] = useState(data ?? []);
     const [loading, setLoading] = useState(false);
     const [input, setInput] = useState("");
     const user = localStorage.getItem("user");
     const uid = user ? JSON.parse(user).uid : null;
 
-    const handleDelete = (id: string) => {
-        setLoading(true);
-        deleteNote(id)
-            .then(() => {
-                setLoading(false)
-                const newNotes = notes.filter((note: any) => note._id !== id);
-                setNotes(newNotes);
-                localStorage.setItem("notes", JSON.stringify(newNotes));
-            })
-            .catch((err) => { console.log(err) });
-    };
-
+    const deleteMutation = useMutation((id: string) => deleteNote(id), { onSuccess: () => { queryClient.invalidateQueries('notes') } })
     const handleChange = (event: any) => { setInput(event.target.value) }
 
     const submitHandler = () => {
@@ -57,8 +47,9 @@ const NotesPage = () => {
                 {
                     data && data.map((note: any) => (
                         <div className='grid-item' key={note._id}>
-                            <button className="row-r" onClick={() => { handleDelete(note._id) }}><Image src="/x.svg" alt="Lichi Logo" width={18} height={18} />
+                            <button className="row-r" onClick={() => deleteMutation.mutate(note._id)}><Image src="/x.svg" alt="Lichi Logo" width={18} height={18} />
                             </button>
+                            {deleteMutation.isError && <div>Something went wrong</div>}
                             <div>{note.text}</div>
                         </div>
                     ))

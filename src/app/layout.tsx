@@ -16,6 +16,9 @@ import { NextUIProvider } from "@nextui-org/react";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
+export const queryClient = new QueryClient();
+
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const setStoreUser = useUserStore((state) => state.setStoreUser);
   const storeUser = useUserStore((state) => state.storeUser);
@@ -58,7 +61,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }
     , []);
 
-  const queryClient = new QueryClient();
+
+
 
   if (isLogged) {
     return (
