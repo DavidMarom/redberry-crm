@@ -12,6 +12,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^3.3.3",
+    "@hotjar/browser": "^1.0.9",
     "@mailchimp/mailchimp_transactional": "^1.0.50",
     "@mui/material": "^5.14.18",
     "@nextui-org/react": "^2.2.9",
