@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { getNotesByOwner, addNote, deleteNote } from "../../services/notes";
+import { dataExpired, updateLastFetch, setToStorage, getFromStorage } from '@/utils/utils';
 import Image from "next/image";
 
 const NotesPage = () => {
@@ -12,14 +13,13 @@ const NotesPage = () => {
     const uid = user ? JSON.parse(user).uid : null;
 
     useEffect(() => {
-        if (localStorage.getItem("notes") != null) { setNotes(JSON.parse(localStorage.getItem("notes") ?? "")) }
-        const lastFetch = localStorage.getItem('lastFetch');
-        if (lastFetch === null) { localStorage.setItem("lastFetch", Date.now().toString()) }
+        if (getFromStorage("notes")) { getFromStorage("notes") }
 
-        if (lastFetch && (Date.now() - parseInt(lastFetch)) > 6000) {
-            localStorage.setItem("lastFetch", Date.now().toString());
+        if (dataExpired() || !getFromStorage("notes")) {
+            updateLastFetch();
             getNotesByOwner(uid).then((response: any) => {
                 setNotes(response);
+                setToStorage("notes", response);
                 localStorage.setItem("notes", JSON.stringify(response));
             });
         }
