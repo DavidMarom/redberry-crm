@@ -17,6 +17,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import Script from 'next/script'
 
+
 // import Hotjar from '@hotjar/browser';
 // const siteId = 3810147;
 // const hotjarVersion = 6;
@@ -69,6 +70,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
       <html lang="en">
         <body className={inter.className}>
+
+          {/* <GoogleAdWords /> */}
           <QueryClientProvider client={queryClient}>
             <Header />
             <PopupProvider />
