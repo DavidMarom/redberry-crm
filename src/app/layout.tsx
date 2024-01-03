@@ -17,10 +17,10 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import GoogleAdWords from '../components/google.js';
 
-import Hotjar from '@hotjar/browser';
-const siteId = 3810147;
-const hotjarVersion = 6;
-Hotjar.init(siteId, hotjarVersion);
+// import Hotjar from '@hotjar/browser';
+// const siteId = 3810147;
+// const hotjarVersion = 6;
+// Hotjar.init(siteId, hotjarVersion);
 
 export const queryClient = new QueryClient();
 
@@ -68,8 +68,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   if (isLogged) {
     return (
       <html lang="en">
-        <GoogleAdWords />
         <body className={inter.className}>
+          <GoogleAdWords />
           <QueryClientProvider client={queryClient}>
             <Header />
             <PopupProvider />
@@ -86,7 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   } else {
     return (
       <html lang="en">
-        <GoogleAdWords />
+        {/* <GoogleAdWords /> */}
         <body className={inter.className}>
           <Header />
           <PopupProvider />
