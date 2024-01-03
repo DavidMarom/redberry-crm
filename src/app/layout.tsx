@@ -15,7 +15,6 @@ import useContactsStore from "@/store/contacts";
 import { NextUIProvider } from "@nextui-org/react";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import GoogleAdWords from '../components/google.js';
 
 // import Hotjar from '@hotjar/browser';
 // const siteId = 3810147;
@@ -69,7 +68,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
       <html lang="en">
         <body className={inter.className}>
-          <GoogleAdWords />
           <QueryClientProvider client={queryClient}>
             <Header />
             <PopupProvider />
@@ -86,7 +84,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   } else {
     return (
       <html lang="en">
-        {/* <GoogleAdWords /> */}
         <body className={inter.className}>
           <Header />
           <PopupProvider />

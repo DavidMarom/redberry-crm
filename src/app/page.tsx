@@ -6,14 +6,17 @@ import { countStatus } from '@/utils/contactsUtils';
 import { getContactsByOwner } from "../services/contacts";
 import { ContactsType } from '@/types';
 import useContactsStore from '@/store/contacts';
-import {useNavigate} from 'react-router-dom';
+// import {useNavigate} from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { dataExpired, updateLastFetch, setToStorage, getFromStorage } from '@/utils/utils';
 
 export default function Home() {
   const setContacts = useContactsStore(state => state.setContacts);
   const contacts = useContactsStore(state => state.contacts);
   const user = getFromStorage("user");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const router = useRouter();
+
   
   useEffect(() => {
     if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts")) }
@@ -25,8 +28,9 @@ export default function Home() {
         setToStorage("contacts", response);
       });
 
-      if (JSON.stringify(getFromStorage("contacts") ?? "").length == 0 ) {
-        navigate('/contacts')
+      if (getFromStorage("contacts").length === 0 ) {
+        // navigate('/contacts');
+        router.push('/Contacts');
       }  
     }
   }, []);
