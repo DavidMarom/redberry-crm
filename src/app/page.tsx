@@ -17,7 +17,7 @@ export default function Home() {
   // const navigate = useNavigate();
   const router = useRouter();
 
-  
+
   useEffect(() => {
     if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts")) }
 
@@ -28,10 +28,10 @@ export default function Home() {
         setToStorage("contacts", response);
       });
 
-      if (getFromStorage("contacts").length === 0 ) {
+      if (getFromStorage("contacts") && getFromStorage("contacts").length === 0) {
         // navigate('/contacts');
         router.push('/Contacts');
-      }  
+      }
     }
   }, []);
 
