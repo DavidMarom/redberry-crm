@@ -25,7 +25,6 @@ export const queryClient = new QueryClient();
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const setStoreUser = useUserStore((state) => state.setStoreUser);
-  const storeUser = useUserStore((state) => state.storeUser);
   const isLogged = useUserStore((state) => state.isLogged);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
   const setContacts = useContactsStore((state) => state.setContacts);
@@ -65,9 +64,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }
     , []);
 
-
-
-
   if (isLogged) {
     return (
       <html lang="en">
@@ -88,6 +84,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   } else {
     return (
       <html lang="en">
+        <head>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=AW-798887661"></script>
+          <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-798887661');
+          </script>
+        </head>
         <body className={inter.className}>
           <Header />
           <PopupProvider />
