@@ -93,6 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <Script> 
         {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments)} gtag('js', new Date()); gtag('config', 'AW-798887661');`}
       </Script>
+      <Script>{`gtag('event', 'conversion', {'send_to': 'AW-798887661/HlrfCP7VlYQZEO2d-PwC'});`}</Script>
 
       <html lang="en">
         <body className={inter.className}>
