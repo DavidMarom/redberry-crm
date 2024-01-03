@@ -15,6 +15,7 @@ import useContactsStore from "@/store/contacts";
 import { NextUIProvider } from "@nextui-org/react";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import GoogleAdWords from '../components/google.js';
 
 import Hotjar from '@hotjar/browser';
 const siteId = 3810147;
@@ -67,6 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   if (isLogged) {
     return (
       <html lang="en">
+        <GoogleAdWords />
         <body className={inter.className}>
           <QueryClientProvider client={queryClient}>
             <Header />
@@ -84,11 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   } else {
     return (
       <html lang="en">
-        <head>
-          <script async src="https://www.googletagmanager.com/gtag/js?id=AW-798887661"></script>
-          <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-798887661');
-          </script>
-        </head>
+        <GoogleAdWords />
         <body className={inter.className}>
           <Header />
           <PopupProvider />
