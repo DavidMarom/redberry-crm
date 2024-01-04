@@ -9,7 +9,7 @@ export default function Footer() {
             <div className="footer-text">© 2023 Redberry CRM</div>
             <Link href="https://www.linkedin.com/company/redberry-crm" passHref target='_blank'>
 
-                <Image src="/linkedin.svg" alt="LinkedIn" width={24} height={24} />
+                <Image src="icons/linkedin.svg" alt="LinkedIn" width={24} height={24} />
             </Link>
 
         </Container>

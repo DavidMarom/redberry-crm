@@ -42,7 +42,7 @@ export default function Header() {
   return (
     <Navbar position="sticky" maxWidth="full" className="drop" >
       <NavbarBrand >
-        <Image src="/lichi.svg" alt="Lichi Logo" width={44} height={44} />
+        <Image src="icons/lichi.svg" alt="Lichi Logo" width={44} height={44} />
         <span className="text-danger-500 text-xl">Redberry</span>
       </NavbarBrand>
 

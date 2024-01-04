@@ -46,6 +46,11 @@
     padding: 15px;
   }
 
+  .sidebarbtn:hover {
+    background-color: var(--primary_050);
+    padding-left: 15px;
+  }
+
   .container2 {
     display: flex;
     flex-direction: column;

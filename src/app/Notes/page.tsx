@@ -27,14 +27,14 @@ const NotesPage = () => {
                     <textarea onChange={handleChange} value={input} />
                     <div className='row-r'>
                         <button onClick={submitHandler}>
-                            <Image src="/enter.svg" alt="Enter" width={22} height={22} />
+                            <Image src="icons/enter.svg" alt="Enter" width={22} height={22} />
                         </button>
                     </div>
                 </div>
                 {
                     data && data.map((note: any) => (
                         <div className='grid-item' key={note._id}>
-                            <button className="row-r" onClick={() => { setDisabled(true); deleteMutation.mutate(note._id) }}><Image src="/x.svg" alt="Lichi Logo" width={18} height={18} /></button>
+                            <button className="row-r" onClick={() => { setDisabled(true); deleteMutation.mutate(note._id) }}><Image src="/x.svg" alt="Close" width={18} height={18} /></button>
                             {deleteMutation.isError && <div>Something went wrong</div>}
                             <div>{note.text}</div>
                         </div>
