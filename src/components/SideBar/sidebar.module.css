@@ -46,12 +46,17 @@
     padding: 15px;
   }
 
+  .sidebarbtn:hover {
+    background-color: var(--primary_050);
+    padding-left: 15px;
+  }
+
   .container2 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
-    width: 60px;
+    min-width: 60px;
     height: calc(100vh - 60px);
     background-color: var(--primary_200);
     padding-top: 20px;
