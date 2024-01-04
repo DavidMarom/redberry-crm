@@ -106,7 +106,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Row justifycontent="space-around" width="100%">
                 <Btn onclick={signupHandler} width="225px" margintop="110px">
                   <div className="text-color-white f-size-22">Get Started</div>
-                  <Image src="/arrow-right.svg" alt="arrow" width={14} height={14} priority />
+                  <Image src="icons/arrow-right.svg" alt="arrow" width={14} height={14} priority />
                 </Btn>
               </Row>
               <Row justifycontent="space-around" width="100%" margintop="0px"><p className="subtitle">🚀 It's free, and always will be!</p></Row>
