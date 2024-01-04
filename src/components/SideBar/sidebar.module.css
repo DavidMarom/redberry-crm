@@ -56,7 +56,7 @@
     flex-direction: column;
     justify-content: space-between;
 
-    width: 60px;
+    min-width: 60px;
     height: calc(100vh - 60px);
     background-color: var(--primary_200);
     padding-top: 20px;
