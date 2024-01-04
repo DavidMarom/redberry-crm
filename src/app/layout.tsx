@@ -75,9 +75,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <QueryClientProvider client={queryClient}>
             <Header />
             <PopupProvider />
-            <div className="page-container">
+            <div className="row-r">
               <Sidebar />
-              <div className="pad-top-20 width-100">{children}</div>
+              <div className="page-container">
+                <div className="pad-top-20 width-100">{children}</div>
+              </div>
             </div>
             <Footer />
             <ReactQueryDevtools initialIsOpen={false} />
@@ -87,34 +89,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     );
   } else {
     return (
-<>
+      <>
 
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-798887661"></Script>
-      <Script> 
-        {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments)} gtag('js', new Date()); gtag('config', 'AW-798887661');`}
-      </Script>
-      <Script>{`gtag('event', 'conversion', {'send_to': 'AW-798887661/HlrfCP7VlYQZEO2d-PwC'});`}</Script>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-798887661"></Script>
+        <Script>
+          {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments)} gtag('js', new Date()); gtag('config', 'AW-798887661');`}
+        </Script>
+        <Script>{`gtag('event', 'conversion', {'send_to': 'AW-798887661/HlrfCP7VlYQZEO2d-PwC'});`}</Script>
 
-      <html lang="en">
-        <body className={inter.className}>
-          <Header />
-          <PopupProvider />
-          <NextUIProvider>
-            <div className="page-container2">
-              <Row justifycontent="space-around" width="100%" margintop="90px"><h1 className="main-title f-size-3rem">A lightweight CRM for</h1></Row>
-              <Row justifycontent="space-around" width="100%" margintop="0px"><h1 className="main-title f-size-3rem">your business</h1></Row>
-              <Row justifycontent="space-around" width="100%">
-                <Btn onclick={signupHandler} width="225px" margintop="110px">
-                  <div className="text-color-white f-size-22">Get Started</div>
-                  <Image src="icons/arrow-right.svg" alt="arrow" width={14} height={14} priority />
-                </Btn>
-              </Row>
-              <Row justifycontent="space-around" width="100%" margintop="0px"><p className="subtitle">🚀 It's free, and always will be!</p></Row>
-            </div>
-          </NextUIProvider>
-          <Footer />
-        </body>
-      </html>
+        <html lang="en">
+          <body className={inter.className}>
+            <Header />
+            <PopupProvider />
+            <NextUIProvider>
+              <div className="page-container2">
+                <Row justifycontent="space-around" width="100%" margintop="90px"><h1 className="main-title f-size-3rem">A lightweight CRM for</h1></Row>
+                <Row justifycontent="space-around" width="100%" margintop="0px"><h1 className="main-title f-size-3rem">your business</h1></Row>
+                <Row justifycontent="space-around" width="100%">
+                  <Btn onclick={signupHandler} width="225px" margintop="110px">
+                    <div className="text-color-white f-size-22">Get Started</div>
+                    <Image src="icons/arrow-right.svg" alt="arrow" width={14} height={14} priority />
+                  </Btn>
+                </Row>
+                <Row justifycontent="space-around" width="100%" margintop="0px"><p className="subtitle">🚀 It's free, and always will be!</p></Row>
+              </div>
+            </NextUIProvider>
+            <Footer />
+          </body>
+        </html>
       </>
     );
   }
