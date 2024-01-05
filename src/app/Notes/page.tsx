@@ -22,7 +22,7 @@ const NotesPage = () => {
     return (
         <div className='full-width'>
             {isFetching || isLoading || disabled ? <h1>Loading...</h1> : <h1>Notes</h1>}
-            <div className='grid-container '>
+            <div className='notes-grid-container '>
                 <div className='grid-item'>
                     <textarea onChange={handleChange} value={input} />
                     <div className='row-r'>

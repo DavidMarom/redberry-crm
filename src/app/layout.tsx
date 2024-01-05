@@ -13,9 +13,9 @@ import { PopupProvider } from '@/services/popupProvider';
 import { getFromStorage, setToStorage } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
 import { NextUIProvider } from "@nextui-org/react";
-import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import Script from 'next/script'
+import { QueryClient, QueryClientProvider } from "react-query";
 
 
 // import Hotjar from '@hotjar/browser';
