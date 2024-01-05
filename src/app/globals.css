@@ -319,3 +319,8 @@ textarea {
   background-color: #a74848;
 }
 
+.input-label {
+  margin-bottom: -20px;
+  margin-left: 11px;
+  font-size: 0.8rem;
+}
