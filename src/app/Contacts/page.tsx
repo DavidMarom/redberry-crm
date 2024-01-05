@@ -11,7 +11,35 @@ import { dataExpired, updateLastFetch, setToStorage, getFromStorage, addKeysToRe
 import { ContactsType } from '@/types';
 import usePopupStore from "@/store/popup";
 import useContactsStore from "@/store/contacts";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Select, SelectItem, Input } from "@nextui-org/react";
+import { useFormState, useFormStatus } from "react-dom";
+import { useForm } from "react-hook-form";
 
+function SubmitButton() {
+    const { pending } = useFormStatus()
+    return (
+        <Button color="primary" aria-disabled={pending} type="submit" isLoading={pending}>Add Contact </Button>
+    )
+}
+
+const ContactsStatusType = [
+    {
+        id: 'Active',
+        name: 'Active',
+    },
+    {
+        id: 'Inactive',
+        name: 'Inactive',
+    },
+    {
+        id: 'Blocked',
+        name: 'Blocked',
+    },
+    {
+        id: 'Awaiting Call',
+        name: 'Awaiting Call',
+    }
+]
 const ContactsPage = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
@@ -20,6 +48,8 @@ const ContactsPage = () => {
     const triggerPopup = usePopupStore((state) => state.triggerPopup);
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
     const user = getFromStorage("user");
+
+    const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
     useEffect(() => {
         if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
@@ -34,14 +64,13 @@ const ContactsPage = () => {
     }, []);
 
 
-    const submitHandler = (e: any) => {
-        e.preventDefault();
+    const submitHandler = (prevState: any, formData: FormData) => {
         setLoading(true);
-        const name = e.target.name.value;
-        const email = e.target.email.value;
-        const phone = e.target.phone.value;
-        const note = e.target.note.value;
-        const status = e.target.status.value;
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const phone = formData.get('phone');
+        const note = formData.get('note');
+        const status = formData.get('status');
         const owner = user.uid;
         const contact = { name, email, phone, status, owner, note };
 
@@ -54,6 +83,8 @@ const ContactsPage = () => {
                 setToStorage("contacts", newContacts);
             })
             .catch((err) => { console.log(err) });
+
+            onClose();
     };
 
     const handleDelete = (id: string) => {
@@ -169,10 +200,13 @@ const ContactsPage = () => {
             ),
         },
     ];
+    const [state, formAction] = useFormState(submitHandler, null);
+    const { register } = useForm()
 
     return (
         <div className="page-container2">
-            {loading ? <h1>Loading...</h1> : <h1>Contacts</h1>}
+            {loading ? <h1>Loading...</h1> : <h1 className="flex flex-row justify-between">Contacts
+                <Button variant="solid" color="success" onPress={onOpen}>New Contact</Button> </h1>}
             <Table
                 dataSource={contacts}
                 columns={columns}
@@ -189,26 +223,47 @@ const ContactsPage = () => {
                     position: ["bottomCenter"],
                 }}
             ></Table>
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <form
+                                action={formAction}
 
-            <form onSubmit={submitHandler}>
-                <Col height="150px" width="auto">
-                    <h2>Add a contact:</h2>
-                    <div className="contact-grid-container">
-                        <input type="text" name="name" id="name" className="width-90-p" placeholder="Name" />
-                        <input type="text" name="email" id="email" className="width-90-p" placeholder="Email" />
-                        <input type="text" name="phone" id="phone" className="width-90-p" placeholder="Phone" />
-                        <input type="text" name="note" id="note" className="width-90-p" placeholder="Note" />
-                        <select id="status" className="width-90-p">
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
-                            <option value="Blocked">Blocked</option>
-                            <option value="Awaiting call">Awaiting call</option>
-                        </select>
-                        {loading ? <p>Loading...</p> : <button className="button" type="submit">Add it ☝️</button>}
-                    </div>
-                </Col>
-            </form>
-        </div>
+                            >
+                                <ModalHeader className="flex flex-col gap-1">New Contacts</ModalHeader>
+                                <ModalBody>
+
+                                    <Input isRequired label="Name"  {...register('name')} />
+                                    <Input isRequired type="email" label="Email"  {...register('email')} />
+                                    <Input isRequired type="phone" label="Phone" {...register('phone')} />
+                                    <Input type="text" label="Notes" {...register('note')} />
+
+                                    <Select
+                                        items={ContactsStatusType}
+                                        label="Candidate Status"
+                                        placeholder="Select a status"
+                                        className=""
+                                        isRequired
+                                        {...register('status')}
+                                    >
+                                        {(status) => <SelectItem key={status.id}>{status.name}</SelectItem>}
+                                    </Select>
+                                </ModalBody>
+                                <ModalFooter>
+
+                                    <Button color="danger" variant="light" onPress={onClose}>
+                                        Close
+                                    </Button>
+                                    <SubmitButton />
+                                </ModalFooter>
+                            </form>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
+
+        </div >
     );
 };
 
