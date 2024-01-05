@@ -205,7 +205,8 @@ const ContactsPage = () => {
     return (
         <div className="page-container2">
             {loading ? <h1>Loading...</h1> : <h1 className="flex flex-row justify-between">Contacts
-                <Button variant="solid" color="success" onPress={onOpen}>New Contact</Button> </h1>}
+                <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>New Contact</Button>
+            </h1>}
             <Table
                 dataSource={contacts}
                 columns={columns}
