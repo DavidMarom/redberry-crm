@@ -5,7 +5,9 @@ const UserSchema = z.object({
     mail: z.string().email(),
     photoURL: z.string().url(),
     uid: z.string(),
-    token: z.string()
+    token: z.string(),
+    bizName: z.string(),
+    country: z.string(),
 });
 
 export type UserType = z.infer<typeof UserSchema>;
