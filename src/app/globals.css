@@ -146,6 +146,13 @@ h3 {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+
+}
+
+@media (max-width: 768px) {
+  .row-between {
+    flex-direction: column;
+  }
 }
 
 .pad-top-20 {
@@ -323,4 +330,35 @@ textarea {
   margin-bottom: -20px;
   margin-left: 11px;
   font-size: 0.8rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  column-gap: 40px;
+  row-gap: 20px;
+  padding-right: 70px;
+}
+
+.notes-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  column-gap: 40px;
+  row-gap: 20px;
+  padding-right: 70px;
+}
+
+.ads-grid-container {
+  padding-top: 22px;
+  margin-top: 0px;
+  width: 20%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  column-gap: 40px;
+  row-gap: 20px;
+  padding-right: 70px;
+}
+
+.align-start {
+  align-items: flex-start;
 }

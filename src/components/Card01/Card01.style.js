@@ -8,7 +8,7 @@ export const Container = styled.div`
   margin-right: ${({ marginright }) => marginright};
   border-radius: 20px;
   padding: 20px;
-  padding-right: 40px;
+  padding-right: ${({ paddingright }) => paddingright};
   background-color: ${({ backgroundColor }) => backgroundColor};
 
   display: flex;
@@ -18,12 +18,4 @@ export const Container = styled.div`
   
   filter: drop-shadow(0 0 0.75rem #00000010);
 `;
-
-// export const Column = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-around;
-//   width: 100%;
-//   padding-left: 10px;
-// `;
 

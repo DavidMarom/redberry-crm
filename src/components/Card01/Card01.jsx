@@ -6,6 +6,7 @@ import { StyleSheetManager } from 'styled-components';
 export default function Card01({
     width,
     marginright = "20px",
+    paddingright = "40px",
     height = "140px",
     margintop = "20px",
     justifycontent,
@@ -14,12 +15,13 @@ export default function Card01({
 }) {
 
     return (
-        <StyleSheetManager shouldForwardProp={(prop) => prop !== 'margintop' || prop !== 'marginright' || prop !== 'justifycontent' || prop !== 'backgroundColor'}>
+        <StyleSheetManager shouldForwardProp={(prop) => prop !== 'margintop' || prop !== 'marginright' || prop !== 'justifycontent' || prop !== 'backgroundColor' || prop !== 'paddingright'}>
             <Container
                 width={width}
                 height={height}
                 margintop={margintop}
                 marginright={marginright}
+                paddingright={paddingright}
                 justifycontent={justifycontent}
                 backgroundColor={backgroundColor}
             >
@@ -36,5 +38,6 @@ Card01.propTypes = {
     children: PropTypes.node.isRequired,
     marginright: PropTypes.string,
     justifycontent: PropTypes.string,
-    backgroundColor: PropTypes.string
+    backgroundColor: PropTypes.string,
+    paddingright: PropTypes.string
 }

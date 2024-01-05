@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { Table } from "antd";
-import { Col } from "@/components";
 import { StatusIndicator } from "./StatusIndicator";
 import { Popconfirm } from "antd";
 import { getContactsByOwner, addContact, deleteContact } from "../../services/contacts";
@@ -84,7 +83,7 @@ const ContactsPage = () => {
             })
             .catch((err) => { console.log(err) });
 
-            onClose();
+        onClose();
     };
 
     const handleDelete = (id: string) => {
@@ -206,7 +205,8 @@ const ContactsPage = () => {
     return (
         <div className="page-container2">
             {loading ? <h1>Loading...</h1> : <h1 className="flex flex-row justify-between">Contacts
-                <Button variant="solid" color="success" onPress={onOpen}>New Contact</Button> </h1>}
+                <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>New Contact</Button>
+            </h1>}
             <Table
                 dataSource={contacts}
                 columns={columns}
@@ -227,21 +227,18 @@ const ContactsPage = () => {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <form
-                                action={formAction}
-
-                            >
+                            <form action={formAction}>
                                 <ModalHeader className="flex flex-col gap-1">New Contacts</ModalHeader>
                                 <ModalBody>
 
                                     <Input isRequired label="Name"  {...register('name')} />
-                                    <Input isRequired type="email" label="Email"  {...register('email')} />
-                                    <Input isRequired type="phone" label="Phone" {...register('phone')} />
+                                    <Input type="email" label="Email"  {...register('email')} />
+                                    <Input type="phone" label="Phone" {...register('phone')} />
                                     <Input type="text" label="Notes" {...register('note')} />
 
                                     <Select
                                         items={ContactsStatusType}
-                                        label="Candidate Status"
+                                        label="Contact Status"
                                         placeholder="Select a status"
                                         className=""
                                         isRequired
