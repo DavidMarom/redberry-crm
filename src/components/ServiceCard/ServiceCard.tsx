@@ -10,10 +10,11 @@ type ServiceCardType = {
     img: string,
     text: string,
     title: string,
+    url?: string,
 }
 
 export default function ServiceCard(props: ServiceCardType) {
-    const { title, text, img } = props;
+    const { title, text, img, url } = props;
 
     if (title === undefined || title === null) return <></>;
     // const { img, text, title } = data;
@@ -28,23 +29,24 @@ export default function ServiceCard(props: ServiceCardType) {
     };
 
     const readMoreHandler = () => {
-        
+
     }
 
     return (
-        <Container>
-            <ImageContainer><img src={img || ''} alt={title} /></ImageContainer>
-            <InfoContainer>
-                <div>
-                    <div className="row-between">
-                        <TitleContainer>{title}</TitleContainer>
+        <a href={url} target="_blank">
+            <Container>
+                <ImageContainer><img src={img || ''} alt={title} /></ImageContainer>
+                <InfoContainer>
+                    <div>
+                        <div className="row-between">
+                            <TitleContainer>{title}</TitleContainer>
+                        </div>
                     </div>
-                    {/* <h4>{strCategory}</h4> */}
-                </div>
-                <TextContainer>{shortText(text, 100)}</TextContainer>
-                <Button onClick={readMoreHandler}>Read more</Button>
-            </InfoContainer>
-        </Container>
+                    <TextContainer>{shortText(text, 100)}</TextContainer>
+                    <Button onClick={readMoreHandler}>Read more</Button>
+                </InfoContainer>
+            </Container>
+        </a>
     )
 }
 

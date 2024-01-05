@@ -6,10 +6,11 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
-  height: 300px;
+  height: 280px;
   border: 1px solid #ccc;
   border-radius: 15px;
   overflow: hidden;
+  background-color: #ffffff;
 `;
 
 export const ImageContainer = styled.div`
@@ -23,6 +24,7 @@ export const ImageContainer = styled.div`
 
 export const TitleContainer = styled.div`
   width: 100%;
+  direction: rtl;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -31,6 +33,7 @@ export const TitleContainer = styled.div`
 
 export const TextContainer = styled.div`
   width: 100%;
+  direction: rtl;
   white-space: pre;
   overflow: hidden;
   text-overflow: ellipsis;
