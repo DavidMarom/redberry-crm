@@ -7,9 +7,9 @@ export const Container = styled.div`
   margin-top: ${({ margintop }) => margintop};
   margin-right: ${({ marginright }) => marginright};
   border-radius: 20px;
-  background-color: #ffffff;
   padding: 20px;
   padding-right: 40px;
+  background-color: ${({ backgroundColor }) => backgroundColor};
 
   display: flex;
   flex-direction: column;
@@ -19,11 +19,11 @@ export const Container = styled.div`
   filter: drop-shadow(0 0 0.75rem #00000010);
 `;
 
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 100%;
-  padding-left: 10px;
-`;
+// export const Column = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-around;
+//   width: 100%;
+//   padding-left: 10px;
+// `;
 

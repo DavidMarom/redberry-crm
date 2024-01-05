@@ -54,3 +54,14 @@ export async function updateDocument(client: any, collection: string, id: string
         console.log(error)
     }
 }
+
+export async function updateDocumentByUID(client: any, collection: string, uid: string, update: object) {
+    const db = client.db('rb');
+    try {
+        const filter = { uid: uid };
+        const result = await db.collection(collection).updateOne(filter, update);
+        return result;
+    } catch (error) {
+        console.log(error)
+    }
+}
