@@ -2,14 +2,16 @@
 import React from 'react';
 import { Select, SelectItem, Button, Input } from "@nextui-org/react";
 import { Card01 } from "@/components";
+import { updateUser } from "@/services/users";
+import { getFromStorage } from "@/utils/utils";
 
 const sendHandler = (event: any) => {
     event.preventDefault();
     const data = new FormData(event.target);
     const value = Object.fromEntries(data.entries());
 
-    console.log(value);
-
+    // Call a service that will save the data to the DB
+    updateUser(getFromStorage('user').uid, value);
 }
 
 const AboutPage = () => {
@@ -18,7 +20,7 @@ const AboutPage = () => {
             <h1>Config</h1>
             <form onSubmit={sendHandler}>
                 <Card01 width={"400px"} height="300px" justifycontent="space-between">
-                    <Input type="text" name="name" id="bizName" placeholder='Your business name' />
+                    <Input type="text" name="bizName" id="bizName" placeholder='Your business name' />
                     <Select label="Country" className="max-w-xs" id="country" name="country">
                         <SelectItem value="Israel" key={'Israel'}>Israel</SelectItem>
                         <SelectItem value="USA" key={'USA'}>USA</SelectItem>
