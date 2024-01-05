@@ -9,3 +9,8 @@ export const dataExpired = () => Date.now() - parseInt(getFromStorage('lastFetch
 export const updateLastFetch = () => { setToStorage("lastFetch", Date.now()) }
 
 export const addKeysToResponse = (elements: any[]) => elements.map((element, index) => ({ ...element, key: index }));
+
+export const shortText = (text: string, length: number) => {
+    if (!text) return '';
+    return text.length > length ? text.substring(0, length) + '...' : text;
+}
