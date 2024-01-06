@@ -34,7 +34,7 @@ const NotesPage = () => {
                 {
                     data && data.map((note: any) => (
                         <div className='grid-item' key={note._id}>
-                            <button className="row-r" onClick={() => { setDisabled(true); deleteMutation.mutate(note._id) }}><Image src="/x.svg" alt="Close" width={18} height={18} /></button>
+                            <button className="row-r" onClick={() => { setDisabled(true); deleteMutation.mutate(note._id) }}><Image src="icons/x.svg" alt="Close" width={18} height={18} /></button>
                             {deleteMutation.isError && <div>Something went wrong</div>}
                             <div>{note.text}</div>
                         </div>
