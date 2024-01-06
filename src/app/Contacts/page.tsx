@@ -178,21 +178,21 @@ const ContactsPage = () => {
                         okText="Yes"
                         cancelText="No"
                     >
-                        <button><img src="/trash.svg" alt="mail" width={20} /></button>
+                        <button><img src="icons/trash.svg" alt="mail" width={20} /></button>
                     </Popconfirm>
 
                     <button className="marg-l-20" onClick={() => {
                         setContactToEdit(record);
                         triggerPopup(1);
                     }}>
-                        <img src="/pencil.svg" alt="mail" width={20} />
+                        <img src="icons/pencil.svg" alt="mail" width={20} />
                     </button>
 
                     <button className="marg-l-20" onClick={() => {
                         setContactToEdit(record);
                         router.push('/Email')
                     }}>
-                        <img src="/mail.svg" alt="mail" width={20} />
+                        <img src="icons/mail.svg" alt="mail" width={20} />
                     </button>
 
                 </div>
