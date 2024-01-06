@@ -34,7 +34,9 @@ export default function Home() {
     <div className="page-container2">
       <h1>Overview</h1>
       <div className='row-between align-start'>
-        <Card01 paddingright="0px" marginright="0px" width={"500px"}>{<PieChart countData={countStatus(contacts)} /> || <h3>No data</h3>}</Card01>
+        <Card01 paddingright="0px" marginright="0px" width={"500px"}>
+          {<PieChart countData={countStatus(contacts)} /> || <h3>No data</h3>}
+        </Card01>
         <Ads />
       </div>
     </div>
