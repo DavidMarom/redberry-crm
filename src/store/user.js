@@ -16,5 +16,6 @@ const useUserStore = create((set) => ({
 // I need to export these in order to use them in /services/auth.js
 export const { setUserProfile } = useUserStore.getState();
 export const { setIsLogged } = useUserStore.getState();
+export const { setStoreUser } = useUserStore.getState();
 
 export default useUserStore;

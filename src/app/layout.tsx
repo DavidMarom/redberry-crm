@@ -2,13 +2,13 @@
 import React, { useEffect } from "react";
 import { Inter } from "next/font/google";
 import { Sidebar, Btn, Header, Row, Footer } from "@/components";
-import { googleSignup } from "@/services/auth";
-import http from "@/services/http";
+// import { googleSignup } from "@/services/auth";
+// import http from "@/services/http";
 import Image from "next/image";
 import "./globals.css";
 import useUserStore from "@/store/user";
 const inter = Inter({ subsets: ["latin"] });
-import { sendWelcomeEmail } from '@/services/mailchimp';
+// import { sendWelcomeEmail } from '@/services/mailchimp';
 import { PopupProvider } from '@/services/popupProvider';
 import { getFromStorage, setToStorage } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
@@ -16,7 +16,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import { ReactQueryDevtools } from "react-query/devtools";
 import Script from 'next/script'
 import { QueryClient, QueryClientProvider } from "react-query";
-
+import { signupHandler } from "@/utils/userUtils";
 
 // import Hotjar from '@hotjar/browser';
 // const siteId = 3810147;
@@ -31,29 +31,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const setIsLogged = useUserStore((state) => state.setIsLogged);
   const setContacts = useContactsStore((state) => state.setContacts);
 
-  const signupHandler = async () => {
-    const googleRes = googleSignup();
-    googleRes.then((res) => {
-      if (res) {
-        // Save the google user info to local storage and store
-        setToStorage("user", res);
-        setStoreUser(res ?? "");
-        setIsLogged(true);
+  // TODO: Remove this after we make sure we dont have a disaster
+  // ============================================================
+  // const signupHandler = async () => {
+  //   const res = await googleSignup();
+  //     if (res) {
+  //       // Save the google user info to local storage and store
+  //       setToStorage("user", res);
+  //       setStoreUser(res ?? "");
+  //       setIsLogged(true);
 
-        // Check if DB has the user
-        http.get(`users/${res.uid}`).then((response: any) => {
-          if (!response.data) {
-            // If not, add the user to DB and send welcome email
-            http.post('users', res)
-              .then((response: any) => { console.log(response) })
-              .catch((error: any) => { console.log(error) })
-            sendWelcomeEmail(res.mail, res.name)
-          }
-        })
-        setIsLogged(true);
-      }
-    });
-  };
+  //       // Check if DB has the user
+  //       http.get(`users/${res.uid}`).then((response: any) => {
+  //         if (!response.data) {
+  //           // If not, add the user to DB and send welcome email
+  //           http.post('users', res)
+  //             .then((response: any) => { console.log(response) })
+  //             .catch((error: any) => { console.log(error) })
+  //           sendWelcomeEmail(res.mail, res.name)
+  //         }
+  //       })
+  //       setIsLogged(true);
+  //     }
+  // };
 
   useEffect(() => {
     document.title = "Redberry CRM";
@@ -77,9 +77,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <PopupProvider />
             <div className="row-r">
               <Sidebar />
-              <div className="page-container">
-                <div className="pad-top-20 width-100">{children}</div>
-              </div>
+              <div className="page-container">{children}</div>
             </div>
             <Footer />
             <ReactQueryDevtools initialIsOpen={false} />
