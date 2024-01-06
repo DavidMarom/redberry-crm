@@ -2,12 +2,11 @@
 
 import { gprovider } from '@/services/firebase-config';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
-import { setUserProfile, setIsLogged } from "@/store/user";
 import { GoogleObject } from "@/types";
+import { clearUser } from "@/utils/userUtils";
 
 export function googleSignup(): Promise<GoogleObject | null | void> {
-    const auth = getAuth();
-    return signInWithPopup(auth, gprovider)
+    return signInWithPopup(getAuth(), gprovider)
         .then((result) => {
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential?.accessToken ?? null;
@@ -17,18 +16,11 @@ export function googleSignup(): Promise<GoogleObject | null | void> {
         }).catch((error) => { console.log(error); return null; });
 }
 
-export function googleSignOut() {
-    const auth = getAuth();
-
-    signOut(auth)
-        .then(() => {
-            localStorage.removeItem("user");
-            localStorage.removeItem("contacts");
-            localStorage.removeItem("notes");
-            setUserProfile(false);
-            setIsLogged(false);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+export async function googleSignOut() {
+    try {
+        await signOut(getAuth())
+        clearUser();
+    } catch (error) {
+        console.log(error);
+    }
 };
