@@ -32,8 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const setContacts = useContactsStore((state) => state.setContacts);
 
   const signupHandler = async () => {
-    const googleRes = googleSignup();
-    googleRes.then((res) => {
+    const res = await googleSignup();
       if (res) {
         // Save the google user info to local storage and store
         setToStorage("user", res);
@@ -52,7 +51,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         })
         setIsLogged(true);
       }
-    });
   };
 
   useEffect(() => {
@@ -77,9 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <PopupProvider />
             <div className="row-r">
               <Sidebar />
-              <div className="page-container">
-                <div className="pad-top-20 width-100">{children}</div>
-              </div>
+              <div className="page-container">{children}</div>
             </div>
             <Footer />
             <ReactQueryDevtools initialIsOpen={false} />
