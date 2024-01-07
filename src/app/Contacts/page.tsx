@@ -117,26 +117,22 @@ const ContactsPage = () => {
         },
         {
             title: "Name",
-            // width: "280px",
             dataIndex: "name",
             key: "name",
         },
         {
             title: "Email",
             dataIndex: "email",
-            // width: "300px",
             key: "email",
         },
         {
             title: "Phone",
             dataIndex: "phone",
-            // width: "150px",
             key: "phone",
         },
         {
             title: "Status",
             dataIndex: "status",
-            // width: "190px",
             key: "status",
             filters: [
                 {
@@ -162,7 +158,6 @@ const ContactsPage = () => {
         {
             title: "Note",
             dataIndex: "note",
-            // width: "150px",
             key: "note",
         },
         {
