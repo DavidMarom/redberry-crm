@@ -10,10 +10,10 @@ export default function Footer() {
             
             <NavContainer>
                 <Link href='/Tos'>
-                    <div className='footer-text'>Terms of Service</div>
+                    <div className='footer-text2'>Terms of Service</div>
                 </Link>
                 <Link href='/'>
-                    <div className='footer-text'>About Redberry</div>
+                    <div className='footer-text2'>About Redberry</div>
                 </Link>
             </NavContainer>
 
