@@ -1,7 +1,7 @@
 # Redberry CRM
-## A lightweight CRM system for your business.
+## A lightweight CRM system for small businesses.
 
-🚀 No sign up required. Just login with your Google account and start using it.
+🚀 No sign up. Just login with your Google account and start working!
 
 [redberry-crm.com](https://www.redberry-crm.com/)
 
@@ -14,15 +14,16 @@
 - MongoDB
 - Zod
 - React Hook Form
+- React Query
 - Zustand
 - Styled Components
-- Storybook
 
 ## Tools and Workflow
 - **Vercel** for deployment and CI/CD
 - **Atlassian Jira**
 - **Figma**
 - **Github** for version control, pull requests, and issue tracking
+- **Storybook** for component development
 
 # Join the team!
 This project is open to mid-level developers. You should have some experience with NEXT.js and typescrip
