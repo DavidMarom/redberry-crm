@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  height: 70px;
+  height: auto;
   background-color: #333;
 
   display: flex;
@@ -17,7 +17,7 @@ export const Container = styled.div`
 `;
 
 export const NavContainer = styled.div`
-width: 25%;
-display: flex;
+display: inline-grid;
 justify-content: space-evenly;
-flex-direction: row;`;
+flex-direction: row;
+`;
