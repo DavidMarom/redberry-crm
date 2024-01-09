@@ -1,70 +1,43 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useRouter } from 'next/navigation';
 import { Table } from "antd";
 import { StatusIndicator } from "./StatusIndicator";
 import { Popconfirm } from "antd";
 import { getContactsByOwner, addContact, deleteContact } from "../../services/contacts";
-import { dataExpired, updateLastFetch, setToStorage, getFromStorage, addKeysToResponse } from '@/utils/utils';
-import { ContactsType } from '@/types';
+import { getFromStorage, addKeysToResponse } from '@/utils/utils';
+import { ContactType } from '@/types';
 import usePopupStore from "@/store/popup";
 import useContactsStore from "@/store/contacts";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Select, SelectItem, Input } from "@nextui-org/react";
 import { useFormState, useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
+import { ContactsStatusType } from "./Constants";
+
+import { useQuery, useMutation } from "react-query";
+import { queryClient } from "@/app/layout";
+
 
 function SubmitButton() {
     const { pending } = useFormStatus()
-    return (
-        <Button color="primary" aria-disabled={pending} type="submit" isLoading={pending}>Add Contact </Button>
-    )
+    return <Button color="primary" aria-disabled={pending} type="submit" isLoading={pending}>Add Contact</Button>
 }
 
-const ContactsStatusType = [
-    {
-        id: 'Active',
-        name: 'Active',
-    },
-    {
-        id: 'Inactive',
-        name: 'Inactive',
-    },
-    {
-        id: 'Blocked',
-        name: 'Blocked',
-    },
-    {
-        id: 'Awaiting Call',
-        name: 'Awaiting Call',
-    }
-]
 const ContactsPage = () => {
     const router = useRouter();
-    const [loading, setLoading] = useState(false);
     const setContacts = useContactsStore((state) => state.setContacts);
-    const contacts = useContactsStore((state) => state.contacts);
     const triggerPopup = usePopupStore((state) => state.triggerPopup);
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
     const user = getFromStorage("user");
+    const { data, isLoading, isFetching, error } = useQuery("contacts", () => getContactsByOwner(user.uid));
+    setContacts(data);
 
+    const deleteMutation = useMutation((id: string) => deleteContact(id), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
+    const addMutation = useMutation((contact: ContactType) => addContact(contact), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
-    useEffect(() => {
-        if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
-
-        if (dataExpired() || !getFromStorage("contacts")) {
-            updateLastFetch();
-            getContactsByOwner(user.uid).then((response: ContactsType) => {
-                setContacts(addKeysToResponse(response));
-                setToStorage("contacts", addKeysToResponse(response));
-            });
-        }
-    }, []);
-
-
     const submitHandler = (prevState: any, formData: FormData) => {
-        setLoading(true);
         const name = formData.get('name');
         const email = formData.get('email');
         const phone = formData.get('phone');
@@ -72,32 +45,11 @@ const ContactsPage = () => {
         const status = formData.get('status');
         const owner = user.uid;
         const contact = { name, email, phone, status, owner, note };
-
-        addContact(contact)
-            .then((response: any) => {
-                setLoading(false);
-                const newContact = { ...contact, _id: response.insertedId }
-                const newContacts = [...contacts, newContact];
-                setContacts(newContacts as never[]);
-                setToStorage("contacts", newContacts);
-            })
-            .catch((err) => { console.log(err) });
-
+        addMutation.mutate(contact);
         onClose();
     };
 
-    const handleDelete = (id: string) => {
-        setLoading(true);
-        deleteContact(id)
-            .then(() => {
-                setLoading(false)
-                const newContacts = contacts.filter((contact: any) => contact._id !== id);
-                setContacts(newContacts);
-                setToStorage("contacts", newContacts);
-            })
-            .catch((err) => { console.log(err) });
-    };
-
+    const handleDelete = (id: string) => { deleteMutation.mutate(id); };
     const handleCancel = () => { console.log("Action cancelled") };
 
     const columns = [
@@ -194,19 +146,21 @@ const ContactsPage = () => {
             ),
         },
     ];
+
     const [state, formAction] = useFormState(submitHandler, null);
     const { register } = useForm()
 
+
     return (
         <div className="page-container2">
-            {loading ? <h1>Loading...</h1> : <h1 className="flex flex-row justify-between">Contacts
+            {isLoading ? <h1>Loading...</h1> : <h1 className="flex flex-row justify-between">Contacts
                 <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>New Contact</Button>
             </h1>}
             <Table
-                dataSource={contacts}
+                dataSource={addKeysToResponse(data)}
                 columns={columns}
                 size={"small"}
-                loading={loading}
+                loading={isLoading}
                 pagination={{
                     showSizeChanger: true,
                     showTotal: (total, range) =>
@@ -214,7 +168,7 @@ const ContactsPage = () => {
                     pageSizeOptions: ["5", "10", "20", "50"],
                     defaultPageSize: 5,
                     defaultCurrent: 1,
-                    total: contacts.length,
+                    total: data?.length,
                     position: ["bottomCenter"],
                 }}
             ></Table>
@@ -231,22 +185,13 @@ const ContactsPage = () => {
                                     <Input type="phone" label="Phone" {...register('phone')} />
                                     <Input type="text" label="Notes" {...register('note')} />
 
-                                    <Select
-                                        items={ContactsStatusType}
-                                        label="Contact Status"
-                                        placeholder="Select a status"
-                                        className=""
-                                        isRequired
-                                        {...register('status')}
-                                    >
+                                    <Select items={ContactsStatusType} label="Contact Status" placeholder="Select a status" className="" isRequired {...register('status')}>
                                         {(status) => <SelectItem key={status.id}>{status.name}</SelectItem>}
                                     </Select>
                                 </ModalBody>
                                 <ModalFooter>
 
-                                    <Button color="danger" variant="light" onPress={onClose}>
-                                        Close
-                                    </Button>
+                                    <Button color="danger" variant="light" onPress={onClose}>Close</Button>
                                     <SubmitButton />
                                 </ModalFooter>
                             </form>
