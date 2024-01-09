@@ -6,7 +6,6 @@ import Image from "next/image";
 import "./globals.css";
 import useUserStore from "@/store/user";
 const inter = Inter({ subsets: ["latin"] });
-import { PopupProvider } from '@/services/popupProvider';
 import { getFromStorage, setToStorage } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
 import { NextUIProvider } from "@nextui-org/react";
@@ -40,7 +39,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body className={inter.className}>
           <QueryClientProvider client={queryClient}>
             <Header />
-            <PopupProvider />
             <div className="row-r">
               <Sidebar />
               <div className="page-container">{children}</div>
@@ -64,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="en">
           <body className={inter.className}>
             <Header />
-            <PopupProvider />
+  
             <NextUIProvider>
               <div className="page-container2">
                 <Row justifycontent="space-around" width="100%" margintop="90px"><h1 className="main-title f-size-3rem">A lightweight CRM for</h1></Row>
