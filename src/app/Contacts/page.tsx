@@ -13,6 +13,7 @@ import useContactsStore from "@/store/contacts";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Select, SelectItem, Input } from "@nextui-org/react";
 import { useFormState, useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
+import { EditContactModal } from "@/components/popups/EditContactModal";
 
 function SubmitButton() {
     const { pending } = useFormStatus()
@@ -44,11 +45,15 @@ const ContactsPage = () => {
     const [loading, setLoading] = useState(false);
     const setContacts = useContactsStore((state) => state.setContacts);
     const contacts = useContactsStore((state) => state.contacts);
-    const triggerPopup = usePopupStore((state) => state.triggerPopup);
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
     const user = getFromStorage("user");
-
-    const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+    const [isEditModal, setIsEditModal] = useState(false);
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  useEffect(() => {
+    if (!isOpen) {
+      setIsEditModal(false);
+    }
+  }, [isOpen]);
 
     useEffect(() => {
         if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
@@ -178,7 +183,8 @@ const ContactsPage = () => {
 
                     <button className="marg-l-20" onClick={() => {
                         setContactToEdit(record);
-                        triggerPopup(1);
+                        setIsEditModal(true);
+                        onOpen();
                     }}>
                         <img src="icons/pencil.svg" alt="mail" width={20} />
                     </button>
@@ -222,34 +228,35 @@ const ContactsPage = () => {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <form action={formAction}>
-                                <ModalHeader className="flex flex-col gap-1">New Contacts</ModalHeader>
-                                <ModalBody>
+                        {isEditModal? <EditContactModal setIsEditModal={setIsEditModal} onClose={onClose}></EditContactModal> :
+                         <form action={formAction}>
+                         <ModalHeader className="flex flex-col gap-1">New Contacts</ModalHeader>
+                         <ModalBody>
 
-                                    <Input isRequired label="Name"  {...register('name')} />
-                                    <Input type="email" label="Email"  {...register('email')} />
-                                    <Input type="phone" label="Phone" {...register('phone')} />
-                                    <Input type="text" label="Notes" {...register('note')} />
+                             <Input isRequired label="Name"  {...register('name')} />
+                             <Input type="email" label="Email"  {...register('email')} />
+                             <Input type="phone" label="Phone" {...register('phone')} />
+                             <Input type="text" label="Notes" {...register('note')} />
 
-                                    <Select
-                                        items={ContactsStatusType}
-                                        label="Contact Status"
-                                        placeholder="Select a status"
-                                        className=""
-                                        isRequired
-                                        {...register('status')}
-                                    >
-                                        {(status) => <SelectItem key={status.id}>{status.name}</SelectItem>}
-                                    </Select>
-                                </ModalBody>
-                                <ModalFooter>
+                             <Select
+                                 items={ContactsStatusType}
+                                 label="Contact Status"
+                                 placeholder="Select a status"
+                                 className=""
+                                 isRequired
+                                 {...register('status')}
+                             >
+                                 {(status) => <SelectItem key={status.id}>{status.name}</SelectItem>}
+                             </Select>
+                         </ModalBody>
+                         <ModalFooter>
 
-                                    <Button color="danger" variant="light" onPress={onClose}>
-                                        Close
-                                    </Button>
-                                    <SubmitButton />
-                                </ModalFooter>
-                            </form>
+                             <Button color="danger" variant="light" onPress={onClose}>
+                                 Close
+                             </Button>
+                             <SubmitButton />
+                         </ModalFooter>
+                     </form>}    
                         </>
                     )}
                 </ModalContent>
