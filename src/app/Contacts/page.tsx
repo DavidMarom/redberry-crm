@@ -14,10 +14,8 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDi
 import { useFormState, useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
 import { ContactsStatusType } from "./Constants";
-
 import { useQuery, useMutation } from "react-query";
 import { queryClient } from "@/app/layout";
-
 
 function SubmitButton() {
     const { pending } = useFormStatus()
@@ -26,12 +24,10 @@ function SubmitButton() {
 
 const ContactsPage = () => {
     const router = useRouter();
-    const setContacts = useContactsStore((state) => state.setContacts);
     const triggerPopup = usePopupStore((state) => state.triggerPopup);
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
     const user = getFromStorage("user");
     const { data, isLoading, isFetching, error } = useQuery("contacts", () => getContactsByOwner(user.uid));
-    setContacts(data);
 
     const deleteMutation = useMutation((id: string) => deleteContact(id), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
     const addMutation = useMutation((contact: ContactType) => addContact(contact), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
