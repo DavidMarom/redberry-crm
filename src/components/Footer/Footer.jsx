@@ -15,6 +15,11 @@ export default function Footer() {
                 <Link href='/'>
                     <div className='footer-text2'>About Redberry</div>
                 </Link>
+                    <div>Terms of Service</div>
+                </Link>
+                {/* <Link href='/'>
+                    <div className='footer-text'>About Redberry</div>
+                </Link> */}
             </NavContainer>
 
             <Link href="https://www.linkedin.com/company/redberry-crm" passHref target='_blank'>

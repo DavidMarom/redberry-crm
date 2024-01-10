@@ -17,7 +17,9 @@ export const Container = styled.div`
 `;
 
 export const NavContainer = styled.div`
-width: 25%;
-display: flex;
-justify-content: space-evenly;
-flex-direction: row;`;
+  width: 25%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  font-size: 12px;
+`;
