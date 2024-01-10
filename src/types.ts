@@ -41,3 +41,15 @@ export const contactFormSchema = z.object({
     note: z.string().optional(),
     status: z.string(),    
 });
+
+
+const contactSchema = z.object({
+    name: z.any() || null,
+    email: z.any() || null,
+    phone: z.any() || null,
+    note: z.any() || null,
+    status: z.any() || null,
+    owner: z.any() || null,
+})
+
+export type ContactType = z.infer<typeof contactSchema>
