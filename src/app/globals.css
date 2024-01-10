@@ -103,6 +103,13 @@ h3 {
   max-height: calc(100vh - 60px);
 }
 
+@media (max-width: 768px) {
+  .page-container {
+    flex-direction: column; 
+    max-height: none;
+    overflow-y: auto;
+  }
+}
 .width-100 {
   width: 100%;
   display: flex;
