@@ -16,4 +16,10 @@ export const Container = styled.div`
   color: #aaa
 `;
 
-
+export const NavContainer = styled.div`
+  width: 25%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  font-size: 12px;
+`;

@@ -47,6 +47,7 @@ const AboutPage = () => {
                     <Button type="submit" color="primary">Save</Button>
                 </Card01>
             </form>
+            <p>v 1.3</p>
         </div>
     );
 };
