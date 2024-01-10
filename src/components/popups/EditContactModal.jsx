@@ -5,43 +5,40 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { contactFormSchema } from '@/types';
 import { updateContact } from '@/services/contacts';
-import { addKeysToResponse, setToStorage } from '@/utils/utils';
-
-import usePopupStore from '../../store/popup';
 import useContactsStore from '../../store/contacts';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Select, SelectItem, Input } from "@nextui-org/react";
+import { getFromStorage } from '@/utils/utils';
+
 
 export const EditContactModal = (props) => {
-    const triggerPopup = usePopupStore((state) => state.triggerPopup);
+
     const contactToEdit = useContactsStore((state) => state.contactToEdit);
     const contacts = useContactsStore((state) => state.contacts);
     const setContacts = useContactsStore((state) => state.setContacts);
     const { control, handleSubmit, formState: { errors }, setError } = useForm({ resolver: zodResolver(contactFormSchema) });
     const onClose = props.onClose;
     const setIsEditModal = props.setIsEditModal;
-    
+    const user = getFromStorage("user");
+
     const onSubmit = (data) => {
-        updateContact(contactToEdit._id, data)
-        .then(() => {
-            const newContacts = contacts.map((contact) => {
-                if (contact._id === contactToEdit._id) { return { ...contact, ...data } }
-                return contact;
-            });
-            setContacts(addKeysToResponse(newContacts));
-            setToStorage('contacts', addKeysToResponse(newContacts));
-            
-            triggerPopup(0);
-        })
-        .catch((error) => {
-            setError(error);
-        });
-        setIsEditModal(false);
+        const updatedContact = { ...contactToEdit, ...data };
+        updateContact(updatedContact._id, updatedContact).then((res) => {
+            if (res.status === 200) {
+                const updatedContacts = contacts.map((contact) => {
+                    if (contact._id === contactToEdit._id) {
+                        return updatedContact;
+                    }
+                    return contact;
+                });
+                setContacts(updatedContacts);
+                alert("Contact updated successfully");
+            }
+        }).catch((err) => { alert(err) }
+        );
     }
 
-    const closeModal = () => {
-        onClose();
-        setIsEditModal(false);
-    }
+    const closeModal = () => { onClose(); setIsEditModal(false); }
+
     return (
         <form onSubmit={handleSubmit(onSubmit)} width="100%">
             <ModalHeader className="flex flex-col gap-1">Edit {contactToEdit.name}</ModalHeader>
@@ -87,7 +84,7 @@ export const EditContactModal = (props) => {
                 <Controller
                     name="status" control={control} defaultValue={contactToEdit.status}
                     render={({ field }) => (
-                        <div >
+                        <div>
                             <select id="status" {...field} >
                                 <option value="Active">Active</option>
                                 <option value="Inactive">Inactive</option>

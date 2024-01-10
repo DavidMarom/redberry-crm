@@ -33,11 +33,8 @@ const ContactsPage = () => {
     const addMutation = useMutation((contact: ContactType) => addContact(contact), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const [isEditModal, setIsEditModal] = useState(false);
-    useEffect(() => {
-        if (!isOpen) {
-            setIsEditModal(false);
-        }
-    }, [isOpen]);
+
+    useEffect(() => { if (!isOpen) { setIsEditModal(false) } }, [isOpen]);
 
     const submitHandler = (prevState: any, formData: FormData) => {
         const name = formData.get('name');
@@ -52,6 +49,7 @@ const ContactsPage = () => {
     };
 
     const handleDelete = (id: string) => { deleteMutation.mutate(id); };
+
     const handleCancel = () => { console.log("Action cancelled") };
 
     const columns = [
@@ -152,7 +150,6 @@ const ContactsPage = () => {
 
     const [state, formAction] = useFormState(submitHandler, null);
     const { register } = useForm()
-
 
     return (
         <div className="page-container2">

@@ -10,11 +10,11 @@ export default function Footer() {
             
             <NavContainer>
                 <Link href='/Tos'>
-                    <div className='footer-text'>Terms of Service</div>
+                    <div>Terms of Service</div>
                 </Link>
-                <Link href='/'>
+                {/* <Link href='/'>
                     <div className='footer-text'>About Redberry</div>
-                </Link>
+                </Link> */}
             </NavContainer>
 
             <Link href="https://www.linkedin.com/company/redberry-crm" passHref target='_blank'>
