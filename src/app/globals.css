@@ -96,6 +96,7 @@ h3 {
 }
 
 .page-container {
+  background-color: aqua;
   padding-top: 20px;
   display: flex;
   flex-direction: row;

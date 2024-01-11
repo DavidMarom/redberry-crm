@@ -48,6 +48,51 @@ const AboutPage = () => {
                 </Card01>
             </form>
             <p>v 1.3</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
+            <br/>
+            <p>© 2021</p>
+            <p>fsdfdsd</p>
         </div>
     );
 };
