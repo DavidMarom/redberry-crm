@@ -10,13 +10,12 @@
 ## Tech Stack
 - Next.js
 - Typescript
-- TailwindCSS
-- MongoDB
-- Zod
-- React Hook Form
 - React Query
 - Zustand
+- MongoDB
 - Styled Components
+- TailwindCSS
+- Zod
 
 ## Tools and Workflow
 - **Vercel** for deployment and CI/CD
