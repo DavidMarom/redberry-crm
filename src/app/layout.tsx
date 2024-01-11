@@ -6,7 +6,7 @@ import Image from "next/image";
 import "./globals.css";
 import useUserStore from "@/store/user";
 const inter = Inter({ subsets: ["latin"] });
-import { getFromStorage, setToStorage } from '@/utils/utils';
+import { getFromStorage } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
 import { NextUIProvider } from "@nextui-org/react";
 import { ReactQueryDevtools } from "react-query/devtools";

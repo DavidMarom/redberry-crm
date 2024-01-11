@@ -18,13 +18,6 @@ export function deleteContact(contactId: string) {
         .catch((error) => error);
 }
 
-// TODO: Remove this after QA
-// export function updateContact(contactId: string, contact: object) {
-//     return http.patch(`contacts`, { _id: contactId, ...contact })
-//         .then((res) => res.data)
-//         .catch((error) => error);
-// }
-
 export function updateContact2(contact: any) {
     return http.patch(`contacts`, { ...contact })
         .then((res) => res.data)
