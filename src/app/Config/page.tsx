@@ -47,52 +47,7 @@ const AboutPage = () => {
                     <Button type="submit" color="primary">Save</Button>
                 </Card01>
             </form>
-            <p>v 1.3</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
-            <br/>
-            <p>© 2021</p>
-            <p>fsdfdsd</p>
+            <p>v 1.3.1</p>
         </div>
     );
 };
