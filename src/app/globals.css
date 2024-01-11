@@ -101,6 +101,7 @@ h3 {
   flex-direction: row;
   width: 100%;
   max-height: calc(100vh - 60px);
+  overflow-y: scroll;
 }
 
 @media (max-width: 768px) {
