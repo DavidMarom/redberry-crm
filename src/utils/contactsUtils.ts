@@ -6,7 +6,7 @@ export const countStatus = (contacts: ContactsType) => {
         if (contact.status === 'Blocked') { statusCount[0]++ }
         else if (contact.status === 'Active') { statusCount[1]++ }
         else if (contact.status === 'Inactive') { statusCount[2]++ }
-        else if (contact.status === 'Awaiting call') { statusCount[3]++ }
+        else if (contact.status === 'Awaiting Call') { statusCount[3]++ }
     })
     return statusCount;
 }
