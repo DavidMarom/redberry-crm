@@ -9,7 +9,7 @@ const PieChart = ({countData}) => {
         const ctx = chartRef.current.getContext('2d');
 
         const data = {
-            labels: ['Blocked', 'Active', 'Inactive', 'Awaiting call'],
+            labels: ['Blocked', 'Active', 'Inactive', 'Awaiting Call'],
             datasets: [
                 {
                     label: 'Dataset 1',
