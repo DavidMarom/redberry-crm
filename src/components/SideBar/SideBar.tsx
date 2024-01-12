@@ -52,7 +52,7 @@ function SideBar() {
           </Link>
         </div>
       </div>
-      <div className={styles.container2}>
+      <div className={styles.containermobile}>
         <div>
           <Link href="/">
             <div className={styles.sidebarbtn}>
