@@ -166,7 +166,7 @@ const ContactsPage = () => {
                     showTotal: (total, range) =>
                         `${range[0]}-${range[1]} of ${total} items`,
                     pageSizeOptions: ["5", "10", "20", "50"],
-                    defaultPageSize: 5,
+                    defaultPageSize: 10,
                     defaultCurrent: 1,
                     total: data?.length,
                     position: ["bottomCenter"],
