@@ -100,8 +100,8 @@ const ContactsPage = () => {
                     value: "Blocked",
                 },
                 {
-                    text: "Awaiting call",
-                    value: "Awaiting call",
+                    text: "Awaiting Call",
+                    value: "Awaiting Call",
                 },
             ],
             onFilter: (value: any, record: any) => record.status.indexOf(value) === 0,

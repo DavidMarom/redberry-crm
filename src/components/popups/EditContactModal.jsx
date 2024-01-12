@@ -78,7 +78,7 @@ export const EditContactModal = (props) => {
                                 <option value="Active">Active</option>
                                 <option value="Inactive">Inactive</option>
                                 <option value="Blocked">Blocked</option>
-                                <option value="Awaiting call">Awaiting call</option>
+                                <option value="Awaiting Call">Awaiting Call</option>
                             </select>
                             <span className='error'>{errors.status?.message}</span>
                         </div>
