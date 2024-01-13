@@ -34,7 +34,7 @@ export default function LandingPage({
                     <p>Unlimited time <b>on free plan</b></p>
                 </BulletRow>
             </div>
-            <Image src="icons/Hero.svg" alt="strip01" width={800} height={100} />
+            <Image src="icons/Hero.svg" alt="strip01" width={700} height={100} />
         </Strip01 >
         // </StyleSheetManager>
     )
