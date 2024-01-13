@@ -12,9 +12,6 @@ export default function Footer() {
                 <Link href='/Tos'>
                     <div className='footer-text2'>Terms of Service</div>
                 </Link>
-                {/* <Link href='/'>
-                    <div className='footer-text2'>About Redberry</div>
-                </Link> */}
             </NavContainer><Link href="https://www.linkedin.com/company/redberry-crm" passHref target='_blank'>
 
                 <Image src="icons/linkedin.svg" alt="LinkedIn" width={24} height={24} />
