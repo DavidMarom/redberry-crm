@@ -111,6 +111,7 @@ h3 {
     overflow-y: auto;
   }
 }
+
 .width-100 {
   width: 100%;
   display: flex;
@@ -229,8 +230,6 @@ select {
   border-radius: 2px;
   cursor: pointer;
 }
-
-
 
 .width-90-p {
   width: 90%;

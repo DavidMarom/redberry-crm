@@ -10,15 +10,15 @@ export const Strip01 = styled.div`
   background-color:#F5E3F532;
 
   h1 {
-    font-size: 3rem;
+    font-size: 3.7rem;
     color: #484E4C;
     font-weight: 100
   }
 
   h2 {
-    font-size: 3rem;
+    font-size: 3.7rem;
     color: #484E4C;
-    font-weight: 600;
+    font-weight: 900;
   }
   
   p {
@@ -37,3 +37,24 @@ export const BulletRow = styled.div`
   justify-content: flex-start;
   margin-top: .7rem;
 `;
+
+export const Hero = styled.div`
+
+  padding-top: 2.5rem;
+  position: relative;
+  right: 6rem;
+
+@media (max-width: 960px) {
+  display: none
+}
+`;
+
+export const HeroText = styled.div`
+font-family: 'Inter', sans-serif;
+font-weight: 100;
+font-size: 1rem;
+color: #484E4C;
+margin-top: 1rem;
+max-width: 24rem;
+`;
+

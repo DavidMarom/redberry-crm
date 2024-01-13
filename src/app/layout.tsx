@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { Inter } from "next/font/google";
-import { Sidebar, Btn, Header, Row, Footer } from "@/components";
-import Image from "next/image";
+import { Sidebar, Header, Footer } from "@/components";
 import "./globals.css";
 import useUserStore from "@/store/user";
 const inter = Inter({ subsets: ["latin"] });
@@ -10,9 +9,8 @@ import { getFromStorage } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
 import { NextUIProvider } from "@nextui-org/react";
 import { ReactQueryDevtools } from "react-query/devtools";
-import Script from 'next/script'
+// import Script from 'next/script'
 import { QueryClient, QueryClientProvider } from "react-query";
-import { signupHandler } from "@/utils/userUtils";
 import LandingPage from "@/components/LandingPage/LandingPage";
 
 export const queryClient = new QueryClient();
@@ -68,17 +66,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
             <NextUIProvider>
               <LandingPage />
-              {/* <div className="page-container2">
-                <Row justifycontent="space-around" width="100%" margintop="90px"><h1 className="main-title f-size-3rem">A lightweight CRM for</h1></Row>
-                <Row justifycontent="space-around" width="100%" margintop="0px"><h1 className="main-title f-size-3rem">your business</h1></Row>
-                <Row justifycontent="space-around" width="100%">
-                  <Btn onclick={signupHandler} width="225px" margintop="110px">
-                    <div className="text-color-white f-size-22">Get Started</div>
-                    <Image src="icons/arrow-right.svg" alt="arrow" width={14} height={14} priority />
-                  </Btn>
-                </Row>
-                <Row justifycontent="space-around" width="100%" margintop="0px"><p className="subtitle">🚀 It's free, and always will be!</p></Row>
-              </div> */}
             </NextUIProvider>
             <Footer />
           </body>
