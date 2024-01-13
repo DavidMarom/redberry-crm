@@ -7,6 +7,7 @@ export const Strip01 = styled.div`
   justify-content: center;
   padding-top: 5rem;
   padding-bottom: 12rem;
+  background-color:#F5E3F532;
 
   h1 {
     font-size: 3rem;
