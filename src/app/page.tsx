@@ -10,6 +10,7 @@ import { Ads } from './Ads';
 import { useQuery } from "react-query";
 import { getRecommendation } from '@/services/openai';
 import { Button } from "@nextui-org/react";
+import Link from 'next/link'
 
 
 export default function Home() {
@@ -26,7 +27,13 @@ export default function Home() {
       <div className='row-between align-start'>
         <Card01 paddingright="0px" marginright="20px" width="400px">
           {(data && data.length > 0) && <PieChart countData={countStatus(data)} />}
-          {(!data || data.length === 0) && <div className='row-center'>No contacts yet</div>}
+          {(!data || data.length === 0) &&
+            <div>
+              <div className='row-center'>No contacts yet</div>
+              <div className='row-center link'><Link href='/Contacts'>Add a contact to get started</Link></div>
+            </div>
+          }
+
         </Card01>
 
         <Card01 width='70%'>
