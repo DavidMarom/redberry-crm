@@ -13,6 +13,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import Script from 'next/script'
 import { QueryClient, QueryClientProvider } from "react-query";
 import { signupHandler } from "@/utils/userUtils";
+import LandingPage from "@/components/LandingPage/LandingPage";
 
 export const queryClient = new QueryClient();
 
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     document.title = "Redberry CRM";
-    if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
+    // if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
 
     if (getFromStorage("user")) {
       setStoreUser(getFromStorage("user"));
@@ -53,18 +54,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
       <>
 
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-798887661"></Script>
+        {/* === DO NOT REMOVE === */}
+        {/* <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-798887661"></Script>
         <Script>
           {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments)} gtag('js', new Date()); gtag('config', 'AW-798887661');`}
         </Script>
-        <Script>{`gtag('event', 'conversion', {'send_to': 'AW-798887661/HlrfCP7VlYQZEO2d-PwC'});`}</Script>
+        <Script>{`gtag('event', 'conversion', {'send_to': 'AW-798887661/HlrfCP7VlYQZEO2d-PwC'});`}</Script> */}
+         {/* === DO NOT REMOVE === */}
 
         <html lang="en">
           <body className={inter.className}>
             <Header />
-  
+
             <NextUIProvider>
-              <div className="page-container2">
+              <LandingPage />
+              {/* <div className="page-container2">
                 <Row justifycontent="space-around" width="100%" margintop="90px"><h1 className="main-title f-size-3rem">A lightweight CRM for</h1></Row>
                 <Row justifycontent="space-around" width="100%" margintop="0px"><h1 className="main-title f-size-3rem">your business</h1></Row>
                 <Row justifycontent="space-around" width="100%">
@@ -74,7 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </Btn>
                 </Row>
                 <Row justifycontent="space-around" width="100%" margintop="0px"><p className="subtitle">🚀 It's free, and always will be!</p></Row>
-              </div>
+              </div> */}
             </NextUIProvider>
             <Footer />
           </body>
