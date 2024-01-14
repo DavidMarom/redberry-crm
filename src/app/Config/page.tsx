@@ -47,6 +47,7 @@ const AboutPage = () => {
                     <Button type="submit" color="success" style={{ color: "#ffffff" }}>Save</Button>
                 </Card01>
             </form>
+            <p>v 1.4</p>
         </div>
     );
 };

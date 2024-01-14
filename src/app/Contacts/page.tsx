@@ -2,13 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
-import { Table } from "antd";
+import { Table, Popconfirm } from "antd";
 import { StatusIndicator } from "./StatusIndicator";
-import { Popconfirm } from "antd";
 import { getContactsByOwner, addContact, deleteContact } from "../../services/contacts";
 import { getFromStorage, addKeysToResponse } from '@/utils/utils';
 import { ContactType } from '@/types';
-import usePopupStore from "@/store/popup";
 import useContactsStore from "@/store/contacts";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Select, SelectItem, Input } from "@nextui-org/react";
 import { useFormState, useFormStatus } from "react-dom";
@@ -100,8 +98,8 @@ const ContactsPage = () => {
                     value: "Blocked",
                 },
                 {
-                    text: "Awaiting call",
-                    value: "Awaiting call",
+                    text: "Awaiting Call",
+                    value: "Awaiting Call",
                 },
             ],
             onFilter: (value: any, record: any) => record.status.indexOf(value) === 0,
@@ -166,7 +164,7 @@ const ContactsPage = () => {
                     showTotal: (total, range) =>
                         `${range[0]}-${range[1]} of ${total} items`,
                     pageSizeOptions: ["5", "10", "20", "50"],
-                    defaultPageSize: 5,
+                    defaultPageSize: 10,
                     defaultCurrent: 1,
                     total: data?.length,
                     position: ["bottomCenter"],
@@ -178,13 +176,13 @@ const ContactsPage = () => {
                         <>
                             {isEditModal ? <EditContactModal setIsEditModal={setIsEditModal} onClose={onClose}></EditContactModal> :
                                 <form action={formAction}>
-                                    <ModalHeader className="flex flex-col gap-1">New Contacts</ModalHeader>
+                                    <ModalHeader className="flex flex-col gap-1">New Contact</ModalHeader>
                                     <ModalBody>
 
-                                        <Input isRequired label="Name"  {...register('name')} />
-                                        <Input type="email" label="Email"  {...register('email')} />
-                                        <Input type="phone" label="Phone" {...register('phone')} />
-                                        <Input type="text" label="Notes" {...register('note')} />
+                                        <Input isRequired label="Name" style={{ backgroundColor: "#f3f3f3" }}  {...register('name')} />
+                                        <Input type="email" label="Email" style={{ backgroundColor: "#f3f3f3" }} {...register('email')} />
+                                        <Input type="phone" label="Phone" style={{ backgroundColor: "#f3f3f3" }}{...register('phone')} />
+                                        <Input type="text" label="Notes" style={{ backgroundColor: "#f3f3f3" }}{...register('note')} />
 
                                         <Select items={ContactsStatusType} label="Contact Status" placeholder="Select a status" className="" isRequired {...register('status')}>
                                             {(status) => <SelectItem key={status.id}>{status.name}</SelectItem>}

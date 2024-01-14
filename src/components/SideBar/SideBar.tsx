@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import styles from "./sidebar.module.css";
-import dashboardIcon from '../../app/dashboard-icon.png';
 import Image from 'next/image';
 function SideBar() {
   return (
@@ -11,7 +10,7 @@ function SideBar() {
           <Link href="/">
             <div className={styles.sidebarbtn}>
               <div className={styles.sidebarbtnwrapper}>
-                <Image src={dashboardIcon} alt="dashboard" width={20}></Image>
+                <Image src="icons/dashboard-w.svg" alt="dashboard" width={20} height={20}></Image>
                 <span>Overview</span>
               </div>
             </div>
@@ -52,7 +51,7 @@ function SideBar() {
           </Link>
         </div>
       </div>
-      <div className={styles.container2}>
+      <div className={styles.containermobile}>
         <div>
           <Link href="/">
             <div className={styles.sidebarbtn}>
