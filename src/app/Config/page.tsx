@@ -44,7 +44,7 @@ const AboutPage = () => {
                         <SelectItem value="Italy" key={'Italy'}>Italy</SelectItem>
                         <SelectItem value="Germany" key={'Germany'}>Germany</SelectItem>
                     </Select>
-                    <Button type="submit" color="primary">Save</Button>
+                    <Button type="submit" color="success" style={{ color: "#ffffff" }}>Save</Button>
                 </Card01>
             </form>
         </div>

@@ -20,7 +20,7 @@ import { EditContactModal } from "@/components/popups/EditContactModal";
 
 function SubmitButton() {
     const { pending } = useFormStatus()
-    return <Button color="primary" aria-disabled={pending} type="submit" isLoading={pending}>Add Contact</Button>
+    return <Button color="success" style={{ color: "#ffffff" }} aria-disabled={pending} type="submit" isLoading={pending}>Add Contact</Button>
 }
 
 const ContactsPage = () => {
