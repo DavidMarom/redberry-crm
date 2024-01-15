@@ -59,8 +59,7 @@ const Email = () => {
                         <textarea id="body" name="body" />
 
                         <br />
-                        {!sending && <Button color="primary" type="submit">Send</Button>}
-
+                        {!sending && <Button color="success" style={{ color: "#ffffff" }} type="submit">Send</Button>}
                     </div>
                 </form>
             </Card01>
