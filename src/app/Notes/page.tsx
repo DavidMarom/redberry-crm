@@ -5,6 +5,7 @@ import { getNotesByOwner, addNote, deleteNote } from "../../services/notes";
 import { useQuery, useMutation } from "react-query";
 import { queryClient } from "@/app/layout";
 import Image from "next/image";
+import { LuArrowRight } from "react-icons/lu";
 
 const NotesPage = () => {
 
@@ -27,7 +28,13 @@ const NotesPage = () => {
                     <textarea onChange={handleChange} value={input} />
                     <div className='row-r'>
                         <button onClick={submitHandler}>
-                            <Image src="icons/enter.svg" alt="Enter" width={22} height={22} />
+                            <LuArrowRight style={{color: 'white' ,
+                                backgroundColor: '#6FC21C',
+                                width: '46px' ,
+                                height: '30px',
+                                borderRadius: '5px',
+                                gap: '10px',
+                                padding: '5px'}}/>
                         </button>
                     </div>
                 </div>

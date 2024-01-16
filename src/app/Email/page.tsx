@@ -35,10 +35,11 @@ const Email = () => {
     }
 
     return (
-        <div>
-            <h1>Email your client:</h1>
-            <Card01 width="100%">
-                <form onSubmit={handleSend} >
+        <div className="page-container2">
+            <h1>Email your client:</h1> 
+            <div className='row'>
+            <Card01 width="auto">
+                <form onSubmit={handleSend}>
                     <div className="mail-grid-container">
                         <label htmlFor="mail">Email:</label>
                         <input type="email" id="mail" name="mail" value={mailFields} onChange={(e) => { setMailFields(e.target.value) }} />
@@ -63,7 +64,7 @@ const Email = () => {
                     </div>
                 </form>
             </Card01>
-
+            </div>
         </div >
     );
 };

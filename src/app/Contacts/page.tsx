@@ -15,6 +15,7 @@ import { ContactsStatusType } from "./Constants";
 import { useQuery, useMutation } from "react-query";
 import { queryClient } from "@/app/layout";
 import { EditContactModal } from "@/components/popups/EditContactModal";
+import { FaWhatsapp } from "react-icons/fa";
 
 function SubmitButton() {
     const { pending } = useFormStatus()
@@ -49,6 +50,12 @@ const ContactsPage = () => {
     const handleDelete = (id: string) => { deleteMutation.mutate(id); };
 
     const handleCancel = () => { console.log("Action cancelled") };
+
+    const handleButtonClick = (phone: string) => {
+        const updatedPhone = phone.replace(/^0|[^0-9]/g, '')
+        const whatsappLink = `https://wa.me/${updatedPhone}`;
+        window.location.href = whatsappLink;
+    };
 
     const columns = [
         {
@@ -141,10 +148,15 @@ const ContactsPage = () => {
                         <img src="icons/mail.svg" alt="mail" width={20} />
                     </button>
 
-                </div>
-            ),
-        },
-    ];
+                    <button className="marg-l-20"  onClick={() => handleButtonClick(record.phone)}>
+                        <FaWhatsapp  fontSize={20} />
+                    </button>
+
+</div>
+),
+},
+]
+    ;
 
     const [state, formAction] = useFormState(submitHandler, null);
     const { register } = useForm()
