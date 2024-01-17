@@ -2,13 +2,12 @@
 
 import React, { useState } from 'react';
 import { getNotesByOwner, addNote, deleteNote } from "../../services/notes";
-import { useQuery, useMutation } from "react-query";
-import { queryClient } from "@/app/layout";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import Image from "next/image";
 import { LuArrowRight } from "react-icons/lu";
 
 const NotesPage = () => {
-
+    const queryClient = useQueryClient();
     const user = localStorage.getItem("user");
     const uid = user ? JSON.parse(user).uid : null;
     const { data, isLoading, isFetching, error } = useQuery("notes", () => getNotesByOwner(uid));
@@ -28,13 +27,15 @@ const NotesPage = () => {
                     <textarea onChange={handleChange} value={input} />
                     <div className='row-r'>
                         <button onClick={submitHandler}>
-                            <LuArrowRight style={{color: 'white' ,
+                            <LuArrowRight style={{
+                                color: 'white',
                                 backgroundColor: '#6FC21C',
-                                width: '46px' ,
+                                width: '46px',
                                 height: '30px',
                                 borderRadius: '5px',
                                 gap: '10px',
-                                padding: '5px'}}/>
+                                padding: '5px'
+                            }} />
                         </button>
                     </div>
                 </div>
