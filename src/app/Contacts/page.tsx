@@ -12,8 +12,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDi
 import { useFormState, useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
 import { ContactsStatusType } from "./Constants";
-import { useQuery, useMutation } from "react-query";
-import { queryClient } from "@/app/layout";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { EditContactModal } from "@/components/popups/EditContactModal";
 import { FaWhatsapp } from "react-icons/fa";
 
@@ -23,10 +22,11 @@ function SubmitButton() {
 }
 
 const ContactsPage = () => {
+    const queryClient = useQueryClient();
+    const { data, isLoading, isFetching, error } = useQuery("contacts", () => getContactsByOwner(user.uid));
     const router = useRouter();
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
     const user = getFromStorage("user");
-    const { data, isLoading, isFetching, error } = useQuery("contacts", () => getContactsByOwner(user.uid));
 
     const deleteMutation = useMutation((id: string) => deleteContact(id), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
     const addMutation = useMutation((contact: ContactType) => addContact(contact), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
@@ -148,15 +148,14 @@ const ContactsPage = () => {
                         <img src="icons/mail.svg" alt="mail" width={20} />
                     </button>
 
-                    <button className="marg-l-20"  onClick={() => handleButtonClick(record.phone)}>
-                        <FaWhatsapp  fontSize={20} />
+                    <button className="marg-l-20" onClick={() => handleButtonClick(record.phone)}>
+                        <FaWhatsapp fontSize={20} />
                     </button>
 
-</div>
-),
-},
-]
-    ;
+                </div>
+            ),
+        },
+    ];
 
     const [state, formAction] = useFormState(submitHandler, null);
     const { register } = useForm()
