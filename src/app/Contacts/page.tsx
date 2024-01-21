@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
-import { Table, Popconfirm } from "antd";
+import { Popconfirm } from "antd";
 import { StatusIndicator } from "./StatusIndicator";
 import { getContactsByOwner, addContact, deleteContact } from "../../services/contacts";
 import { getFromStorage, addKeysToResponse } from '@/utils/utils';
@@ -15,6 +15,8 @@ import { ContactsStatusType } from "./Constants";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { EditContactModal } from "@/components/popups/EditContactModal";
 import { FaWhatsapp } from "react-icons/fa";
+import ContactTable from "@/components/ContactsView/ContactTableView";
+import ContactBoard from "@/components/ContactsView/ContactBoardView";
 
 function SubmitButton() {
     const { pending } = useFormStatus()
@@ -33,6 +35,7 @@ const ContactsPage = () => {
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const [isEditModal, setIsEditModal] = useState(false);
 
+    const [contactView, setContactView] = useState("Table")
     useEffect(() => { if (!isOpen) { setIsEditModal(false) } }, [isOpen]);
 
     const submitHandler = (prevState: any, formData: FormData) => {
@@ -162,25 +165,39 @@ const ContactsPage = () => {
 
     return (
         <div className="page-container2">
-            {isLoading ? <h1>Loading...</h1> : <h1 className="flex flex-row justify-between">Contacts
-                <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>New Contact</Button>
-            </h1>}
-            <Table
-                dataSource={addKeysToResponse(data)}
-                columns={columns}
-                size={"small"}
-                loading={isLoading}
-                pagination={{
-                    showSizeChanger: true,
-                    showTotal: (total, range) =>
-                        `${range[0]}-${range[1]} of ${total} items`,
-                    pageSizeOptions: ["5", "10", "20", "50"],
-                    defaultPageSize: 10,
-                    defaultCurrent: 1,
-                    total: data?.length,
-                    position: ["bottomCenter"],
-                }}
-            ></Table>
+            {isLoading ? <h1>Loading...</h1> :
+                <h1 className="flex flex-row justify-between">
+                    <span className="flex flex-row items-center gap-3">
+                        Contacts
+                        <Select
+                            onChange={(e) => setContactView(e.target.value)}
+                            items={[
+                                {
+                                    id: 'Table',
+                                    name: 'Table',
+                                },
+                                {
+                                    id: 'Board',
+                                    name: 'Board',
+                                }
+                            ]} label="View As" className="min-w-[92px]" defaultSelectedKeys={["Table"]}>
+                            {(status) => <SelectItem key={status.id}>{status.name}</SelectItem>}
+                        </Select>
+                    </span>
+
+                    <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>New Contact</Button>
+                </h1>}
+            {contactView == "Board" ?
+                <ContactBoard
+                    data={data} handleButtonClick={handleButtonClick}
+                    handleCancel={handleCancel} handleDelete={handleDelete}
+                    onOpen={onOpen} setIsEditModal={setIsEditModal} />
+                :
+                <ContactTable
+                    data={data} handleButtonClick={handleButtonClick}
+                    handleCancel={handleCancel} handleDelete={handleDelete}
+                    onOpen={onOpen} setIsEditModal={setIsEditModal} />}
+
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (
