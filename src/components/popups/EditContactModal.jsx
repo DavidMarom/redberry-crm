@@ -9,20 +9,12 @@ import useContactsStore from '../../store/contacts';
 import { ModalHeader, ModalBody, ModalFooter, Button, Input } from "@nextui-org/react";
 import { useMutation, useQueryClient } from "react-query";
 
-// TODO: remove this after QA
-// import { getFromStorage } from '@/utils/utils';
-
 export const EditContactModal = (props) => {
     const queryClient = useQueryClient();
     const contactToEdit = useContactsStore((state) => state.contactToEdit);
     const { control, handleSubmit, formState: { errors }, setError } = useForm({ resolver: zodResolver(contactFormSchema) });
     const onClose = props.onClose;
     const setIsEditModal = props.setIsEditModal;
-
-    // TODO: remove this after QA
-    // const user = getFromStorage("user");
-    // const { data, isLoading, isFetching, error } = useQuery("contacts", () => getContactsByOwner(user.uid));
-
     const updateMutation = useMutation((contact) => updateContact2(contact), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
 
     const onSubmit = (data) => {
