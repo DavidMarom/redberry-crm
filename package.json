@@ -16,6 +16,8 @@
     "@mailchimp/mailchimp_transactional": "^1.0.50",
     "@mui/material": "^5.14.18",
     "@nextui-org/react": "^2.2.9",
+    "@nextui-org/select": "^2.1.20",
+    "@nextui-org/use-infinite-scroll": "^2.1.2",
     "antd": "^5.11.3",
     "axios": "^1.6.2",
     "chart.js": "^4.4.1",
