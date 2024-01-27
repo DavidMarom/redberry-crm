@@ -14,7 +14,6 @@ interface ContactTableProps {
     handleCancel: () => void;
     setIsEditModal: (state: boolean) => void;
     onOpen: () => void;
-
 }
 
 const ContactTable =  ({ data

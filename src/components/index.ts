@@ -9,3 +9,5 @@ export { default as Footer } from './Footer/Footer';
 export { default as Popup } from './Popup/Popup';
 export { default as ServiceCard } from './ServiceCard/ServiceCard';
 export { default as LandingPage } from './LandingPage/LandingPage';
+export { default as ContactBoard } from './ContactsView/ContactBoardView';
+export { default as ContactTable } from './ContactsView/ContactTableView';
