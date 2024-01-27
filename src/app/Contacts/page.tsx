@@ -1,22 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from 'next/navigation';
-import { Popconfirm } from "antd";
-import { StatusIndicator } from "./StatusIndicator";
 import { getContactsByOwner, addContact, deleteContact } from "../../services/contacts";
-import { getFromStorage, addKeysToResponse } from '@/utils/utils';
+import { getFromStorage } from '@/utils/utils';
 import { ContactType } from '@/types';
-import useContactsStore from "@/store/contacts";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Select, SelectItem, Input } from "@nextui-org/react";
 import { useFormState, useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
 import { ContactsStatusType } from "./Constants";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { EditContactModal } from "@/components/popups/EditContactModal";
-import { FaWhatsapp } from "react-icons/fa";
-import ContactTable from "@/components/ContactsView/ContactTableView";
-import ContactBoard from "@/components/ContactsView/ContactBoardView";
+import { ContactTable, ContactBoard } from "../../components/index";
 
 function SubmitButton() {
     const { pending } = useFormStatus()
@@ -26,15 +20,11 @@ function SubmitButton() {
 const ContactsPage = () => {
     const queryClient = useQueryClient();
     const { data, isLoading, isFetching, error } = useQuery("contacts", () => getContactsByOwner(user.uid));
-    const router = useRouter();
-    const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
     const user = getFromStorage("user");
-
     const deleteMutation = useMutation((id: string) => deleteContact(id), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
     const addMutation = useMutation((contact: ContactType) => addContact(contact), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const [isEditModal, setIsEditModal] = useState(false);
-
     const [contactView, setContactView] = useState("Table")
     useEffect(() => { if (!isOpen) { setIsEditModal(false) } }, [isOpen]);
 
@@ -60,106 +50,6 @@ const ContactsPage = () => {
         window.location.href = whatsappLink;
     };
 
-    const columns = [
-        {
-            title: "",
-            dataIndex: "_id",
-            key: "_id",
-            width: "0px",
-            render: () => null,
-        },
-        {
-            title: '',
-            dataIndex: 'key',
-            key: 'key',
-            width: "1px",
-            render: () => null,
-        },
-        {
-            title: "Name",
-            dataIndex: "name",
-            key: "name",
-        },
-        {
-            title: "Email",
-            dataIndex: "email",
-            key: "email",
-        },
-        {
-            title: "Phone",
-            dataIndex: "phone",
-            key: "phone",
-        },
-        {
-            title: "Status",
-            dataIndex: "status",
-            key: "status",
-            filters: [
-                {
-                    text: "Active",
-                    value: "Active",
-                },
-                {
-                    text: "Inactive",
-                    value: "Inactive",
-                },
-                {
-                    text: "Blocked",
-                    value: "Blocked",
-                },
-                {
-                    text: "Awaiting Call",
-                    value: "Awaiting Call",
-                },
-            ],
-            onFilter: (value: any, record: any) => record.status.indexOf(value) === 0,
-            render: (val: string) => <StatusIndicator val={val} />
-        },
-        {
-            title: "Note",
-            dataIndex: "note",
-            key: "note",
-        },
-        {
-            title: "",
-            key: "action",
-            width: "150px",
-            render: (text: any, record: any) => (
-                <div className="row">
-                    <Popconfirm
-                        title="Are you sure you want to delete?"
-                        onConfirm={() => { handleDelete(record._id) }}
-                        onCancel={handleCancel}
-                        okText="Yes"
-                        cancelText="No"
-                    >
-                        <button><img src="icons/trash.svg" alt="mail" width={20} /></button>
-                    </Popconfirm>
-
-                    <button className="marg-l-20" onClick={() => {
-                        setContactToEdit(record);
-                        setIsEditModal(true);
-                        onOpen();
-                    }}>
-                        <img src="icons/pencil.svg" alt="mail" width={20} />
-                    </button>
-
-                    <button className="marg-l-20" onClick={() => {
-                        setContactToEdit(record);
-                        router.push('/Email')
-                    }}>
-                        <img src="icons/mail.svg" alt="mail" width={20} />
-                    </button>
-
-                    <button className="marg-l-20" onClick={() => handleButtonClick(record.phone)}>
-                        <FaWhatsapp fontSize={20} />
-                    </button>
-
-                </div>
-            ),
-        },
-    ];
-
     const [state, formAction] = useFormState(submitHandler, null);
     const { register } = useForm()
 
@@ -180,7 +70,7 @@ const ContactsPage = () => {
                                     id: 'Board',
                                     name: 'Board',
                                 }
-                            ]} label="View As" className="min-w-[92px]" defaultSelectedKeys={["Table"]}>
+                            ]} className="min-w-[92px]" defaultSelectedKeys={["Table"]}>
                             {(status) => <SelectItem key={status.id}>{status.name}</SelectItem>}
                         </Select>
                     </span>

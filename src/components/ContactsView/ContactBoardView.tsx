@@ -2,7 +2,6 @@
 import React from "react";
 import { Popconfirm } from "antd";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
-
 import { useRouter } from 'next/navigation';
 import { getFromStorage, addKeysToResponse } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
@@ -19,12 +18,9 @@ interface ContactTableProps {
 
 }
 
-const ContactBoard = ({ data
-    , handleButtonClick, handleDelete, handleCancel, setIsEditModal, onOpen }: ContactTableProps) => {
+const ContactBoard = ({ data, handleButtonClick, handleDelete, handleCancel, setIsEditModal, onOpen }: ContactTableProps) => {
     const router = useRouter();
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
-
-
 
     return (
         <div className="w-full grid sm:grid-cols-1 md:grid-cols-2 gap-2">
