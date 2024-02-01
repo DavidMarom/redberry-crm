@@ -3,6 +3,6 @@ import Home from '../src/app/page';
 
 it('should have text',()=>{
     render(<Home/>)
-    const text = screen.getByText(/Overview/i)
+    const text = screen.getByText(/aaa/i)
     expect(text).toBeInTheDocument()
 })

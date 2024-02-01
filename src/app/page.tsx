@@ -4,9 +4,9 @@ import { Card01 } from '@/components';
 import PieChart from './PieChart';
 import { countStatus } from '@/utils/contactsUtils';
 import { getContactsByOwner } from "../services/contacts";
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { getFromStorage } from '@/utils/utils';
-import { Ads } from './Ads';
+// import { Ads } from './Ads';
 import { useQuery } from "react-query";
 import { getRecommendation } from '@/services/openai';
 import { Button } from "@nextui-org/react";
@@ -15,7 +15,7 @@ import Link from 'next/link'
 
 export default function Home() {
   const user = getFromStorage("user");
-  const router = useRouter();
+  // const router = useRouter();
   const { data, isLoading, isFetching, error } = useQuery("contacts", () => getContactsByOwner(user.uid));
   const notes = data?.map((contact: any) => { if (contact.status === "Awaiting Call") { return contact.name + ' - ' + contact.note } });
   const filteredArray = notes?.filter((element: any) => element !== undefined);
@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <div className="page-container2">
       <h1>Overview</h1>
-
+      <p>aaa</p>
       <div className='row-between align-start'>
         <Card01 paddingright="0px" marginright="20px" width="400px">
           {(data && data.length > 0) && <PieChart countData={countStatus(data)} />}

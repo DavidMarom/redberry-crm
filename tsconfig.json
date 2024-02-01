@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -18,7 +19,8 @@
     "paths": {
       "@/components/*": ["components/*"],
       "@/pages/*": ["pages/*"],
-      "@/styles/*": ["styles/*"]
+      "@/styles/*": ["styles/*"],
+      "@/*": ["./src/*"]
     },
     "plugins": [
       {
@@ -31,7 +33,12 @@
     "**/*.ts",
     "**/*.tsx",
     "types.d.ts",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/app/api/route.ts",
+    "src/services/mongo.ts",
+    "src/app/api/users/route.ts",
+    "src/components/Btn/Btn.jsx",
+    "src/app/PieChart.jsx"
   ],
   "exclude": ["node_modules"]
 }
