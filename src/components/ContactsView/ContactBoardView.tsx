@@ -3,6 +3,7 @@ import React from "react";
 import { Popconfirm } from "antd";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
+import { getFromStorage, addKeysToResponse } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
 import { FaWhatsapp } from "react-icons/fa";
 import { StatusIndicator } from "@/app/Contacts/StatusIndicator";
@@ -74,7 +75,7 @@ const ContactBoard = ({ data, handleButtonClick, handleDelete, handleCancel, set
                             </div>
                         </CardFooter>
                     </Card>
-                );
+                );            
             })}
         </div>
     );
