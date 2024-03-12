@@ -5,7 +5,8 @@ const openai = new OpenAI({ apiKey: process.env.PUBLIC_OPENAI_API_KEY });
 export async function POST(request: Request) {
     const { notesArray } = await request.json();
     console.log(notesArray);
-    const requestToOpenAI = "I own a small business, I have a few tasks, please help me prioritize them: \n" + notesArray.map((note: string) => note + "\n").join("") + "\n";
+    const date = new Date();
+    const requestToOpenAI = "The date today is " + date + ". I own a small business, I have a few tasks, please help me prioritize them, and tell me why you decided like this: \n" + notesArray.map((note: string) => note + "\n").join("") + "\n";
 
     const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
