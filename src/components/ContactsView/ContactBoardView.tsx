@@ -15,7 +15,6 @@ interface ContactTableProps {
     handleCancel: () => void;
     setIsEditModal: (state: boolean) => void;
     onOpen: () => void;
-
 }
 
 const ContactBoard = ({ data, handleButtonClick, handleDelete, handleCancel, setIsEditModal, onOpen }: ContactTableProps) => {
@@ -24,57 +23,59 @@ const ContactBoard = ({ data, handleButtonClick, handleDelete, handleCancel, set
 
     return (
         <div className="w-full grid sm:grid-cols-1 md:grid-cols-2 gap-2">
-            {data.map((contact) => {
-                return <Card>
-                    <CardHeader className="justify-between">
-                        <div className="flex gap-5">
-                            <div className="flex flex-col gap-1 items-start justify-center">
-                                <h4 className="text-small font-semibold leading-none text-default-600">{contact.name}</h4>
-                                <h5 className="text-small tracking-tight text-default-400">{contact.email} | {contact.phone}</h5>
+            {data.map((contact, idx) => {
+                return (
+                    <Card key={idx}>
+                        <CardHeader className="justify-between">
+                            <div className="flex gap-5">
+                                <div className="flex flex-col gap-1 items-start justify-center">
+                                    <h4 className="text-small font-semibold leading-none text-default-600">{contact.name}</h4>
+                                    <h5 className="text-small tracking-tight text-default-400">{contact.email} | {contact.phone}</h5>
+                                </div>
                             </div>
-                        </div>
-                    </CardHeader>
-                    <CardBody>
-                        <p>
-                            <h3>Notes:</h3>
-                            {contact.note}
-                        </p>
-                        <StatusIndicator val={contact.status} />
-                    </CardBody>
-                    <CardFooter>
-                        <div className="row">
-                            <Popconfirm
-                                title="Are you sure you want to delete?"
-                                onConfirm={() => { handleDelete(contact._id) }}
-                                onCancel={handleCancel}
-                                okText="Yes"
-                                cancelText="No"
-                            >
-                                <button><img src="icons/trash.svg" alt="mail" width={20} /></button>
-                            </Popconfirm>
+                        </CardHeader>
+                        <CardBody>
+                            <div>
+                                <h3>Notes:</h3>
+                                {contact.note}
+                            </div>
+                            <StatusIndicator val={contact.status} />
+                        </CardBody>
+                        <CardFooter>
+                            <div className="row">
+                                <Popconfirm
+                                    title="Are you sure you want to delete?"
+                                    onConfirm={() => { handleDelete(contact._id) }}
+                                    onCancel={handleCancel}
+                                    okText="Yes"
+                                    cancelText="No"
+                                >
+                                    <button aria-label="Delete"><img src="icons/trash.svg" alt="mail" width={20} /></button>
+                                </Popconfirm>
 
-                            <button className="marg-l-20" onClick={() => {
-                                setContactToEdit(contact);
-                                setIsEditModal(true);
-                                onOpen();
-                            }}>
-                                <img src="icons/pencil.svg" alt="mail" width={20} />
-                            </button>
+                                <button aria-label="Edit" className="marg-l-20" onClick={() => {
+                                    setContactToEdit(contact);
+                                    setIsEditModal(true);
+                                    onOpen();
+                                }}>
+                                    <img src="icons/pencil.svg" alt="mail" width={20} />
+                                </button>
 
-                            <button className="marg-l-20" onClick={() => {
-                                setContactToEdit(contact);
-                                router.push('/Email')
-                            }}>
-                                <img src="icons/mail.svg" alt="mail" width={20} />
-                            </button>
+                                <button aria-label="Email" className="marg-l-20" onClick={() => {
+                                    setContactToEdit(contact);
+                                    router.push('/Email')
+                                }}>
+                                    <img src="icons/mail.svg" alt="mail" width={20} />
+                                </button>
 
-                            <button className="marg-l-20" onClick={() => handleButtonClick(contact.phone)}>
-                                <FaWhatsapp fontSize={20} />
-                            </button>
+                                <button aria-label="Whatsapp" className="marg-l-20" onClick={() => handleButtonClick(contact.phone)}>
+                                    <FaWhatsapp fontSize={20} />
+                                </button>
 
-                        </div>
-                    </CardFooter>
-                </Card>
+                            </div>
+                        </CardFooter>
+                    </Card>
+                );            
             })}
         </div>
     );

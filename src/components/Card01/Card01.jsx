@@ -11,11 +11,11 @@ export default function Card01({
     margintop = "20px",
     justifycontent,
     children,
-    backgroundColor = "#fff"
+    backgroundcolor = "#fff"
 }) {
 
     return (
-        <StyleSheetManager shouldForwardProp={(prop) => prop !== 'margintop' || prop !== 'marginright' || prop !== 'justifycontent' || prop !== 'backgroundColor' || prop !== 'paddingright'}>
+        <StyleSheetManager shouldForwardProp={(prop) => prop !== 'margintop' || prop !== 'marginright' || prop !== 'justifycontent' || prop !== 'backgroundcolor' || prop !== 'paddingright'}>
             <Container
                 width={width}
                 height={height}
@@ -23,7 +23,7 @@ export default function Card01({
                 marginright={marginright}
                 paddingright={paddingright}
                 justifycontent={justifycontent}
-                backgroundColor={backgroundColor}
+                backgroundcolor={backgroundcolor}
             >
                 {children}
             </Container>
