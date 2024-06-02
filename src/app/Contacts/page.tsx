@@ -56,27 +56,31 @@ const ContactsPage = () => {
     return (
         <div className="page-container2">
             {isLoading ? <h1>Loading...</h1> :
-                <h1 className="flex flex-row justify-between">
-                    <span className="flex flex-row items-center gap-3">
-                        Contacts
-                        <Select
-                            onChange={(e) => setContactView(e.target.value)}
-                            items={[
-                                {
-                                    id: 'Table',
-                                    name: 'Table',
-                                },
-                                {
-                                    id: 'Board',
-                                    name: 'Board',
-                                }
-                            ]} className="min-w-[92px]" defaultSelectedKeys={["Table"]}>
-                            {(status) => <SelectItem key={status.id}>{status.name}</SelectItem>}
-                        </Select>
-                    </span>
+                <div className="rb margin-bottom-20">
+                    <h1 className="flex flex-row justify-between">
+                        <span className="flex flex-row items-center gap-3">
+                            Contacts
+                            <Select
+                                size="sm"
+                                onChange={(e) => setContactView(e.target.value)}
+                                items={[
+                                    {
+                                        id: 'Table',
+                                        name: 'Table',
+                                    },
+                                    {
+                                        id: 'Board',
+                                        name: 'Board',
+                                    }
+                                ]} className="min-w-[92px]" defaultSelectedKeys={["Table"]}>
+                                {(status) => <SelectItem key={status.id}>{status.name}</SelectItem>}
+                            </Select>
+                        </span>
 
+                    </h1>
                     <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>New Contact</Button>
-                </h1>}
+                </div>
+            }
             {contactView == "Board" ?
                 <ContactBoard
                     data={data} handleButtonClick={handleButtonClick}
@@ -87,7 +91,6 @@ const ContactsPage = () => {
                     data={data} handleButtonClick={handleButtonClick}
                     handleCancel={handleCancel} handleDelete={handleDelete}
                     onOpen={onOpen} setIsEditModal={setIsEditModal} />}
-
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (
