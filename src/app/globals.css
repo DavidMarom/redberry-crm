@@ -375,7 +375,18 @@ textarea {
   color: var(--black);
   text-decoration: underline;
 }
+
 .link:hover {
   color: var(--red02);
   text-decoration: underline;
+}
+
+.rb{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.margin-bottom-20 {
+  margin-bottom: 20px;
 }
