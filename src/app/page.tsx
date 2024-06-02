@@ -41,7 +41,10 @@ export default function Home() {
           <p>Get recommendations based on your notes for contacts under "Awaiting Call"</p>
           <br />
           {recommendation === '' ?
-            <Button onClick={() => {
+            <Button
+            color="primary"
+            
+            onClick={() => {
               setRecommendation("Loading...")
               getRecommendation(filteredArray).then((res) => { setRecommendation(res.content.replace(/(?:\r\n|\r|\n)/g, '<br>')) })
 
