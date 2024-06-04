@@ -1,5 +1,5 @@
 # Redberry CRM
-## A lightweight CRM system for small businesses.
+## Lightweight CRM for small businesses.
 
 🚀 No sign up. Just login with your Google account and start working!
 
@@ -18,7 +18,7 @@
 - Zod
 
 ## Tools and Workflow
-- **Vercel** for deployment and CI/CD
+- **Vercel** for CI/CD
 - **Atlassian Jira**
 - **Figma**
 - **Github** for version control, pull requests, and issue tracking
