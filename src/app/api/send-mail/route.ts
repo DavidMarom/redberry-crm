@@ -4,7 +4,7 @@ const apiKey = process.env.PUBLIC_MANDRIL;
 const mailchimpClient = require("@mailchimp/mailchimp_transactional")(apiKey);
 
 export async function POST(request: Request) {
-    const { mail, recName, fromName, subject, bodyTitle, body } = await request.json();
+    const { email, recipientName, fromName, subject, bodyTitle, body } = await request.json();
     const run = async () => {
         const response = await mailchimpClient.messages.send({
             message: {
@@ -26,8 +26,8 @@ export async function POST(request: Request) {
                 `,
                 "to": [
                     {
-                        "email": mail,
-                        "name": recName,
+                        "email": email,
+                        "name": recipientName,
                         "type": "to"
                     }
                 ]
