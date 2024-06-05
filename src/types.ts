@@ -53,3 +53,16 @@ const contactSchema = z.object({
 })
 
 export type ContactType = z.infer<typeof contactSchema>
+
+// Email form
+export const formTypes = z
+    .object({
+        email: z.string().email(),
+        recipientName: z.string(),
+        fromName: z.string(),
+        subject: z.string(),
+        bodyTitle: z.string(),
+        body: z.string(),
+    })
+
+export type formSchema = z.infer<typeof formTypes>;
