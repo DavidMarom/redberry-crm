@@ -9,7 +9,7 @@ export const Container = styled.div`
   border-radius: 20px;
   padding: 20px;
   padding-right: ${({ paddingright }) => paddingright};
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ backgroundcolor }) => backgroundcolor};
 
   display: flex;
   flex-direction: column;
