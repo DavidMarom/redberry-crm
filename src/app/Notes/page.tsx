@@ -11,7 +11,7 @@ const NotesPage = () => {
     const user = localStorage.getItem("user");
     const uid = user ? JSON.parse(user).uid : null;
     const { data, isLoading, isFetching, error } = useQuery("notes", () => getNotesByOwner(uid));
-    const [dataState, setDataState] = useState(data);
+    // const [dataState, setDataState] = useState(data);
 
     const [input, setInput] = useState("");
     const [disabled, setDisabled] = useState(false);
@@ -22,13 +22,13 @@ const NotesPage = () => {
 
     const submitHandler = () => {
         setDisabled(true);
-        dataState && setDataState([...dataState, { text: input, owner: uid }]);
+        // dataState && setDataState([...dataState, { text: input, owner: uid }]);
         addMutation.mutate({ text: input, owner: uid })
     }
 
     const deleteHandler = (id: string) => {
         setDisabled(true);
-        dataState && setDataState(dataState.filter((item: any) => item._id != id));
+        // dataState && setDataState(dataState.filter((item: any) => item._id != id));
         deleteMutation.mutate(id)
     }
 
@@ -46,7 +46,7 @@ const NotesPage = () => {
                     </div>
                 </div>
                 {
-                    dataState && dataState.map((note: any) => (
+                    data && data.map((note: any) => (
                         <div className='grid-item' key={note._id}>
 
                             <button className="row-r" onClick={() => deleteHandler(note._id)}><Image src="icons/trash.svg" alt="Delete" width={18} height={18} /></button>
