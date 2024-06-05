@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { formSchema, formTypes } from '@/types';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,13 @@ import useContactsStore from "@/store/contacts";
 export const Form = () => {
     const contactToEdit = useContactsStore((state) => state.contactToEdit);
 
-    const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<formSchema>({ resolver: zodResolver(formTypes) });
+    const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<formSchema>({
+        resolver: zodResolver(formTypes),
+        defaultValues: {
+            email: contactToEdit?.email,
+            recipientName: contactToEdit?.name
+        },
+    });
 
     const onSubmit = async (data: formSchema) => {
         fetch("/api/send-mail", {
@@ -22,7 +28,8 @@ export const Form = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-2 w-96">
-            <p>{contactToEdit}</p>
+            <p>{contactToEdit.mailFields}</p>
+            <p>{contactToEdit.nameFields}</p>
             <input type="email" id="email" placeholder="email" {...register("email")} />
             {errors.email && (<p className="text-red-500 text-xs">{errors.email.message}</p>)}
 
