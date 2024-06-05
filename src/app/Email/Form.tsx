@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { formSchema, formTypes } from '@/types';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -51,8 +51,6 @@ export const Form = () => {
 
             <br />
             <Button type="submit" color="primary" disabled={isSubmitting}>Send</Button>
-
-
         </form>
     );
 }
