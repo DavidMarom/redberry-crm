@@ -8,6 +8,7 @@ import useContactsStore from "@/store/contacts";
 import { FaWhatsapp, FaSms } from "react-icons/fa";
 import { StatusIndicator } from "@/app/Contacts/StatusIndicator";
 import SmsModalComp from "@/components/ContactsView/SmsModalComp";
+import { convertPhoneToGlobal } from '@/utils/contactsUtils';
 
 interface ContactTableProps {
     data: any[];
@@ -18,22 +19,15 @@ interface ContactTableProps {
     onOpen: () => void;
 }
 
-
 const ContactTable = ({ data, handleButtonClick, handleDelete, handleCancel, setIsEditModal, onOpen }: ContactTableProps) => {
     const router = useRouter();
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
     const [showSmsModal, setShowSmsModal] = React.useState(false);
     const [selectedSMS, setSelectedSMS] = React.useState('' as string);
 
-    const convertPhoneToWhatsapp = (phone: any) => {
-        if (phone.charAt(0) === '+') return phone;
-        const updatedPhone = phone.replace(/^0|[^0-9]/g, '')
-        return `+972${updatedPhone}`;
-    }
-
     const openSmsModal = (phone: string) => {
         setShowSmsModal(true);
-        setSelectedSMS(convertPhoneToWhatsapp(phone));
+        setSelectedSMS(convertPhoneToGlobal(phone));
     }
 
     const columns = [

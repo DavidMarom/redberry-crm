@@ -3,12 +3,12 @@ import React from "react";
 import { Popconfirm } from "antd";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
-import { getFromStorage, addKeysToResponse } from '@/utils/utils';
+import { addKeysToResponse } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
 import { FaWhatsapp, FaSms } from "react-icons/fa";
 import { StatusIndicator } from "@/app/Contacts/StatusIndicator";
 import SmsModalComp from "@/components/ContactsView/SmsModalComp";
-
+import { convertPhoneToGlobal } from '@/utils/contactsUtils';
 
 interface ContactTableProps {
     data: any[];
@@ -25,16 +25,7 @@ const ContactBoard = ({ data, handleButtonClick, handleDelete, handleCancel, set
     const [showSmsModal, setShowSmsModal] = React.useState(false);
     const [selectedSMS, setSelectedSMS] = React.useState('' as string);
 
-    const convertPhoneToWhatsapp = (phone: any) => {
-        if (phone.charAt(0) === '+') return phone;
-        const updatedPhone = phone.replace(/^0|[^0-9]/g, '')
-        return `+972${updatedPhone}`;
-    }
-
-    const openSmsModal = (phone: string) => {
-        setShowSmsModal(true);
-        setSelectedSMS(convertPhoneToWhatsapp(phone));
-    }
+    const openSmsModal = (phone: string) => { setShowSmsModal(true); setSelectedSMS(convertPhoneToGlobal(phone)) }
 
     return (<>
         {showSmsModal && <SmsModalComp setShowSmsModal={setShowSmsModal} selectedSMS={selectedSMS} />}
@@ -67,7 +58,7 @@ const ContactBoard = ({ data, handleButtonClick, handleDelete, handleCancel, set
                                     okText="Yes"
                                     cancelText="No"
                                 >
-                                    <button aria-label="Delete"><img src="icons/trash.svg" alt="mail" width={20} /></button>
+                                    <button aria-label="Delete"><img src="icons/trash.svg" alt="mail" width={18} /></button>
                                 </Popconfirm>
 
                                 <button aria-label="Edit" className="marg-l-20" onClick={() => {
@@ -75,14 +66,14 @@ const ContactBoard = ({ data, handleButtonClick, handleDelete, handleCancel, set
                                     setIsEditModal(true);
                                     onOpen();
                                 }}>
-                                    <img src="icons/pencil.svg" alt="mail" width={20} />
+                                    <img src="icons/pencil.svg" alt="mail" width={18} />
                                 </button>
 
                                 <button aria-label="Email" className="marg-l-20" onClick={() => {
                                     setContactToEdit(contact);
                                     router.push('/Email')
                                 }}>
-                                    <img src="icons/mail.svg" alt="mail" width={20} />
+                                    <img src="icons/mail.svg" alt="mail" width={18} />
                                 </button>
 
                                 <button aria-label="Whatsapp" className="marg-l-20" onClick={() => handleButtonClick(contact.phone)}>
