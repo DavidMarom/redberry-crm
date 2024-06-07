@@ -28,6 +28,7 @@ const SmsModalComp = (props: any) => {
                         toPhone: convertPhoneToWhatsapp(props.selectedSMS)
                     })
                 })
+                alert('SMS sent');
                 setSmsText('');
                 props.setShowSmsModal(false);
             }}>
