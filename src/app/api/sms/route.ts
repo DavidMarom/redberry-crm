@@ -13,7 +13,8 @@ export async function POST(request: Request) {
             from: '+12183878520',
             to: toPhone
         })
-
+        .then((message: { sid: any; }) => console.log('Message sent:', message.sid))
+        .catch((error: any) => console.error(error));
 
     return new Response('SMS sent', { headers: { 'Content-Type': 'application/json' }, status: 200 });
 }
