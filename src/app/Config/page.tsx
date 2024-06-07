@@ -51,6 +51,7 @@ const AboutPage = () => {
             <br />
 
             <p>v 1.5</p>
+
         </div >
     );
 };
