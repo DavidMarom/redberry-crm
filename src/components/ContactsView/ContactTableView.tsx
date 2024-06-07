@@ -1,4 +1,5 @@
-// ContactTable.tsx
+'use client';
+
 import React from "react";
 import { Table, Popconfirm } from "antd";
 import { useRouter } from 'next/navigation';
