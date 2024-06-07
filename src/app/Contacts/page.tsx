@@ -69,7 +69,7 @@ const ContactsPage = () => {
                             </button>}
                     </div>
 
-                    <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>New Contact</Button>
+                    <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>Add</Button>
                 </div>
             }
             {contactView == "Board" || screenSize < 1024 ?

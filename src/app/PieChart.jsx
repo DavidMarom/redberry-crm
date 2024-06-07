@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
-const PieChart = ({countData}) => {
+const PieChart = ({ countData }) => {
     const chartRef = useRef(null);
 
     useEffect(() => {
-        // Get the context of the canvas element
         const ctx = chartRef.current.getContext('2d');
 
         const data = {
@@ -52,7 +51,7 @@ const PieChart = ({countData}) => {
 
     return (
         <div>
-            <canvas ref={chartRef} width="400" height="400"></canvas>
+            <canvas ref={chartRef} width="300" height="400"></canvas>
         </div>
     );
 };
