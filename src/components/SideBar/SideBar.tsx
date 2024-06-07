@@ -45,7 +45,7 @@ function SideBar() {
             <div className={styles.sidebarbtn}>
               <div className={styles.sidebarbtnwrapper}>
                 <img src="icons/cog-w.svg" alt="mail" width={20} />
-                <span className={styles.sidebartxt}>Config</span>
+                <span className={styles.sidebartxt}>Settings</span>
               </div>
             </div>
           </Link>
