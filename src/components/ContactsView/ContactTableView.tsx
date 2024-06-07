@@ -132,20 +132,23 @@ const ContactTable = ({ data, handleButtonClick, handleDelete, handleCancel, set
     return (
         <>
             {showSmsModal && <SmsModalComp setShowSmsModal={setShowSmsModal} selectedSMS={selectedSMS} />}
-            <Table
-                dataSource={addKeysToResponse(data)}
-                columns={columns}
-                size={"small"}
-                pagination={{
-                    showSizeChanger: true,
-                    showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
-                    pageSizeOptions: ["5", "10", "20", "50"],
-                    defaultPageSize: 20,
-                    defaultCurrent: 1,
-                    total: data?.length,
-                    position: ["bottomCenter"],
-                }}
-            ></Table>
+            <div className="font-arial">
+                <Table
+                    className="font-arial"
+                    dataSource={addKeysToResponse(data)}
+                    columns={columns}
+                    size={"small"}
+                    pagination={{
+                        showSizeChanger: true,
+                        showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+                        pageSizeOptions: ["5", "10", "20", "50"],
+                        defaultPageSize: 20,
+                        defaultCurrent: 1,
+                        total: data?.length,
+                        position: ["bottomCenter"],
+                    }}
+                ></Table>
+            </div>
 
         </>
     );

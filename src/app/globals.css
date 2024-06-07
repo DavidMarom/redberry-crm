@@ -97,7 +97,7 @@ h3 {
 
 @media (max-width: 768px) {
   .page-container {
-    flex-direction: column; 
+    flex-direction: column;
     max-height: none;
     overflow-y: auto;
   }
@@ -314,4 +314,8 @@ textarea {
 
 .margin-bottom-20 {
   margin-bottom: 20px;
+}
+
+.font-arial * {
+  font-family: Arial, Helvetica, sans-serif;
 }
