@@ -31,7 +31,7 @@ const ContactBoard = ({ data, handleButtonClick, handleDelete, handleCancel, set
         {showSmsModal && <SmsModalComp setShowSmsModal={setShowSmsModal} selectedSMS={selectedSMS} />}
 
         <div className="w-full grid sm:grid-cols-1 md:grid-cols-2 gap-2">
-            {data.map((contact, idx) => {
+            {data && data.map((contact, idx) => {
                 return (
                     <Card key={idx}>
                         <CardHeader className="justify-between">
