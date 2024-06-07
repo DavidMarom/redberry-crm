@@ -6,7 +6,6 @@ import "./globals.css";
 import useUserStore from "@/store/user";
 const inter = Inter({ subsets: ["latin"] });
 import { getFromStorage } from '@/utils/utils';
-// import useContactsStore from "@/store/contacts";
 import { NextUIProvider } from "@nextui-org/react";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -19,11 +18,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const setStoreUser = useUserStore((state) => state.setStoreUser);
   const isLogged = useUserStore((state) => state.isLogged);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
-  // const setContacts = useContactsStore((state) => state.setContacts);
 
   useEffect(() => {
     document.title = "Redberry CRM";
-    // if (getFromStorage("contacts")) { setContacts(getFromStorage("contacts") ?? "") }
 
     if (getFromStorage("user")) {
       setStoreUser(getFromStorage("user"));
@@ -51,14 +48,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   } else {
     return (
       <>
-
-        {/* === DO NOT REMOVE === */}
-        {/* <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-798887661"></Script>
-        <Script>
-          {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments)} gtag('js', new Date()); gtag('config', 'AW-798887661');`}
-        </Script>
-        <Script>{`gtag('event', 'conversion', {'send_to': 'AW-798887661/HlrfCP7VlYQZEO2d-PwC'});`}</Script> */}
-        {/* === DO NOT REMOVE === */}
 
         <html lang="en">
           <body className={inter.className}>

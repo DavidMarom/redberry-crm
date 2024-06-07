@@ -50,22 +50,8 @@ const AboutPage = () => {
 
             <br />
 
-            <button onClick={() => {
-                fetch('/api/sms', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: 'test sms',
-                        toPhone: '+972548762043'
-                    })
-                })
+            <p>v 1.5</p>
 
-            }
-            }>
-                send test sms
-            </button>
-            <br /><br />
-            <p>v 1.4</p>
         </div >
     );
 };

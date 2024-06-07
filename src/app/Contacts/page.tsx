@@ -41,9 +41,7 @@ const ContactsPage = () => {
     };
 
     const handleDelete = (id: string) => { deleteMutation.mutate(id); };
-
     const handleCancel = () => { console.log("Action cancelled") };
-
     const handleButtonClick = (phone: string) => {
         const updatedPhone = phone.replace(/^0|[^0-9]/g, '')
         const whatsappLink = `https://wa.me/${updatedPhone}`;
