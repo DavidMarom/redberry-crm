@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
-const PieChart = ({countData}) => {
+const PieChart = ({ countData }) => {
     const chartRef = useRef(null);
 
     useEffect(() => {

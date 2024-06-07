@@ -9,6 +9,7 @@ export const Container = styled.div`
   border-radius: 20px;
   padding: 20px;
   padding-right: ${({ paddingright }) => paddingright};
+  padding-left: ${({ paddingleft }) => paddingleft};
   background-color: ${({ backgroundcolor }) => backgroundcolor};
 
   display: flex;

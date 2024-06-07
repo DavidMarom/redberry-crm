@@ -7,6 +7,7 @@ export default function Card01({
     width,
     marginright = "20px",
     paddingright = "40px",
+    paddingleft = "20px",
     height = "140px",
     margintop = "20px",
     justifycontent,
@@ -21,6 +22,7 @@ export default function Card01({
                 height={height}
                 margintop={margintop}
                 marginright={marginright}
+                paddingleft={paddingleft}
                 paddingright={paddingright}
                 justifycontent={justifycontent}
                 backgroundcolor={backgroundcolor}
@@ -39,5 +41,6 @@ Card01.propTypes = {
     marginright: PropTypes.string,
     justifycontent: PropTypes.string,
     backgroundColor: PropTypes.string,
-    paddingright: PropTypes.string
+    paddingright: PropTypes.string,
+    paddingleft: PropTypes.string
 }
