@@ -391,6 +391,14 @@ textarea {
   justify-content: space-between;
 }
 
+.rbb{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+
 .margin-bottom-20 {
   margin-bottom: 20px;
 }
