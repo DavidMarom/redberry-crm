@@ -65,7 +65,7 @@ const AboutPage = () => {
                 send test sms
             </button>
             <br /><br />
-            <p>v 1.4</p>
+            <p>v 1.5</p>
         </div >
     );
 };
