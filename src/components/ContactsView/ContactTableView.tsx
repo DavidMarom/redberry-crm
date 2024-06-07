@@ -7,6 +7,8 @@ import useContactsStore from "@/store/contacts";
 import { FaWhatsapp, FaSms } from "react-icons/fa";
 import { StatusIndicator } from "@/app/Contacts/StatusIndicator";
 import { Card01, Popup } from "@/components/";
+import { Button } from "@nextui-org/react";
+
 interface ContactTableProps {
     data: any[];
     handleButtonClick: (phone: string) => void;
@@ -16,14 +18,27 @@ interface ContactTableProps {
     onOpen: () => void;
 }
 
-const openSmsModal = (phone: string) => {
-    alert(`SMS to ${phone}`);
-}
 
 const ContactTable = ({ data, handleButtonClick, handleDelete, handleCancel, setIsEditModal, onOpen }: ContactTableProps) => {
     const router = useRouter();
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
     const [smsModal, setSmsModal] = React.useState(false);
+    const [selectedSMS, setSelectedSMS] = React.useState('' as string);
+    const [smsText, setSmsText] = React.useState('' as string);
+
+    const convertPhoneToWhatsapp = (phone: any) => {
+        if (phone.charAt(0) === '+') return phone;
+        const updatedPhone = phone.replace(/^0|[^0-9]/g, '')
+        return `+972${updatedPhone}`;
+    }
+
+    const openSmsModal = (phone: string) => {
+        setSmsModal(true);
+        setSelectedSMS(convertPhoneToWhatsapp(phone));
+    }
+
+
+
     const columns = [
         {
             title: "",
@@ -125,12 +140,33 @@ const ContactTable = ({ data, handleButtonClick, handleDelete, handleCancel, set
 
     return (
         <>
-            <Popup>
-                <Card01 width={"450px"} height="300px" justifycontent="space-between">
+            {smsModal && <Popup>
+                <Card01 width={"450px"} height="400px" justifycontent="space-between">
 
-                    <p>sdadsas</p>
+                    <h2>Send SMS to {convertPhoneToWhatsapp(selectedSMS)}</h2>
+
+                    <textarea
+                        onChange={(e) => setSmsText(e.target.value)}
+                        name="message" id="message" placeholder='Your message' style={{ width: "100%", height: "200px" }}></textarea>
+                    <Button color="primary" onClick={() => {
+                        fetch('/api/sms', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                message: smsText,
+                                toPhone: selectedSMS
+                            })
+                        })
+                        setSmsText('');
+                        setSmsModal(false);
+                    }}>
+                        Send
+                    </Button>
+                    <Button onClick={() => setSmsModal(false)}>Close</Button>
+
                 </Card01>
             </Popup>
+            }
             <Table
                 dataSource={addKeysToResponse(data)}
                 columns={columns}
