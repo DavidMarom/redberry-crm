@@ -11,6 +11,7 @@ import { ContactsStatusType } from "./Constants";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { EditContactModal } from "@/components/popups/EditContactModal";
 import { ContactTable, ContactBoard } from "../../components/index";
+import { TbSwitchHorizontal } from "react-icons/tb";
 
 function SubmitButton() {
     const { pending } = useFormStatus()
@@ -25,7 +26,7 @@ const ContactsPage = () => {
     const addMutation = useMutation((contact: ContactType) => addContact(contact), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const [isEditModal, setIsEditModal] = useState(false);
-    const [contactView, setContactView] = useState("Table")
+    const [contactView, setContactView] = useState(window.innerWidth > 1024 ? "Table" : "Board")
     useEffect(() => { if (!isOpen) { setIsEditModal(false) } }, [isOpen]);
 
     const submitHandler = (prevState: any, formData: FormData) => {
@@ -50,6 +51,7 @@ const ContactsPage = () => {
 
     const [state, formAction] = useFormState(submitHandler, null);
     const { register } = useForm()
+    const screenSize = window.innerWidth;
 
     return (
         <div className="page-container2">
@@ -58,13 +60,19 @@ const ContactsPage = () => {
                     <div className="rbb">
                         <h1>Contacts</h1>
                         <div className="marg-l-20" />
-                        {contactView === "Table" ? <button onClick={() => setContactView("Board")}>( ↔ Board )</button> : <button onClick={() => setContactView("Table")}>( ↔ Table )</button>}
+                        {contactView === "Table" ?
+                            <button onClick={() => setContactView("Board")}>
+                                <TbSwitchHorizontal />
+                            </button> :
+                            <button onClick={() => setContactView("Table")}>
+                                <TbSwitchHorizontal />
+                            </button>}
                     </div>
 
                     <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>New Contact</Button>
                 </div>
             }
-            {contactView == "Board" ?
+            {contactView == "Board" || screenSize < 1024 ?
                 <ContactBoard
                     data={data} handleButtonClick={handleButtonClick}
                     handleCancel={handleCancel} handleDelete={handleDelete}
