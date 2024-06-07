@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "layout.css";
 
 @font-face {
   font-family: "inika";
@@ -83,21 +84,7 @@ h3 {
   color: var(--grey_800);
 } */
 
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-}
 
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  background-color: #555;
-}
 
 .page-container {
   padding-top: 20px;
@@ -144,55 +131,13 @@ h3 {
   filter: drop-shadow(0 0 0.75rem #00000010);
 } */
 
-.row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-}
 
-.row-r {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.row-between {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-
-}
 
 @media (max-width: 768px) {
   .row-between {
     flex-direction: column;
   }
 }
-
-/* .pad-top-20 {
-  padding-top: 20px;
-} */
-
-/* .inline {
-  display: inline;
-} */
-
-/* .v-spacer {
-  height: 20px;
-}
-
-.v-spacer2 {
-  height: 200px;
-} */
-
-/* .pad-r {
-  padding-left: 20px;
-} */
 
 .font-s {
   font-size: 0.8rem;
@@ -235,10 +180,6 @@ select {
   cursor: pointer;
 }
 
-/* .width-90-p {
-  width: 90%;
-} */
-
 .width-50-p {
   width: 50%;
 }
@@ -254,16 +195,6 @@ select {
 .f-size-22 {
   font-size: 22px;
 }
-
-/* .f-size-3rem {
-  font-size: 3rem;
-} */
-
-/* .subtitle {
-  font-size: .9rem;
-  color: #7d7d7d;
-  margin-top: 20px;
-} */
 
 .margin-right-20 {
   margin-right: 20px;
@@ -330,10 +261,6 @@ textarea {
   font-size: 0.7rem;
 }
 
-.marg-l-20 {
-  margin-left: 10px;
-}
-
 .bg {
   background-color: #a74848;
 }
@@ -384,20 +311,6 @@ textarea {
   color: var(--red02);
   text-decoration: underline;
 }
-
-.rb{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.rbb{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
 
 .margin-bottom-20 {
   margin-bottom: 20px;

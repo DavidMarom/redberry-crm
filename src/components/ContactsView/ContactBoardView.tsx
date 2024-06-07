@@ -5,8 +5,10 @@ import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
 import { getFromStorage, addKeysToResponse } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaSms } from "react-icons/fa";
 import { StatusIndicator } from "@/app/Contacts/StatusIndicator";
+import SmsModalComp from "@/components/ContactsView/SmsModalComp";
+
 
 interface ContactTableProps {
     data: any[];
@@ -20,8 +22,23 @@ interface ContactTableProps {
 const ContactBoard = ({ data, handleButtonClick, handleDelete, handleCancel, setIsEditModal, onOpen }: ContactTableProps) => {
     const router = useRouter();
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
+    const [showSmsModal, setShowSmsModal] = React.useState(false);
+    const [selectedSMS, setSelectedSMS] = React.useState('' as string);
 
-    return (
+    const convertPhoneToWhatsapp = (phone: any) => {
+        if (phone.charAt(0) === '+') return phone;
+        const updatedPhone = phone.replace(/^0|[^0-9]/g, '')
+        return `+972${updatedPhone}`;
+    }
+
+    const openSmsModal = (phone: string) => {
+        setShowSmsModal(true);
+        setSelectedSMS(convertPhoneToWhatsapp(phone));
+    }
+
+    return (<>
+        {showSmsModal && <SmsModalComp setShowSmsModal={setShowSmsModal} selectedSMS={selectedSMS} />}
+
         <div className="w-full grid sm:grid-cols-1 md:grid-cols-2 gap-2">
             {data.map((contact, idx) => {
                 return (
@@ -69,15 +86,20 @@ const ContactBoard = ({ data, handleButtonClick, handleDelete, handleCancel, set
                                 </button>
 
                                 <button aria-label="Whatsapp" className="marg-l-20" onClick={() => handleButtonClick(contact.phone)}>
-                                    <FaWhatsapp fontSize={20} />
+                                    <FaWhatsapp fontSize={18} />
+                                </button>
+
+                                <button className="marg-l-20" onClick={() => openSmsModal(contact.phone)}>
+                                    <FaSms fontSize={18} />
                                 </button>
 
                             </div>
                         </CardFooter>
                     </Card>
-                );            
+                );
             })}
         </div>
+    </>
     );
 };
 
