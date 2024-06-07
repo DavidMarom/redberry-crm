@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from "@nextui-org/react";
 import { Card01, Popup } from "@/components";
+import { sendSMS } from "@/services/sms";
 
 const SmsModalComp = (props: any) => {
     const [smsText, setSmsText] = React.useState('' as string);
@@ -20,14 +21,7 @@ const SmsModalComp = (props: any) => {
                 onChange={(e) => setSmsText(e.target.value)}
                 name="message" id="message" placeholder='Your message' style={{ width: "100%", height: "200px" }}></textarea>
             <Button color="primary" onClick={() => {
-                fetch('/api/sms', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: smsText,
-                        toPhone: convertPhoneToWhatsapp(props.selectedSMS)
-                    })
-                })
+                sendSMS(convertPhoneToWhatsapp(props.selectedSMS), smsText);
                 alert('SMS sent');
                 setSmsText('');
                 props.setShowSmsModal(false);

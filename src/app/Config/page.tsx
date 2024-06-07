@@ -50,7 +50,7 @@ const AboutPage = () => {
 
             <br />
 
-            <p>v 1.5</p>
+            <p>v 1.7</p>
 
         </div >
     );
