@@ -28,13 +28,13 @@ const AboutPage = () => {
     return (
         <div>
             <h1>Config</h1>
-            
+
             <form onSubmit={sendHandler}>
                 <Card01 width={"450px"} height="300px" justifycontent="space-between">
                     <h2>Update</h2>
                     <p className="input-label">Business Name:</p>
-                    <Input 
-                    type="text" name="bizName" id="bizName" placeholder='Your business name' value={bizName} onChange={(e) => { setBizName(e.target.value) }} />
+                    <Input
+                        type="text" name="bizName" id="bizName" placeholder='Your business name' value={bizName} onChange={(e) => { setBizName(e.target.value) }} />
                     <Select label="Country" id="country" name="country" value={country} selectedKeys={[country]} onChange={(e) => { setCountry(e.target.value) }}>
                         <SelectItem value="Israel" key={'Israel'}>Israel</SelectItem>
                         <SelectItem value="USA" key={'USA'}>USA</SelectItem>
@@ -47,8 +47,12 @@ const AboutPage = () => {
                     <Button type="submit" color="success" style={{ color: "#ffffff" }}>Save</Button>
                 </Card01>
             </form>
-            <p>v 1.4</p>
-        </div>
+
+            <br />
+
+            <p>v 1.5</p>
+
+        </div >
     );
 };
 

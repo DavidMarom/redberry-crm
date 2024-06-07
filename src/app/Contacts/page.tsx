@@ -41,9 +41,7 @@ const ContactsPage = () => {
     };
 
     const handleDelete = (id: string) => { deleteMutation.mutate(id); };
-
     const handleCancel = () => { console.log("Action cancelled") };
-
     const handleButtonClick = (phone: string) => {
         const updatedPhone = phone.replace(/^0|[^0-9]/g, '')
         const whatsappLink = `https://wa.me/${updatedPhone}`;
@@ -57,27 +55,12 @@ const ContactsPage = () => {
         <div className="page-container2">
             {isLoading ? <h1>Loading...</h1> :
                 <div className="rb margin-bottom-20">
-                    <h1 className="flex flex-row justify-between">
-                        <span className="flex flex-row items-center gap-3">
-                            Contacts
-                            <Select
-                                size="sm"
-                                onChange={(e) => setContactView(e.target.value)}
-                                items={[
-                                    {
-                                        id: 'Table',
-                                        name: 'Table',
-                                    },
-                                    {
-                                        id: 'Board',
-                                        name: 'Board',
-                                    }
-                                ]} className="min-w-[92px]" defaultSelectedKeys={["Table"]}>
-                                {(status) => <SelectItem key={status.id}>{status.name}</SelectItem>}
-                            </Select>
-                        </span>
+                    <div className="rbb">
+                        <h1>Contacts</h1>
+                        <div className="marg-l-20" />
+                        {contactView === "Table" ? <button onClick={() => setContactView("Board")}>( ↔ Board )</button> : <button onClick={() => setContactView("Table")}>( ↔ Table )</button>}
+                    </div>
 
-                    </h1>
                     <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>New Contact</Button>
                 </div>
             }
