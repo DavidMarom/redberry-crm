@@ -3,12 +3,10 @@
 import React from "react";
 import { Table, Popconfirm } from "antd";
 import { useRouter } from 'next/navigation';
-import { getFromStorage, addKeysToResponse } from '@/utils/utils';
+import { addKeysToResponse } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
 import { FaWhatsapp, FaSms } from "react-icons/fa";
 import { StatusIndicator } from "@/app/Contacts/StatusIndicator";
-import { Card01, Popup } from "@/components/";
-import { Button } from "@nextui-org/react";
 import SmsModalComp from "@/components/ContactsView/SmsModalComp";
 
 interface ContactTableProps {
@@ -37,8 +35,6 @@ const ContactTable = ({ data, handleButtonClick, handleDelete, handleCancel, set
         setShowSmsModal(true);
         setSelectedSMS(convertPhoneToWhatsapp(phone));
     }
-
-
 
     const columns = [
         {
@@ -141,11 +137,7 @@ const ContactTable = ({ data, handleButtonClick, handleDelete, handleCancel, set
 
     return (
         <>
-            {showSmsModal && <SmsModalComp
-                setShowSmsModal={setShowSmsModal}
-                selectedSMS={selectedSMS}
-            />
-            }
+            {showSmsModal && <SmsModalComp setShowSmsModal={setShowSmsModal} selectedSMS={selectedSMS} />}
             <Table
                 dataSource={addKeysToResponse(data)}
                 columns={columns}

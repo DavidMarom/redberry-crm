@@ -2,8 +2,11 @@ import React from 'react';
 import { Button } from "@nextui-org/react";
 import { Card01, Popup } from "@/components";
 import { sendSMS } from "@/services/sms";
+import { useRouter } from 'next/navigation';
+
 
 const SmsModalComp = (props: any) => {
+    const router = useRouter();
     const [smsText, setSmsText] = React.useState('' as string);
 
     const convertPhoneToWhatsapp = (phone: any) => {
@@ -25,6 +28,8 @@ const SmsModalComp = (props: any) => {
                 alert('SMS sent');
                 setSmsText('');
                 props.setShowSmsModal(false);
+                router.push('/Contacts')
+
             }}>
                 Send
             </Button>
