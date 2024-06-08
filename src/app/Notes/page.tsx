@@ -5,6 +5,7 @@ import { getNotesByOwner, addNote, deleteNote } from "../../services/notes";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import Image from "next/image";
 import { LuArrowRight } from "react-icons/lu";
+import { Loader } from '@/components';
 
 const NotesPage = () => {
     const queryClient = useQueryClient();
@@ -38,7 +39,8 @@ const NotesPage = () => {
 
     return (
         <div className='full-width'>
-            {isFetching || isLoading ? <h1>Loading...</h1> : <h1>Notes</h1>}
+            {(isFetching || isLoading) && <Loader />}
+            <h1>Notes</h1>
             <div className='notes-grid-container '>
                 <div className='grid-item'>
                     <textarea onChange={handleChange} value={input} />
