@@ -1,14 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "layout.css";
+@import "./css/layout.css";
+@import "./css/typography.css";
 
-@font-face {
-  font-family: "inika";
-  src: url("../../public/fonts/Inika-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
 
 * {
   box-sizing: border-box;
