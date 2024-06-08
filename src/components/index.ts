@@ -11,4 +11,4 @@ export { default as ServiceCard } from './ServiceCard/ServiceCard';
 export { default as LandingPage } from './LandingPage/LandingPage';
 export { default as ContactBoard } from './ContactsView/ContactBoardView';
 export { default as ContactTable } from './ContactsView/ContactTableView';
-export { default as Loader } from './UI/Loader';
+export { default as Loader } from './UI/Loader/Loader';
