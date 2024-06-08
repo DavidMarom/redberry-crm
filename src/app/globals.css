@@ -1,8 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "./css/layout.css";
 @import "./css/typography.css";
+@import "./css/layout.css";
 
 
 * {
@@ -47,32 +47,7 @@ body {
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
-div,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "inika", sans-serif;
-}
 
-p {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-h1 {
-  font-size: 2rem;
-}
-
-h2 {
-  font-size: 1.5rem;
-  color: var(--red02);
-}
-
-h3 {
-  font-size: 1.25rem;
-}
 
 
 .page-container {
@@ -109,9 +84,7 @@ h3 {
   }
 }
 
-.font-s {
-  font-size: 0.8rem;
-}
+
 
 .link {
   color: var(--blacl);
@@ -148,10 +121,6 @@ select {
   color: var(--whiteClr);
   border-radius: 2px;
   cursor: pointer;
-}
-
-.width-50-p {
-  width: 50%;
 }
 
 .btn {
@@ -208,20 +177,6 @@ select {
   box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.05);
 }
 
-.mail-grid-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 20px;
-}
-
-.contact-grid-container {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 20px;
-}
-
 textarea {
   border: 1px solid #dddddd;
 }
@@ -231,9 +186,6 @@ textarea {
   font-size: 0.7rem;
 }
 
-.bg {
-  background-color: #a74848;
-}
 
 .input-label {
   margin-bottom: -20px;
@@ -286,6 +238,3 @@ textarea {
   margin-bottom: 20px;
 }
 
-.font-arial * {
-  font-family: Arial, Helvetica, sans-serif;
-}
