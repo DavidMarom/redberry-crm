@@ -14,7 +14,7 @@ export default function LandingPage({ }) {
         // <StyleSheetManager shouldForwardProp={(prop) => prop !== 'margintop' || prop !== 'marginright'}>
         <Strip01>
             <div>
-                <h1>A lightweight CRM</h1>
+                <h1>Lightweight CRM</h1>
                 <h2>for your business</h2>
 
                 <HeroText>Feel like you're starting to lose track of your clients? Try Redberry-CRM! It was made especially for small businesses like yours!</HeroText>

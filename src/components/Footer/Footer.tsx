@@ -6,11 +6,11 @@ import Link from 'next/link'
 export default function Footer() {
     return (
         <><Container>
-            <div className="footer-text">© 2023 Redberry CRM</div>
+            <div className="footer-text">© 2024 Redberry CRM</div>
 
             <NavContainer>
                 <Link href='/Tos'>
-                    <div className='footer-text2'>Terms of Service</div>
+                    <p>Terms of Service</p>
                 </Link>
             </NavContainer><Link href="https://www.linkedin.com/showcase/redberrycrm" passHref target='_blank'>
 
