@@ -134,7 +134,6 @@ const ContactTable = ({ data, handleButtonClick, handleDelete, handleCancel, set
             {showSmsModal && <SmsModalComp setShowSmsModal={setShowSmsModal} selectedSMS={selectedSMS} />}
             <div className="font-arial">
                 <Table
-                    className="font-arial"
                     dataSource={addKeysToResponse(data)}
                     columns={columns}
                     size={"small"}
