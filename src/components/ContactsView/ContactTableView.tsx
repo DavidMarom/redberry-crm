@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { addKeysToResponse } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
 import { FaWhatsapp, FaSms } from "react-icons/fa";
+import { LuMail } from "react-icons/lu";
 import { StatusIndicator } from "@/app/Contacts/StatusIndicator";
 import SmsModalComp from "@/components/ContactsView/SmsModalComp";
 import { convertPhoneToGlobal } from '@/utils/contactsUtils';
@@ -112,7 +113,8 @@ const ContactTable = ({ data, handleButtonClick, handleDelete, handleCancel, set
                         setContactToEdit(record);
                         router.push('/Email')
                     }}>
-                        <img src="icons/mail.svg" alt="mail" width={18} />
+                        <LuMail fontSize={18} />
+
                     </button>
 
                     <button className="marg-l-20" onClick={() => handleButtonClick(record.phone)}>

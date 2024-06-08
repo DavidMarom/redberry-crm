@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { ContactsStatusType } from "./Constants";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { EditContactModal } from "@/components/popups/EditContactModal";
-import { ContactTable, ContactBoard } from "../../components/index";
+import { ContactTable, ContactBoard, Loader } from '@/components';
 import { TbSwitchHorizontal } from "react-icons/tb";
 
 function SubmitButton() {
@@ -22,8 +22,27 @@ const ContactsPage = () => {
     const queryClient = useQueryClient();
     const { data, isLoading, isFetching, error } = useQuery("contacts", () => getContactsByOwner(user.uid));
     const user = getFromStorage("user");
-    const deleteMutation = useMutation((id: string) => deleteContact(id), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
-    const addMutation = useMutation((contact: ContactType) => addContact(contact), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
+
+    const deleteMutation = useMutation((id: string) => deleteContact(id), {
+        onMutate: async (id: string) => {
+            await queryClient.cancelQueries('contacts')
+            const previousContacts = queryClient.getQueryData('contacts')
+            queryClient.setQueryData('contacts', (old: any) => old.filter((item: any) => item._id != id))
+            return { previousContacts }
+        },
+        onSuccess: () => { queryClient.invalidateQueries('contacts') }
+    })
+
+    const addMutation = useMutation((contact: ContactType) => addContact(contact), {
+        onMutate: async (contact: ContactType) => {
+            await queryClient.cancelQueries('contacts')
+            const previousContacts = queryClient.getQueryData('contacts')
+            queryClient.setQueryData('contacts', (old: any) => [...old, contact])
+            return { previousContacts }
+        },
+        onSuccess: () => { queryClient.invalidateQueries('contacts') }
+    })
+
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const [isEditModal, setIsEditModal] = useState(false);
     const [contactView, setContactView] = useState(window.innerWidth > 1024 ? "Table" : "Board")
@@ -55,23 +74,24 @@ const ContactsPage = () => {
 
     return (
         <div className="page-container2">
-            {isLoading ? <h1>Loading...</h1> :
-                <div className="rb margin-bottom-20">
-                    <div className="rbb">
-                        <h1>Contacts</h1>
-                        <div className="marg-l-20" />
-                        {contactView === "Table" ?
-                            <button onClick={() => setContactView("Board")}>
-                                <TbSwitchHorizontal />
-                            </button> :
-                            <button onClick={() => setContactView("Table")}>
-                                <TbSwitchHorizontal />
-                            </button>}
-                    </div>
+            {(isFetching || isLoading) && <Loader />}
 
-                    <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>Add</Button>
+            <div className="rb margin-bottom-20">
+                <div className="rbb">
+                    <h1>Contacts</h1>
+                    <div className="marg-l-20" />
+                    {contactView === "Table" ?
+                        <button onClick={() => setContactView("Board")}>
+                            <TbSwitchHorizontal />
+                        </button> :
+                        <button onClick={() => setContactView("Table")}>
+                            <TbSwitchHorizontal />
+                        </button>}
                 </div>
-            }
+
+                <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>Add</Button>
+            </div>
+
             {contactView == "Board" || screenSize < 1024 ?
                 <ContactBoard
                     data={data} handleButtonClick={handleButtonClick}
