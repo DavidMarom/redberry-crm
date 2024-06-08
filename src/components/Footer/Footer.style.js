@@ -9,11 +9,24 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   
   padding: 23px;
   padding-left:30px;
 
-  color: #aaa
+  color: #aaa;
+
+  @media (max-width: 768px) {
+    padding-left: 5px;
+    padding-right: 5px;
+
+    p {
+      font-size: 11px;
+    
+    }
+
+  }
+
 `;
 
 export const NavContainer = styled.div`

@@ -32,6 +32,9 @@ export const Strip01 = styled.div`
 
   @media (max-width: 768px) {
     padding-top: 2rem;
+    padding-left: 0.5rem;
+    padding-bottom: 7rem;
+
 
     h1,h2 {
       font-size: 2.5rem;
