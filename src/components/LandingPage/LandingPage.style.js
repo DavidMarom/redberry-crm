@@ -29,6 +29,14 @@ export const Strip01 = styled.div`
     padding-top: .1rem;
     padding-left: 1.5rem;
   }
+
+  @media (max-width: 768px) {
+    padding-top: 2rem;
+
+    h1,h2 {
+      font-size: 2.5rem;
+    }
+  }
 `;
 
 export const BulletRow = styled.div`
