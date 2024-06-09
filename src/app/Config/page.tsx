@@ -27,11 +27,10 @@ const AboutPage = () => {
 
     return (
         <div>
-            <h1>Config</h1>
+            <h1>Settings</h1>
 
             <form onSubmit={sendHandler}>
                 <Card01 width={"450px"} height="300px" justifycontent="space-between">
-                    <h2>Update</h2>
                     <p className="input-label">Business Name:</p>
                     <Input
                         type="text" name="bizName" id="bizName" placeholder='Your business name' value={bizName} onChange={(e) => { setBizName(e.target.value) }} />
