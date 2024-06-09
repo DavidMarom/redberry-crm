@@ -1,6 +1,6 @@
 import styles from "./loader.module.css";
 
-export const Loader = () => {
+const Loader = () => {
     const { loaderContainer, loaderAnimation } = styles;
     return (
         <div className={loaderContainer}>
