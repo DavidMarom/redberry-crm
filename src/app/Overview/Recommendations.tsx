@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { getRecommendation } from '@/services/openai';
 import { Card01 } from '@/components';
