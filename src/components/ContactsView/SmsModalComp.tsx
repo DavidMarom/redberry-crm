@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react';
 import { Button } from "@nextui-org/react";
 import { Card01, Popup } from "@/components";
@@ -16,7 +14,7 @@ const SmsModalComp = (props: any) => {
         alert('SMS sent');
         setSmsText('');
         props.setShowSmsModal(false);
-        router.push('/')
+        // router.push('/')
     }
 
     return <Popup>
