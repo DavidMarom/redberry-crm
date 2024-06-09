@@ -17,8 +17,8 @@ export default function Home() {
       <h1>Overview</h1>
 
       <div className='row-between align-start'>
-        {/* <Graph01 data={data} /> */}
-        {/* <Recommendations notes={notes} /> */}
+        <Graph01 data={data} />
+        <Recommendations notes={notes} />
 
 
       </div>
