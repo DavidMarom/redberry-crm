@@ -34,13 +34,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang="en">
         <body className={inter.className}>
           <QueryClientProvider client={queryClient}>
-            <Header />
-            <div className="row-r">
-              <Sidebar />
-              <div className="page-container">{children}</div>
-            </div>
-            <Footer />
-            <ReactQueryDevtools initialIsOpen={false} />
+            <NextUIProvider>
+
+              <Header />
+              <div className="row-r">
+                <Sidebar />
+                <div className="page-container">{children}</div>
+              </div>
+              <Footer />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </NextUIProvider>
           </QueryClientProvider>
         </body>
       </html>
