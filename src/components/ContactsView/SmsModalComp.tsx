@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import { Button } from "@nextui-org/react";
 import { Card01, Popup } from "@/components";
