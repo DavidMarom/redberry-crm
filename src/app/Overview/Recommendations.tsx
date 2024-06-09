@@ -6,7 +6,7 @@ import { Card01 } from '@/components';
 import { Button } from "@nextui-org/react";
 
 
-const Graph01 = ({ notes }: { notes: any }) => {
+export const Recommendations = ({ notes }: { notes: any }) => {
 
     const [recommendation, setRecommendation] = useState("");
     const filteredArray = notes?.filter((element: any) => element !== undefined);
@@ -31,5 +31,3 @@ const Graph01 = ({ notes }: { notes: any }) => {
         </Card01>
     )
 }
-
-export default Graph01;

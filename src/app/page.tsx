@@ -1,6 +1,8 @@
+'use client';
+
 import React from 'react';
-import Graph01 from '@/app/Overview/Graph01';
-import Recommendations from '@/app/Overview/Recommendations';
+import { Graph01 } from '@/app/Overview/Graph01';
+import { Recommendations } from '@/app/Overview/Recommendations';
 import { getContactsByOwner } from "../services/contacts";
 import { getFromStorage } from '@/utils/utils';
 import { Loader } from '@/components';

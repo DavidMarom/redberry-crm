@@ -5,7 +5,7 @@ import PieChart from './PieChart';
 import { countStatus } from '@/utils/contactsUtils';
 import Link from 'next/link'
 
-const Graph01 = ({ data }: { data: any[] }) => {
+export const Graph01 = ({ data }: { data: any[] }) => {
 
     let size = "100%";
     if (window.innerWidth > 1024) { size = "40%" }
@@ -23,6 +23,3 @@ const Graph01 = ({ data }: { data: any[] }) => {
         </Card01>
     );
 }
-
-
-export default Graph01;

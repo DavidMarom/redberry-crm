@@ -34,8 +34,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang="en">
         <body className={inter.className}>
           <QueryClientProvider client={queryClient}>
-            {/* <NextUIProvider> */}
-
             <Header />
             <div className="row-r">
               <Sidebar />
@@ -43,7 +41,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
             <Footer />
             <ReactQueryDevtools initialIsOpen={false} />
-            {/* </NextUIProvider> */}
           </QueryClientProvider>
         </body>
       </html>
