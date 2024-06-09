@@ -14,7 +14,7 @@ const SmsModalComp = (props: any) => {
         alert('SMS sent');
         setSmsText('');
         props.setShowSmsModal(false);
-        router.push('/Contacts');
+        router.push('/');
     }
 
     return <Popup>
