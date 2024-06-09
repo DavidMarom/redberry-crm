@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 
 import { Card01 } from '@/components';
 import PieChart from './PieChart';
