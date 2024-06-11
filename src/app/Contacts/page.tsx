@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { getContactsByOwner, addContact, deleteContact } from "../../services/contacts";
 import { getFromStorage } from '@/utils/utils';
 import { ContactType } from '@/types';
+import { CreateNewPopup } from "./CreateNewPopup";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Select, SelectItem, Input } from "@nextui-org/react";
 import { useFormState, useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
@@ -45,6 +46,7 @@ const ContactsPage = () => {
 
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const [isEditModal, setIsEditModal] = useState(false);
+    const [isCreateNewPopup, setIsCreateNewPopup] = useState(true);
     const [contactView, setContactView] = useState(window.innerWidth > 1024 ? "Table" : "Board")
     useEffect(() => { if (!isOpen) { setIsEditModal(false) } }, [isOpen]);
 
@@ -75,33 +77,24 @@ const ContactsPage = () => {
     return (
         <div className="page-container2">
             {(isFetching || isLoading) && <Loader />}
-
+            {isCreateNewPopup && <CreateNewPopup owner={user.uid} />}
             <div className="rb margin-bottom-20">
                 <div className="rbb">
                     <h1>Contacts</h1>
                     <div className="marg-l-20" />
                     {contactView === "Table" ?
-                        <button onClick={() => setContactView("Board")}>
-                            <TbSwitchHorizontal />
-                        </button> :
-                        <button onClick={() => setContactView("Table")}>
-                            <TbSwitchHorizontal />
-                        </button>}
+                        <button onClick={() => setContactView("Board")}><TbSwitchHorizontal /></button> :
+                        <button onClick={() => setContactView("Table")}><TbSwitchHorizontal /></button>}
                 </div>
 
                 <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>Add</Button>
             </div>
 
             {contactView == "Board" || screenSize < 1024 ?
-                <ContactBoard
-                    data={data} handleButtonClick={handleButtonClick}
-                    handleCancel={handleCancel} handleDelete={handleDelete}
-                    onOpen={onOpen} setIsEditModal={setIsEditModal} />
+                <ContactBoard data={data} handleButtonClick={handleButtonClick} handleCancel={handleCancel} handleDelete={handleDelete} onOpen={onOpen} setIsEditModal={setIsEditModal} />
                 :
-                <ContactTable
-                    data={data} handleButtonClick={handleButtonClick}
-                    handleCancel={handleCancel} handleDelete={handleDelete}
-                    onOpen={onOpen} setIsEditModal={setIsEditModal} />}
+                <ContactTable data={data} handleButtonClick={handleButtonClick} handleCancel={handleCancel} handleDelete={handleDelete} onOpen={onOpen} setIsEditModal={setIsEditModal} />
+            }
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (
