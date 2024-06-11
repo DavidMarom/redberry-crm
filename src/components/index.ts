@@ -1,7 +1,7 @@
 export { default as Input } from './Input';
 export { default as Sidebar } from './SideBar/SideBar';
 export { default as Card01 } from './Card01/Card01.jsx';
-export { default as Col } from './Col/Col.jsx';
+// export { default as Col } from './Col/Col.jsx';
 export { default as Btn } from './Btn/Btn.jsx';
 export { default as Row } from './Row/Row.jsx';
 export { default as Header } from './Header/Header';
@@ -10,5 +10,5 @@ export { default as Popup } from './Popup/Popup';
 export { default as ServiceCard } from './ServiceCard/ServiceCard';
 export { default as LandingPage } from './LandingPage/LandingPage';
 export { default as ContactBoard } from './ContactsView/ContactBoardView';
-export { default as ContactTable } from './ContactsView/ContactTableView';
+export { default as ContactTable } from '../app/Contacts/ContactTableView';
 export { default as Loader } from './UI/Loader/Loader';
