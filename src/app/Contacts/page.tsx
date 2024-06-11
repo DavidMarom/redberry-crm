@@ -6,18 +6,11 @@ import { getFromStorage } from '@/utils/utils';
 import { ContactType } from '@/types';
 import { CreateNewPopup } from "./CreateNewPopup";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Select, SelectItem, Input } from "@nextui-org/react";
-import { useFormState, useFormStatus } from "react-dom";
-import { useForm } from "react-hook-form";
-import { ContactsStatusType } from "./Constants";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { EditContactModal } from "@/components/popups/EditContactModal";
 import { ContactTable, ContactBoard, Loader } from '@/components';
 import { TbSwitchHorizontal } from "react-icons/tb";
 
-function SubmitButton() {
-    const { pending } = useFormStatus()
-    return <Button color="success" style={{ color: "#ffffff" }} aria-disabled={pending} type="submit" isLoading={pending}>Add Contact</Button>
-}
 
 const ContactsPage = () => {
     const queryClient = useQueryClient();
@@ -46,21 +39,9 @@ const ContactsPage = () => {
 
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const [isEditModal, setIsEditModal] = useState(false);
-    const [isCreateNewPopup, setIsCreateNewPopup] = useState(true);
+    const [isCreateNewPopup, setIsCreateNewPopup] = useState(false);
     const [contactView, setContactView] = useState(window.innerWidth > 1024 ? "Table" : "Board")
     useEffect(() => { if (!isOpen) { setIsEditModal(false) } }, [isOpen]);
-
-    const submitHandler = (prevState: any, formData: FormData) => {
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const phone = formData.get('phone');
-        const note = formData.get('note');
-        const status = formData.get('status');
-        const owner = user.uid;
-        const contact = { name, email, phone, status, owner, note };
-        addMutation.mutate(contact);
-        onClose();
-    };
 
     const handleDelete = (id: string) => { deleteMutation.mutate(id); };
     const handleCancel = () => { console.log("Action cancelled") };
@@ -70,14 +51,21 @@ const ContactsPage = () => {
         window.location.href = whatsappLink;
     };
 
-    const [state, formAction] = useFormState(submitHandler, null);
-    const { register } = useForm()
+    const submitHandler = (formData: any) => {
+        addMutation.mutate({ ...formData, owner: user.uid });
+        setIsCreateNewPopup(false);
+    };
+
+    // const [state, formAction] = useFormState(submitHandler, null);
     const screenSize = window.innerWidth;
 
     return (
         <div className="page-container2">
             {(isFetching || isLoading) && <Loader />}
-            {isCreateNewPopup && <CreateNewPopup owner={user.uid} />}
+            {isCreateNewPopup && <CreateNewPopup
+                // owner={user.uid}
+                submitHandler={submitHandler} close={() => setIsCreateNewPopup(false)} />}
+
             <div className="rb margin-bottom-20">
                 <div className="rbb">
                     <h1>Contacts</h1>
@@ -87,7 +75,7 @@ const ContactsPage = () => {
                         <button onClick={() => setContactView("Table")}><TbSwitchHorizontal /></button>}
                 </div>
 
-                <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={onOpen}>Add</Button>
+                <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={() => { setIsCreateNewPopup(true) }}>Add</Button>
             </div>
 
             {contactView == "Board" || screenSize < 1024 ?
@@ -99,26 +87,7 @@ const ContactsPage = () => {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            {isEditModal ? <EditContactModal setIsEditModal={setIsEditModal} onClose={onClose}></EditContactModal> :
-                                <form action={formAction}>
-                                    <ModalHeader className="flex flex-col gap-1">New Contact</ModalHeader>
-                                    <ModalBody>
-
-                                        <Input isRequired label="Name" style={{ backgroundColor: "#f3f3f3" }}  {...register('name')} />
-                                        <Input type="email" label="Email" style={{ backgroundColor: "#f3f3f3" }} {...register('email')} />
-                                        <Input type="phone" label="Phone" style={{ backgroundColor: "#f3f3f3" }}{...register('phone')} />
-                                        <Input type="text" label="Notes" style={{ backgroundColor: "#f3f3f3" }}{...register('note')} />
-
-                                        <Select items={ContactsStatusType} label="Contact Status" placeholder="Select a status" className="" isRequired {...register('status')}>
-                                            {(status) => <SelectItem key={status.id}>{status.name}</SelectItem>}
-                                        </Select>
-                                    </ModalBody >
-                                    <ModalFooter>
-                                        <Button color="danger" variant="light" onPress={onClose}>Close</Button>
-                                        <SubmitButton />
-                                    </ModalFooter>
-                                </form >
-                            }
+                            {isEditModal ? <EditContactModal setIsEditModal={setIsEditModal} onClose={onClose}></EditContactModal> : null}
                         </>
                     )}
                 </ModalContent >
