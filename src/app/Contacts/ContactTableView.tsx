@@ -1,5 +1,3 @@
-'use client';
-
 import React from "react";
 import { Table, Popconfirm } from "antd";
 import { useRouter } from 'next/navigation';
@@ -13,13 +11,13 @@ import { convertPhoneToGlobal } from '@/utils/contactsUtils';
 
 interface ContactTableProps {
     data: any[];
-    handleButtonClick: (phone: string) => void;
+    handleWhatsappClick: (phone: string) => void;
     handleDelete: (id: string) => void;
     handleCancel: () => void;
     setIsEditModal: (state: any) => void;
 }
 
-const ContactTable = ({ data, handleButtonClick, handleDelete, handleCancel, setIsEditModal, }: ContactTableProps) => {
+const ContactTable = ({ data, handleWhatsappClick, handleDelete, handleCancel, setIsEditModal, }: ContactTableProps) => {
     const router = useRouter();
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
     const [showSmsModal, setShowSmsModal] = React.useState(false);
@@ -114,7 +112,7 @@ const ContactTable = ({ data, handleButtonClick, handleDelete, handleCancel, set
 
                     </button>
 
-                    <button className="marg-l-20" onClick={() => handleButtonClick(record.phone)}>
+                    <button className="marg-l-20" onClick={() => handleWhatsappClick(record.phone)}>
                         <FaWhatsapp fontSize={18} />
                     </button>
 
