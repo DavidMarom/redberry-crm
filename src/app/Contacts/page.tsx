@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { getContactsByOwner, addContact, deleteContact } from "../../services/contacts";
+import React, { useState } from "react";
+import { getContactsByOwner, addContact, deleteContact, updateContact2 } from "../../services/contacts";
 import { getFromStorage } from '@/utils/utils';
 import { ContactType } from '@/types';
 import { CreateNewPopup } from "./CreateNewPopup";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Select, SelectItem, Input } from "@nextui-org/react";
+import { EditPopup } from "./EditPopup";
+import { Button } from "@nextui-org/react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { EditContactModal } from "@/components/popups/EditContactModal";
 import { ContactTable, ContactBoard, Loader } from '@/components';
 import { TbSwitchHorizontal } from "react-icons/tb";
 
@@ -37,11 +37,19 @@ const ContactsPage = () => {
         onSuccess: () => { queryClient.invalidateQueries('contacts') }
     })
 
-    const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-    const [isEditModal, setIsEditModal] = useState(false);
+    const editMutation = useMutation((contact: any) => updateContact2(contact), {
+        onMutate: async (contact: any) => {
+            await queryClient.cancelQueries('contacts')
+            const previousContacts = queryClient.getQueryData('contacts')
+            queryClient.setQueryData('contacts', (old: any) => old.map((item: any) => item._id == contact._id ? contact : item))
+            return { previousContacts }
+        },
+        onSuccess: () => { queryClient.invalidateQueries('contacts') }
+    })
+
     const [isCreateNewPopup, setIsCreateNewPopup] = useState(false);
+    const [isEditModal, setIsEditModal] = useState(null);
     const [contactView, setContactView] = useState(window.innerWidth > 1024 ? "Table" : "Board")
-    useEffect(() => { if (!isOpen) { setIsEditModal(false) } }, [isOpen]);
 
     const handleDelete = (id: string) => { deleteMutation.mutate(id); };
     const handleCancel = () => { console.log("Action cancelled") };
@@ -56,16 +64,18 @@ const ContactsPage = () => {
         setIsCreateNewPopup(false);
     };
 
-    // const [state, formAction] = useFormState(submitHandler, null);
+    const editHandler = (formData: any) => {
+        editMutation.mutate(formData);
+        setIsEditModal(null);
+    }
+
     const screenSize = window.innerWidth;
 
     return (
         <div className="page-container2">
             {(isFetching || isLoading) && <Loader />}
-            {isCreateNewPopup && <CreateNewPopup
-                // owner={user.uid}
-                submitHandler={submitHandler} close={() => setIsCreateNewPopup(false)} />}
-
+            {isCreateNewPopup && <CreateNewPopup submitHandler={submitHandler} close={() => setIsCreateNewPopup(false)} />}
+            {isEditModal && <EditPopup data={isEditModal} submitHandler={editHandler} close={() => setIsEditModal(null)} />}
             <div className="rb margin-bottom-20">
                 <div className="rbb">
                     <h1>Contacts</h1>
@@ -75,23 +85,27 @@ const ContactsPage = () => {
                         <button onClick={() => setContactView("Table")}><TbSwitchHorizontal /></button>}
                 </div>
 
-                <Button variant="solid" color="success" style={{ color: "#ffffff" }} onPress={() => { setIsCreateNewPopup(true) }}>Add</Button>
+                <Button variant="solid" color="success" style={{ color: "#ffffff" }}
+                    onPress={() => { setIsCreateNewPopup(true) }}>Add</Button>
             </div>
 
             {contactView == "Board" || screenSize < 1024 ?
-                <ContactBoard data={data} handleButtonClick={handleButtonClick} handleCancel={handleCancel} handleDelete={handleDelete} onOpen={onOpen} setIsEditModal={setIsEditModal} />
-                :
-                <ContactTable data={data} handleButtonClick={handleButtonClick} handleCancel={handleCancel} handleDelete={handleDelete} onOpen={onOpen} setIsEditModal={setIsEditModal} />
+                <ContactBoard
+                    data={data}
+                    handleButtonClick={handleButtonClick}
+                    handleCancel={handleCancel}
+                    handleDelete={handleDelete}
+                    setIsEditModal={setIsEditModal}
+                /> :
+                <ContactTable
+                    data={data}
+                    handleButtonClick={handleButtonClick}
+                    handleCancel={handleCancel}
+                    handleDelete={handleDelete}
+                    setIsEditModal={setIsEditModal}
+                />
             }
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-                <ModalContent>
-                    {(onClose) => (
-                        <>
-                            {isEditModal ? <EditContactModal setIsEditModal={setIsEditModal} onClose={onClose}></EditContactModal> : null}
-                        </>
-                    )}
-                </ModalContent >
-            </Modal >
+
 
         </div >
     );

@@ -35,7 +35,7 @@ export type ContactsType = z.infer<typeof contactsSchema>
 
 
 export const contactFormSchema = z.object({
-    name: z.string().min(2, { message: 'At least 2 characters long' }),
+    name: z.string().min(2, { message: 'At least 2 characters are needed' }),
     email: z.string().email({ message: 'Invalid email' }),
     phone: z.string().optional(),
     note: z.string().optional(),
@@ -70,12 +70,11 @@ export type formSchema = z.infer<typeof formTypes>;
 // Create new contact form
 export const createNewContactFormType = z
     .object({
-        name: z.string().min(2, { message: 'At least 2 characters long' }),
-        email: z.string().email({ message: 'Invalid email' }).optional(),
+        name: z.string().min(2, { message: 'At least 2 characters are needed' }),
+        email: z.string().email({ message: 'Invalid email' }).or(z.string().max(0)),
         phone: z.string().optional(),
         note: z.string().optional(),
         status: z.string(),
-        // owner: z.string(),
     })
 
 export type CreateNewContactFormSchema = z.infer<typeof createNewContactFormType>;
