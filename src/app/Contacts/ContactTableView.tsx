@@ -16,11 +16,10 @@ interface ContactTableProps {
     handleButtonClick: (phone: string) => void;
     handleDelete: (id: string) => void;
     handleCancel: () => void;
-    setIsEditModal: (state: boolean) => void;
-    onOpen: () => void;
+    setIsEditModal: (state: any) => void;
 }
 
-const ContactTable = ({ data, handleButtonClick, handleDelete, handleCancel, setIsEditModal, onOpen }: ContactTableProps) => {
+const ContactTable = ({ data, handleButtonClick, handleDelete, handleCancel, setIsEditModal, }: ContactTableProps) => {
     const router = useRouter();
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
     const [showSmsModal, setShowSmsModal] = React.useState(false);
@@ -102,9 +101,7 @@ const ContactTable = ({ data, handleButtonClick, handleDelete, handleCancel, set
                     </Popconfirm>
 
                     <button className="marg-l-20" onClick={() => {
-                        setContactToEdit(record);
-                        setIsEditModal(true);
-                        onOpen();
+                        setIsEditModal(record);
                     }}>
                         <img src="icons/pencil.svg" alt="mail" width={18} />
                     </button>
