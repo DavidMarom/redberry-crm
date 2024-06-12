@@ -41,10 +41,10 @@ function SideBar() {
           </Link>
         </div>
         <div>
-          <Link href="/Config">
+          <Link href="/Settings">
             <div className={styles.sidebarbtn}>
               <div className={styles.sidebarbtnwrapper}>
-                <img src="icons/cog-w.svg" alt="mail" width={20} />
+                <img src="icons/cog-w.svg" alt="settings" width={20} />
                 <span className={styles.sidebartxt}>Settings</span>
               </div>
             </div>
@@ -55,17 +55,17 @@ function SideBar() {
         <div>
           <Link href="/">
             <div className={styles.sidebarbtn}>
-              <img src="icons/dashboard-w.svg" alt="mail" width={20} />
+              <img src="icons/dashboard-w.svg" alt="home" width={20} />
             </div>
           </Link>
           <Link href="/Contacts">
             <div className={styles.sidebarbtn}>
-              <img src="icons/contacts-w.svg" alt="mail" width={20} />
+              <img src="icons/contacts-w.svg" alt="contacts" width={20} />
             </div>
           </Link>
           <Link href="/Notes">
             <div className={styles.sidebarbtn}>
-              <img src="icons/notes-w.svg" alt="mail" width={20} />
+              <img src="icons/notes-w.svg" alt="notes" width={20} />
             </div>
           </Link>
           <Link href="/Email">
@@ -75,9 +75,9 @@ function SideBar() {
           </Link>
         </div>
         <div>
-          <Link href="/Config">
+          <Link href="/Settings">
             <div className={styles.sidebarbtn}>
-              <img src="icons/cog-w.svg" alt="mail" width={20} />
+              <img src="icons/cog-w.svg" alt="Settings" width={20} />
             </div>
           </Link>
         </div>

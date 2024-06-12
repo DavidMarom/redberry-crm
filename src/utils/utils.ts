@@ -5,7 +5,6 @@ export const getFromStorage = (key: string) => {
     catch { return null }
 }
 
-export const dataExpired = () => Date.now() - parseInt(getFromStorage('lastFetch') ?? "") > 60000 || !getFromStorage('lastFetch');
 export const updateLastFetch = () => { setToStorage("lastFetch", Date.now()) }
 
 export const addKeysToResponse = (elements: any[]) => elements?.map((element, index) => ({ ...element, key: index }));

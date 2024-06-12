@@ -8,7 +8,9 @@ import { CreateNewPopup } from "./CreateNewPopup";
 import { EditPopup } from "./EditPopup";
 import { Button } from "@nextui-org/react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { ContactTable, ContactBoard, Loader } from '@/components';
+import { Loader } from '@/components';
+import ContactTable from './ContactTableView';
+import ContactBoard from './ContactBoardView';
 import { TbSwitchHorizontal } from "react-icons/tb";
 
 
@@ -53,21 +55,14 @@ const ContactsPage = () => {
 
     const handleDelete = (id: string) => { deleteMutation.mutate(id); };
     const handleCancel = () => { console.log("Action cancelled") };
-    const handleButtonClick = (phone: string) => {
+    const handleWhatsappClick = (phone: string) => {
         const updatedPhone = phone.replace(/^0|[^0-9]/g, '')
         const whatsappLink = `https://wa.me/${updatedPhone}`;
         window.location.href = whatsappLink;
     };
 
-    const submitHandler = (formData: any) => {
-        addMutation.mutate({ ...formData, owner: user.uid });
-        setIsCreateNewPopup(false);
-    };
-
-    const editHandler = (formData: any) => {
-        editMutation.mutate(formData);
-        setIsEditModal(null);
-    }
+    const submitHandler = (formData: any) => { addMutation.mutate({ ...formData, owner: user.uid }); setIsCreateNewPopup(false); };
+    const editHandler = (formData: any) => { editMutation.mutate(formData); setIsEditModal(null); }
 
     const screenSize = window.innerWidth;
 
@@ -90,23 +85,9 @@ const ContactsPage = () => {
             </div>
 
             {contactView == "Board" || screenSize < 1024 ?
-                <ContactBoard
-                    data={data}
-                    handleButtonClick={handleButtonClick}
-                    handleCancel={handleCancel}
-                    handleDelete={handleDelete}
-                    setIsEditModal={setIsEditModal}
-                /> :
-                <ContactTable
-                    data={data}
-                    handleButtonClick={handleButtonClick}
-                    handleCancel={handleCancel}
-                    handleDelete={handleDelete}
-                    setIsEditModal={setIsEditModal}
-                />
+                <ContactBoard data={data} handleWhatsappClick={handleWhatsappClick} handleCancel={handleCancel} handleDelete={handleDelete} setIsEditModal={setIsEditModal} /> :
+                <ContactTable data={data} handleWhatsappClick={handleWhatsappClick} handleCancel={handleCancel} handleDelete={handleDelete} setIsEditModal={setIsEditModal} />
             }
-
-
         </div >
     );
 };

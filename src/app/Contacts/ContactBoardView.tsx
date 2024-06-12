@@ -1,9 +1,7 @@
-// ContactTable.tsx
 import React from "react";
 import { Popconfirm } from "antd";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
-import { addKeysToResponse } from '@/utils/utils';
 import useContactsStore from "@/store/contacts";
 import { FaWhatsapp, FaSms } from "react-icons/fa";
 import { StatusIndicator } from "@/app/Contacts/StatusIndicator";
@@ -12,13 +10,13 @@ import { convertPhoneToGlobal } from '@/utils/contactsUtils';
 
 interface ContactTableProps {
     data: any[];
-    handleButtonClick: (phone: string) => void;
+    handleWhatsappClick: (phone: string) => void;
     handleDelete: (id: string) => void;
     handleCancel: () => void;
     setIsEditModal: (state: any) => void;
 }
 
-const ContactBoard = ({ data, handleButtonClick, handleDelete, handleCancel, setIsEditModal }: ContactTableProps) => {
+const ContactBoard = ({ data, handleWhatsappClick, handleDelete, handleCancel, setIsEditModal }: ContactTableProps) => {
     const router = useRouter();
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
     const [showSmsModal, setShowSmsModal] = React.useState(false);
@@ -74,7 +72,7 @@ const ContactBoard = ({ data, handleButtonClick, handleDelete, handleCancel, set
                                     <img src="icons/mail.svg" alt="mail" width={18} />
                                 </button>
 
-                                <button aria-label="Whatsapp" className="marg-l-20" onClick={() => handleButtonClick(contact.phone)}>
+                                <button aria-label="Whatsapp" className="marg-l-20" onClick={() => handleWhatsappClick(contact.phone)}>
                                     <FaWhatsapp fontSize={18} />
                                 </button>
 

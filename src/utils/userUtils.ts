@@ -1,5 +1,5 @@
 import { setUserProfile, setIsLogged, setStoreUser } from "@/store/user";
-import { googleSignup, googleSignOut } from "@/services/auth";
+import { googleSignup } from "@/services/auth";
 import { setToStorage } from '@/utils/utils';
 import http from "@/services/http";
 import { sendWelcomeEmail } from '@/services/mailchimp';
@@ -21,15 +21,22 @@ export const signupHandler = async () => {
         setIsLogged(true);
 
         // Check if DB has the user
-        http.get(`users/${res.uid}`).then((response: any) => {
-            if (!response.data) {
-                // If not, add the user to DB and send welcome email
-                http.post('users', res)
-                    .then((response: any) => { console.log(response) })
-                    .catch((error: any) => { console.log(error) })
-                sendWelcomeEmail(res.mail, res.name)
-            }
-        })
+        http.get(`users/${res.uid}`)
+            .then((response: any) => {
+                if (!response.data) {
+                    // If not, add the user to DB and send welcome email
+                    http.post('users', res)
+                        .then((response: any) => { console.log(response) })
+                        .catch((error: any) => { console.log(error) })
+                    sendWelcomeEmail(res.mail, res.name)
+                }
+                else {
+                    const userWithExtraInfo = { ...res, bizName: response.data.bizName, country: response.data.country }
+                    // setStoreUser(userWithExtraInfo);
+                    setToStorage("user", userWithExtraInfo);
+                };
+            })
+
         setIsLogged(true);
     }
 }

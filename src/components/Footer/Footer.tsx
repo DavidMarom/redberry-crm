@@ -1,7 +1,8 @@
 import React from 'react'
 import { Container, NavContainer } from "./Footer.style"
-import Image from 'next/image'
 import Link from 'next/link'
+import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
+
 
 export default function Footer() {
     return (
@@ -10,13 +11,15 @@ export default function Footer() {
 
             <NavContainer>
                 <Link href='/Tos'>
-                    <p>Terms of Service</p>
+                    <p>Terms</p>
                 </Link>
-            </NavContainer><Link href="https://www.linkedin.com/showcase/redberrycrm" passHref target='_blank'>
+            </NavContainer>
 
-                <Image src="icons/linkedin.svg" alt="LinkedIn" width={24} height={24} />
-            </Link>
-        </Container>
+            <div className="row w-12">
+                <Link href="https://www.linkedin.com/showcase/redberrycrm" passHref target='_blank'><FaLinkedinIn /></Link>
+                <Link href="https://www.facebook.com/profile.php?id=61560983933363" passHref target='_blank'><FaFacebookF /></Link>
+            </div>
+        </Container >
         </>
     )
 }
