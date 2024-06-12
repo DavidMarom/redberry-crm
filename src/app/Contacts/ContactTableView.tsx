@@ -17,16 +17,13 @@ interface ContactTableProps {
     setIsEditModal: (state: any) => void;
 }
 
-const ContactTable = ({ data, handleWhatsappClick, handleDelete, handleCancel, setIsEditModal, }: ContactTableProps) => {
+const ContactTable = ({ data, handleWhatsappClick, handleDelete, handleCancel, setIsEditModal }: ContactTableProps) => {
     const router = useRouter();
     const setContactToEdit = useContactsStore((state) => state.setContactToEdit);
     const [showSmsModal, setShowSmsModal] = React.useState(false);
     const [selectedSMS, setSelectedSMS] = React.useState('' as string);
 
-    const openSmsModal = (phone: string) => {
-        setShowSmsModal(true);
-        setSelectedSMS(convertPhoneToGlobal(phone));
-    }
+    const openSmsModal = (phone: string) => { setShowSmsModal(true); setSelectedSMS(convertPhoneToGlobal(phone)); }
 
     const columns = [
         {

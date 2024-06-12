@@ -1,4 +1,5 @@
 import { ContactsType } from '@/types';
+import { getFromStorage } from './utils';
 
 export const countStatus = (contacts: ContactsType) => {
     let statusCount = [0, 0, 0, 0];
@@ -11,8 +12,22 @@ export const countStatus = (contacts: ContactsType) => {
     return statusCount;
 }
 
-export const convertPhoneToGlobal = (phone: any, country?: string) => {
+export const convertPhoneToGlobal = (phone: any) => {
+    const userCountry = getFromStorage('user').country || 'Israel'
+
+    const mapCountryToCode: { [key: string]: string } = {
+        "Israel": "+972",
+        "USA": "+1",
+        "France": "+33",
+        "Germany": "+49",
+        "Italy": "+39",
+        "Spain": "+34",
+        "UK": "+44",
+    }
+
+    const code = mapCountryToCode[userCountry];
+
     if (phone.charAt(0) === '+') return phone;
     const updatedPhone = phone.replace(/^0|[^0-9]/g, '')
-    return `+972${updatedPhone}`;
+    return code + updatedPhone;
 }

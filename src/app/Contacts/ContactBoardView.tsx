@@ -22,7 +22,7 @@ const ContactBoard = ({ data, handleWhatsappClick, handleDelete, handleCancel, s
     const [showSmsModal, setShowSmsModal] = React.useState(false);
     const [selectedSMS, setSelectedSMS] = React.useState('' as string);
 
-    const openSmsModal = (phone: string) => { setShowSmsModal(true); setSelectedSMS(convertPhoneToGlobal(phone)) }
+    const openSmsModal = (phone: string) => { setShowSmsModal(true); setSelectedSMS(convertPhoneToGlobal(phone)); }
 
     return (<>
         {showSmsModal && <SmsModalComp setShowSmsModal={setShowSmsModal} selectedSMS={selectedSMS} />}
