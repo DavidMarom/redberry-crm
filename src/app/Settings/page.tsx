@@ -3,14 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Select, SelectItem, Button, Input } from "@nextui-org/react";
 import { Card01 } from "@/components";
 import { updateUser, getUser } from "@/services/users";
-import { getFromStorage } from "@/utils/utils";
+import { getFromStorage, setToStorage } from "@/utils/utils";
 
 const SettingsPage = () => {
-    const [bizName, setBizName] = useState('');
+    const [bizName, setBizName] = useState(getFromStorage('user').bizName ? getFromStorage('user').bizName : '');
     const [country, setCountry] = useState('');
 
     useEffect(() => {
-        setBizName('' + getFromStorage('user').bizName);
         setCountry('' + getFromStorage('user').country);
     }, []);
 
@@ -19,7 +18,7 @@ const SettingsPage = () => {
         const data = new FormData(event.target);
         const value = Object.fromEntries(data.entries());
         updateUser(getFromStorage('user').uid, value);
-        if (value.bizName) { setBizName('' + value.bizName) }
+        if (value.bizName) { setBizName('' + value.bizName); setToStorage('user', { ...getFromStorage('user'), bizName: value.bizName }) }
         if (value.country) { setCountry('' + value.country) }
     }
 
