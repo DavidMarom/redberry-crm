@@ -5,15 +5,13 @@ import { Card01 } from "@/components";
 import { updateUser, getUser } from "@/services/users";
 import { getFromStorage } from "@/utils/utils";
 
-const AboutPage = () => {
+const SettingsPage = () => {
     const [bizName, setBizName] = useState('');
     const [country, setCountry] = useState('');
 
     useEffect(() => {
-        getUser(getFromStorage('user').uid).then((res) => {
-            setBizName(res.bizName);
-            setCountry(res.country);
-        });
+        setBizName('' + getFromStorage('user').bizName);
+        setCountry('' + getFromStorage('user').country);
     }, []);
 
     const sendHandler = (event: any) => {
@@ -33,7 +31,14 @@ const AboutPage = () => {
                 <Card01 width={"450px"} height="300px" justifycontent="space-between">
                     <p className="input-label">Business Name:</p>
                     <Input
-                        type="text" name="bizName" id="bizName" placeholder='Your business name' value={bizName} onChange={(e) => { setBizName(e.target.value) }} />
+                        type="text"
+                        name="bizName"
+                        id="bizName"
+                        placeholder='Your business name'
+                        value={bizName}
+                        onChange={(e) => { setBizName(e.target.value) }}
+                    />
+
                     <Select label="Country" id="country" name="country" value={country} selectedKeys={[country]} onChange={(e) => { setCountry(e.target.value) }}>
                         <SelectItem value="Israel" key={'Israel'}>Israel</SelectItem>
                         <SelectItem value="USA" key={'USA'}>USA</SelectItem>
@@ -55,4 +60,4 @@ const AboutPage = () => {
     );
 };
 
-export default AboutPage;
+export default SettingsPage;

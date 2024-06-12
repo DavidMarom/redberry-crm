@@ -11,7 +11,7 @@ export const countStatus = (contacts: ContactsType) => {
     return statusCount;
 }
 
-export const convertPhoneToGlobal = (phone: any) => {
+export const convertPhoneToGlobal = (phone: any, country?: string) => {
     if (phone.charAt(0) === '+') return phone;
     const updatedPhone = phone.replace(/^0|[^0-9]/g, '')
     return `+972${updatedPhone}`;
