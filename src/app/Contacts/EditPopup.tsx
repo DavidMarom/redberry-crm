@@ -23,7 +23,7 @@ export const EditPopup = (props: any) => {
     });
 
     const onSubmit = async (data: CreateNewContactFormSchema) => {
-        const submittedData = { ...data, _id: props.data._id , owner: props.data.owner };
+        const submittedData = { ...data, _id: props.data._id, owner: props.data.owner };
         submitHandler(submittedData);
         reset();
     }
@@ -35,16 +35,16 @@ export const EditPopup = (props: any) => {
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-2">
 
                 <div className="flex flex-col gap-y-2">
-                    <input  type="text" id="name" placeholder="Name" {...register("name")} />
+                    <input type="text" id="name" placeholder="Name" {...register("name")} />
                     {errors.name && (<p className="text-red-500 text-xs">{errors.name.message}</p>)}
 
-                    <input  type="email" id="email" placeholder="email" {...register("email")} />
+                    <input type="email" id="email" placeholder="email" {...register("email")} />
                     {errors.email && (<p className="text-red-500 text-xs">{errors.email.message}</p>)}
 
-                    <input  type="text" id="phone" placeholder="Phone" {...register("phone")} />
+                    <input type="text" id="phone" placeholder="Phone" {...register("phone")} />
                     {errors.phone && (<p className="text-red-500 text-xs">{errors.phone.message}</p>)}
 
-                    <input  type="text" id="note" placeholder="Note" {...register("note")} />
+                    <input type="text" id="note" placeholder="Note" {...register("note")} />
                     {errors.note && (<p className="text-red-500 text-xs">{errors.note.message}</p>)}
 
                     <Select
@@ -60,7 +60,6 @@ export const EditPopup = (props: any) => {
                 </div>
                 <Button type="submit" color="primary" disabled={isSubmitting}>Send</Button>
                 <Button color="danger" variant="light" onPress={() => props.close()}>Close</Button>
-
             </form>
 
 
