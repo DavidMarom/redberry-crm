@@ -10,10 +10,8 @@ const SettingsPage = () => {
     const [country, setCountry] = useState('');
 
     useEffect(() => {
-        getUser(getFromStorage('user').uid).then((res) => {
-            setBizName(res.bizName);
-            setCountry(res.country);
-        });
+        setBizName('' + getFromStorage('user').bizName);
+        setCountry('' + getFromStorage('user').country);
     }, []);
 
     const sendHandler = (event: any) => {

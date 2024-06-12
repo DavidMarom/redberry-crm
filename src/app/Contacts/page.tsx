@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import useUserStore from "@/store/user";
 import { getContactsByOwner, addContact, deleteContact, updateContact2 } from "../../services/contacts";
 import { getFromStorage } from '@/utils/utils';
 import { ContactType } from '@/types';
