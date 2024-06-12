@@ -7,11 +7,7 @@ import { getFromStorage, setToStorage } from "@/utils/utils";
 
 const SettingsPage = () => {
     const [bizName, setBizName] = useState(getFromStorage('user').bizName ? getFromStorage('user').bizName : '');
-    const [country, setCountry] = useState('');
-
-    useEffect(() => {
-        setCountry('' + getFromStorage('user').country);
-    }, []);
+    const [country, setCountry] = useState(getFromStorage('user').country ? getFromStorage('user').country : '');
 
     const sendHandler = (event: any) => {
         event.preventDefault();
@@ -19,7 +15,7 @@ const SettingsPage = () => {
         const value = Object.fromEntries(data.entries());
         updateUser(getFromStorage('user').uid, value);
         if (value.bizName) { setBizName('' + value.bizName); setToStorage('user', { ...getFromStorage('user'), bizName: value.bizName }) }
-        if (value.country) { setCountry('' + value.country) }
+        if (value.country) { setCountry('' + value.country); setToStorage('user', { ...getFromStorage('user'), country: value.country }) }
     }
 
     return (
