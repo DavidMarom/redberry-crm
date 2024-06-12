@@ -5,6 +5,7 @@ import { formSchema, formTypes } from '@/types';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@nextui-org/react";
+import { getFromStorage } from "@/utils/utils";
 import useContactsStore from "@/store/contacts";
 
 export const Form = () => {
@@ -14,7 +15,8 @@ export const Form = () => {
         resolver: zodResolver(formTypes),
         defaultValues: {
             email: contactToEdit?.email,
-            recipientName: contactToEdit?.name
+            recipientName: contactToEdit?.name,
+            fromName: getFromStorage('user').bizName ? getFromStorage('user').bizName : '',
         },
     });
 
