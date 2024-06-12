@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Select, SelectItem, Button, Input } from "@nextui-org/react";
 import { Card01 } from "@/components";
-import { updateUser, getUser } from "@/services/users";
+import { updateUser } from "@/services/users";
 import { getFromStorage, setToStorage } from "@/utils/utils";
 
 const SettingsPage = () => {

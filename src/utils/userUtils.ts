@@ -1,5 +1,5 @@
 import { setUserProfile, setIsLogged, setStoreUser } from "@/store/user";
-import { googleSignup, googleSignOut } from "@/services/auth";
+import { googleSignup } from "@/services/auth";
 import { setToStorage } from '@/utils/utils';
 import http from "@/services/http";
 import { sendWelcomeEmail } from '@/services/mailchimp';
