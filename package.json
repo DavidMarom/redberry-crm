@@ -35,6 +35,7 @@
     "react-icons": "^5.0.1",
     "react-query": "^3.39.3",
     "sharp": "^0.33.1",
+    "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.1",
     "twilio": "^5.1.1",
     "zod": "^3.22.4",
