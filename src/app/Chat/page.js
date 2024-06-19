@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
 // const socket = io("http://localhost:3001",
-const socket = io("ec2-18-153-81-26.eu-central-1.compute.amazonaws.com:80",
+// const socket = io("ec2-18-153-81-26.eu-central-1.compute.amazonaws.com:80",
+const socket = io("ec2-3-72-14-4.eu-central-1.compute.amazonaws.com:80",
 
 
   {
