@@ -39,7 +39,7 @@ function SideBar() {
             <div className={styles.sidebarbtn}>
               <div className={styles.sidebarbtnwrapper}>
                 <img src="icons/mail-w.svg" alt="mail" width={20} />
-                <span className={styles.sidebartxt}>Email</span>
+                <span style={{ paddingRight: '8px' }}>Email</span>
               </div>
             </div>
           </Link>
@@ -47,7 +47,7 @@ function SideBar() {
             <div className={styles.sidebarbtn}>
               <div className={styles.sidebarbtnwrapper}>
                 <BsChatLeftText size={20} />
-                <span className={styles.sidebartxt}>Chat</span>
+                <span style={{ paddingRight: '8px' }}>Chat</span>
               </div>
             </div>
           </Link>
