@@ -13,6 +13,9 @@ export default function Footer() {
                 <Link href='/Tos'>
                     <p>Terms</p>
                 </Link>
+                <Link href='/Blog'>
+                    <p>Blog</p>
+                </Link>
             </NavContainer>
 
             <div className="row w-12">
