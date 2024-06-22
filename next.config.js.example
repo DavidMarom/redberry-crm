@@ -1,0 +1,46 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = () => {
+    return {
+        env: {
+            PUBLIC_DB_CONNECTION: "",
+            
+            PUBLIC_TWILIO_ACCOUNT_SID: "",
+            PUBLIC_TWILIO_AUTH_TOKEN: "",
+
+            PUBLIC_MANDRIL: "",
+
+            PUBLIC_OPENAI_API_KEY: "",
+
+            NEXT_PUBLIC_FIREBASE_API_KEY: "",
+            NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: "",
+            NEXT_PUBLIC_FIREBASE_PROJECT_ID: "",
+            NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: "",
+            NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: "",
+            NEXT_PUBLIC_FIREBASE_APP_ID: "",
+        },
+        images: {
+            domains: ['*.googleusercontent.com'],
+            remotePatterns: [
+                {
+                    hostname: '*.googleusercontent.com'
+                },
+            ],
+        },
+        webpack: (config, { isServer }) => {
+            if (!isServer) {
+                // don't resolve 'fs' module on the client to prevent this error on build --> Error: Can't resolve 'fs'
+                config.resolve.fallback = {
+                    fs: false,
+                    child_process: false,
+                    net: false,
+                    tls: false,
+                    dns: false,
+
+                }
+            }
+            return config
+        }
+    }
+}
+
+module.exports = nextConfig
