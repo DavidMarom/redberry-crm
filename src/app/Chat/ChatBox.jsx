@@ -41,6 +41,7 @@ export default function ChatBox() {
     });
 
     return (
+
         <div className={styles.chatHolder}>
             <div className={styles.chatText}>
                 {messages}
