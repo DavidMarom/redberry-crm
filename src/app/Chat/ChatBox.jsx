@@ -49,6 +49,15 @@ export default function ChatBox() {
         <div className={styles.chatHolder}>
             <div className={styles.chatText}>
                 {messages}
+
+
+    return (<div>
+
+
+        <div className={styles.chatHolder}>
+            <div className={styles.chatText}>
+                {messages}
+                {/* <div ref={(element) => { messageEnd = element }}></div> */}
             </div>
             <form onSubmit={handleFormSubmission} className={styles.form}>
                 <textarea
