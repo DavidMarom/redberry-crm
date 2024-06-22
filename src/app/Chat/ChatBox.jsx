@@ -14,7 +14,7 @@ export default function ChatBox() {
 
     const { channel, ably } = useChannel('chat-demo', (message) => {
         const history = receivedMessages.slice(-199);
-        setMessages([...history, message]);
+        setMessages([message, ...history]);
     });
 
     const sendChatMessage = (messageText) => {
@@ -23,15 +23,10 @@ export default function ChatBox() {
         inputBox.focus();
     };
 
-    const handleFormSubmission = (event) => {
-        event.preventDefault();
-        sendChatMessage(messageText);
-    };
+    const handleFormSubmission = (event) => { event.preventDefault(); sendChatMessage(messageText); };
 
     const handleKeyPress = (event) => {
-        if (event.charCode !== 13 || messageTextIsEmpty) {
-            return;
-        }
+        if (event.charCode !== 13 || messageTextIsEmpty) { return; }
         sendChatMessage(messageText);
         event.preventDefault();
     };
@@ -45,7 +40,8 @@ export default function ChatBox() {
         );
     });
 
-    return (<div>
+    return (
+
         <div className={styles.chatHolder}>
             <div className={styles.chatText}>
                 {messages}
@@ -64,6 +60,5 @@ export default function ChatBox() {
                 </button>
             </form>
         </div>
-    </div>
     );
 }

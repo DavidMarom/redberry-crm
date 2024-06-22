@@ -2,7 +2,6 @@
 import Link from "next/link";
 import styles from "./sidebar.module.css";
 import Image from 'next/image';
-import { IoChatboxOutline } from "react-icons/io5";
 import { BsChatLeftText } from "react-icons/bs";
 
 
@@ -36,24 +35,24 @@ function SideBar() {
             </div>
           </Link>
 
+        </div>
+        <div>
           <Link href="/Chat">
             <div className={styles.sidebarbtn}>
               <div className={styles.icon2}><BsChatLeftText size={20} /></div>
               <p>Chat</p>
             </div>
           </Link>
-        </div>
-        <div>
+
           <Link href="/Settings">
             <div className={styles.sidebarbtn}>
-              <div className={styles.sidebarbtnwrapper}>
-                <img src="icons/cog-w.svg" alt="settings" width={20} />
-                <span className={styles.sidebartxt}>Settings</span>
-              </div>
+              <div className={styles.icon2}><img src="icons/cog-w.svg" alt="settings" width={20} /></div>
+              <p>Settings</p>
             </div>
           </Link>
         </div>
       </div>
+
       <div className={styles.containermobile}>
         <div>
           <Link href="/">
@@ -76,6 +75,7 @@ function SideBar() {
               <img src="icons/mail-w.svg" alt="mail" width={20} />
             </div>
           </Link>
+          <br />
           <Link href="/Chat">
             <div className={styles.sidebarbtn}>
               <BsChatLeftText size={20} />
