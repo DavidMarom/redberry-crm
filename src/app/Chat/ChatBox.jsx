@@ -45,25 +45,21 @@ export default function ChatBox() {
         );
     });
 
-    useEffect(() => {
-        messageEnd.scrollIntoView({ behaviour: 'smooth' });
-    });
+    // useEffect(() => {
+    //     messageEnd.scrollIntoView({ behaviour: 'smooth' });
+    // });
 
-    return (
+    return (<div>
+
+
         <div className={styles.chatHolder}>
             <div className={styles.chatText}>
                 {messages}
-                <div
-                    ref={(element) => {
-                        messageEnd = element;
-                    }}
-                ></div>
+                {/* <div ref={(element) => { messageEnd = element }}></div> */}
             </div>
             <form onSubmit={handleFormSubmission} className={styles.form}>
                 <textarea
-                    ref={(element) => {
-                        inputBox = element;
-                    }}
+                    ref={(element) => { inputBox = element }}
                     value={messageText}
                     placeholder="Type a message..."
                     onChange={(e) => setMessageText(e.target.value)}
@@ -75,5 +71,6 @@ export default function ChatBox() {
                 </button>
             </form>
         </div>
+    </div>
     );
 }

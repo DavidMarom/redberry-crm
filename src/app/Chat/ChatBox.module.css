@@ -1,22 +1,26 @@
 .chatHolder {
-    display: grid;
-    grid-template-rows: 1fr 100px;
-    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 90%;
+    padding: 1em;
 }
 
 .chatText {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: flex-start;
     gap: 1em;
     padding: 1em;
     overflow-y: auto;
+    height: 90%;
 }
 
 .form {
     display: grid;
     grid-template-columns: 1fr 100px;
     border-top: 1px solid #eee;
+
 }
 
 .textarea {
@@ -40,7 +44,6 @@
 
 .button:disabled,
 .button:hover:disabled {
-    background: linear-gradient(to right, #363795, #005c97);
     opacity: 0.5;
 }
 

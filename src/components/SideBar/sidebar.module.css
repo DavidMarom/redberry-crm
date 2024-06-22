@@ -3,11 +3,11 @@
   flex-direction: column;
   justify-content: space-between;
 
-  min-width: 240px;
+  min-width: 220px;
   height: calc(100vh - 60px);
   background-color: var(--primary_200);
   padding-top: 60px;
-  margin-right: 20px;
+  margin-right: 30px;
 }
 
 .containermobile {
@@ -17,22 +17,31 @@
 .sidebarbtn {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   width: 90%;
-  margin-left: -5px;
   margin-bottom: 10px;
   background-color: var(--primary_200);
   color: var(--secondary_200);
   text-decoration: none;
   padding: 15px;
-  transition: all 0.2s ease;
+  padding-left: 30px;
+  transition: all 0.1s ease;
 }
 
 .sidebarbtn:hover {
   background-color: var(--primary_050);
   padding-left: 0px;
   color: var(--whiteClr);
-  padding-left: 35px;
+  padding-left: 25px;
+}
+
+.icon {
+  margin-right: 35px;
+}
+
+.icon2 {
+  margin-right: 35px;
+  padding-top: 5px;
 }
 
 @media (max-width: 768px) {
