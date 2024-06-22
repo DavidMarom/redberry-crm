@@ -50,7 +50,7 @@ export const CreateNewPopup = (props: any) => {
                     {errors.status && (<p className="text-red-500 text-xs">{errors.status.message}</p>)}
 
                 </div>
-                <Button type="submit" color="primary" disabled={isSubmitting}>Send</Button>
+                <Button type="submit" color="primary" disabled={isSubmitting}>Add</Button>
                 <Button color="danger" variant="light" onPress={() => props.close()}>Close</Button>
 
             </form>
