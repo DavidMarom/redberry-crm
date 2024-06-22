@@ -45,17 +45,10 @@ export default function ChatBox() {
         );
     });
 
-    // useEffect(() => {
-    //     messageEnd.scrollIntoView({ behaviour: 'smooth' });
-    // });
-
     return (<div>
-
-
         <div className={styles.chatHolder}>
             <div className={styles.chatText}>
                 {messages}
-                {/* <div ref={(element) => { messageEnd = element }}></div> */}
             </div>
             <form onSubmit={handleFormSubmission} className={styles.form}>
                 <textarea
