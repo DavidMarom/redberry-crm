@@ -7,7 +7,7 @@ const Email = () => {
 
     return (
         <div className="page-container2">
-            <h1>Email your client:</h1> 
+            <h1>Emails are not available at the moment</h1> 
             <div className='row'>
             <Card01 width="auto">
                 <Form />

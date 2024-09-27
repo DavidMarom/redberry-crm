@@ -37,12 +37,12 @@ function SideBar() {
 
         </div>
         <div>
-          <Link href="/Chat">
+          {/* <Link href="/Chat">
             <div className={styles.sidebarbtn}>
               <div className={styles.icon2}><BsChatLeftText size={20} /></div>
               <p>Chat</p>
             </div>
-          </Link>
+          </Link> */}
 
           <Link href="/Settings">
             <div className={styles.sidebarbtn}>
