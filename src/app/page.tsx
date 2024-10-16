@@ -21,8 +21,6 @@ export default function Home() {
       <div className='row-between align-start'>
         <Graph01 data={data} />
         <Recommendations notes={notes} />
-
-
       </div>
     </div >
   )

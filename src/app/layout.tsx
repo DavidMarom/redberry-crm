@@ -48,11 +48,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   } else {
     return (
       <>
-
         <html lang="en">
           <body className={inter.className}>
             <Header />
-
             <NextUIProvider>
               <LandingPage />
             </NextUIProvider>

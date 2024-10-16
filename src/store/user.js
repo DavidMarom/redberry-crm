@@ -5,6 +5,10 @@ const useUserStore = create((set) => ({
   setStoreUser: (storeUser) => set(() => ({ storeUser: storeUser })),
   logoutUser: () => set(() => ({ user: null })),
 
+  jwt: null,
+  setJwt: (jwt) => set(() => ({ jwt: jwt })),
+  logoutJwt: () => set(() => ({ jwt: null })),
+  
   isUserProfileOpened: false,
   setUserProfile: (booleanValue) =>
     set(() => ({ isUserProfileOpened: booleanValue })),
@@ -17,5 +21,7 @@ const useUserStore = create((set) => ({
 export const { setUserProfile } = useUserStore.getState();
 export const { setIsLogged } = useUserStore.getState();
 export const { setStoreUser } = useUserStore.getState();
+export const { setJwt } = useUserStore.getState();
+export const jwt = useUserStore.getState().jwt;
 
 export default useUserStore;
