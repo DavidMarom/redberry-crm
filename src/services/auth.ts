@@ -9,9 +9,9 @@ export function googleSignup(): Promise<GoogleObject | null | void> {
     return signInWithPopup(getAuth(), gprovider)
         .then((result) => {
             const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential?.accessToken ?? null;
+            const token = credential?.idToken;
             const user = result.user;
-            let usr = { name: user.displayName, mail: user.email, photoURL: user.photoURL, uid: user.uid, token: token };
+            let usr = { name: user.displayName, mail: user.email, photoURL: user.photoURL, uid: user.uid, token: token ?? null };
             return usr;
         }).catch((error) => { console.log(error); return null; });
 }

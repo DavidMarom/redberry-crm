@@ -26,6 +26,7 @@
     "dotenv": "^16.3.1",
     "firebase": "^10.6.0",
     "framer-motion": "^10.16.12",
+    "google-auth-library": "^9.14.2",
     "mongodb": "^6.3.0",
     "next": "^14.0.4",
     "next-themes": "^0.2.1",
