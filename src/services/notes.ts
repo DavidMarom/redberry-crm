@@ -7,7 +7,12 @@ export function getNotesByOwner(ownerId: string) {
 }
 
 export function addNote(note: any) {
-    return http.post(`notes`, note)
+    const ls = localStorage.getItem('user');
+    const token = ls ? JSON.parse(ls).token : '';
+
+    // console.log('token', token);
+
+    return http.post(`notes`, note, { headers: { Authorization: `Bearer ${token}` } })
         .then((response: any) => response.data)
         .catch((error: any) => error)
 }

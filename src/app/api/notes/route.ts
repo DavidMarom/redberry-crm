@@ -1,13 +1,27 @@
 import { connectDatabase, insertDocument, deleteDocument } from "../../../services/mongo";
+import { verifyToken } from '@/services/middlewares/verifyToken';
+import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-    const { text, owner } = await request.json();
-    const client = await connectDatabase();
-    const result = await insertDocument(client, 'notes', { text, owner });
-    client.close();
-    return new Response(JSON.stringify(result), {
-        headers: { 'Content-Type': 'application/json' },
-    });
+    try {
+        
+        const user = await verifyToken(request);
+        const { text, owner } = await request.json();
+        const client = await connectDatabase();
+        const result = await insertDocument(client, 'notes', { text, owner });
+        client.close();
+        return NextResponse.json({
+            message: 'This is a protected route',
+            user,
+            result
+        });
+    }
+    catch (error) {
+        return NextResponse.json({
+            message: 'This is a protected route',
+            error
+        });
+    }
 }
 
 export async function DELETE(request: Request) {

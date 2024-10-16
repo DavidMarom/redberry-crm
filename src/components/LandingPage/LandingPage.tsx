@@ -5,7 +5,6 @@ import { Btn } from "@/components";
 import { signupHandler } from "@/utils/userUtils";
 
 export default function LandingPage({ }) {
-
     return (
         <Strip01>
             <div>

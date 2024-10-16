@@ -51,8 +51,8 @@ const NotesPage = () => {
                     </div>
                 </div>
                 {
-                    data && data.map((note: any) => (
-                        <div className='grid-item' key={note._id}>
+                    data && data.map((note: any, idx: number) => (
+                        <div className='grid-item' key={idx}>
 
                             <button className="row-r" onClick={() => deleteMutation.mutate(note._id)}><Image src="icons/trash.svg" alt="Delete" width={18} height={18} /></button>
 
