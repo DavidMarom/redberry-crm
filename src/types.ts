@@ -17,7 +17,6 @@ export interface GoogleObject {
     mail: string | null;
     photoURL: string | null;
     uid: string | null;
-    token: string | null;
 }
 
 const contactsSchema = z.array(z.object({
