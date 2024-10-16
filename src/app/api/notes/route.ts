@@ -4,15 +4,20 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
     try {
-        
+
         const user = await verifyToken(request);
+        if (!user) {
+            return NextResponse.json({
+                message: 'This is a protected route',
+                error: 'Invalid token'
+            });
+        }
         const { text, owner } = await request.json();
         const client = await connectDatabase();
         const result = await insertDocument(client, 'notes', { text, owner });
         client.close();
         return NextResponse.json({
-            message: 'This is a protected route',
-            user,
+            message: 'Note created successfully',
             result
         });
     }

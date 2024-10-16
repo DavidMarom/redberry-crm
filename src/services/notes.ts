@@ -9,8 +9,7 @@ export function getNotesByOwner(ownerId: string) {
 export function addNote(note: any) {
     const ls = localStorage.getItem('user');
     const token = ls ? JSON.parse(ls).token : '';
-
-    // console.log('token', token);
+    
 
     return http.post(`notes`, note, { headers: { Authorization: `Bearer ${token}` } })
         .then((response: any) => response.data)
