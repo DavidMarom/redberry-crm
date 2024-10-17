@@ -1,4 +1,5 @@
 import http from '@/services/http';
+import { store } from '@/store/user';
 
 export function getNotesByOwner(ownerId: string) {
     return http.get(`notes/${ownerId}`)
@@ -7,10 +8,7 @@ export function getNotesByOwner(ownerId: string) {
 }
 
 export function addNote(note: any) {
-    const ls = localStorage.getItem('user');
-    const token = ls ? JSON.parse(ls).token : '';
-    
-
+    const token = store().jwt;
     return http.post(`notes`, note, { headers: { Authorization: `Bearer ${token}` } })
         .then((response: any) => response.data)
         .catch((error: any) => error)
