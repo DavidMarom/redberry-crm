@@ -24,8 +24,8 @@ const SmsModalComp = (props: any) => {
             {/* <textarea
                 onChange={(e) => setSmsText(e.target.value)}
                 name="message" id="message" placeholder='Your message' style={{ width: "100%", height: "200px" }}></textarea>
-            <Button color="primary" onClick={submitHandler}>Send</Button>
-            <Button onClick={() => props.setShowSmsModal(false)}>Close</Button> */}
+            <Button color="primary" onClick={submitHandler}>Send</Button> */}
+            <Button onClick={() => props.setShowSmsModal(false)}>Close</Button>
         </Card01>
     </Popup >
 }
