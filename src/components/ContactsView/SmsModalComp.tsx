@@ -20,11 +20,12 @@ const SmsModalComp = (props: any) => {
     return <Popup>
         <Card01 width={"450px"} height="400px" justifycontent="space-between">
             <h2>Send SMS to {convertPhoneToGlobal(props.selectedSMS)}</h2>
-            <textarea
+            <h1>Text messages are not available at the moment</h1>
+            {/* <textarea
                 onChange={(e) => setSmsText(e.target.value)}
                 name="message" id="message" placeholder='Your message' style={{ width: "100%", height: "200px" }}></textarea>
             <Button color="primary" onClick={submitHandler}>Send</Button>
-            <Button onClick={() => props.setShowSmsModal(false)}>Close</Button>
+            <Button onClick={() => props.setShowSmsModal(false)}>Close</Button> */}
         </Card01>
     </Popup >
 }

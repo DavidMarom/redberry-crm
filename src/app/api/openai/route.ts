@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     const { notesArray } = await request.json();
     console.log(notesArray);
     const date = new Date();
-    const requestToOpenAI = "The date today is " + date + ". I own a small business, I have a few tasks, please help me prioritize them, and tell me why you decided like this: \n" + notesArray.map((note: string) => note + "\n").join("") + "\n";
+    const requestToOpenAI = "The date today is " + date + ". I own a small business, I have a few tasks, please help me prioritize them. explain your decisions \n" + notesArray.map((note: string) => note + "\n").join("") + "\n";
 
     const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
