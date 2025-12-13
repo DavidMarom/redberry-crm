@@ -18,6 +18,7 @@
     "@nextui-org/react": "^2.2.9",
     "@nextui-org/select": "^2.1.20",
     "@nextui-org/use-infinite-scroll": "^2.1.2",
+    "@sentry/nextjs": "^10.30.0",
     "ably": "^2.1.0",
     "antd": "^5.11.3",
     "axios": "^1.6.2",
@@ -25,14 +26,13 @@
     "chart.js": "^4.4.1",
     "dotenv": "^16.3.1",
     "firebase": "^10.6.0",
-    "framer-motion": "^10.16.12",
     "google-auth-library": "^9.14.2",
     "mongodb": "^6.3.0",
-    "next": "^14.0.4",
+    "next": "^16.0.10",
     "next-themes": "^0.2.1",
     "openai": "^4.24.5",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-hook-form": "^7.49.2",
     "react-icons": "^5.0.1",
     "react-query": "^3.39.3",
@@ -51,5 +51,8 @@
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.17.0"
   }
 }

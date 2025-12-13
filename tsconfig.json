@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -11,7 +15,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
@@ -19,7 +23,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
   "include": [
@@ -29,7 +35,12 @@
     ".next/types/**/*.ts",
     "src/app/api/route.ts",
     "src/services/mongo.ts",
-    "src/app/api/users/route.ts"
-, "src/components/Btn/Btn.jsx", "src/app/Overview/PieChart.jsx"  ],
-  "exclude": ["node_modules"]
+    "src/app/api/users/route.ts",
+    "src/components/Btn/Btn.jsx",
+    "src/app/Overview/PieChart.jsx",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
