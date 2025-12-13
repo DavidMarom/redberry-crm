@@ -1,8 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "./css/typography.css";
-@import "./css/layout.css";
 
 @font-face {
   font-family: "inika";
@@ -54,32 +52,32 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "inika", sans-serif;
+  font-family: "inika", sans-serif;
 }
 
 p {
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 h1 {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 h2 {
-    font-size: 1.5rem;
-    color: var(--red02);
+  font-size: 1.5rem;
+  color: var(--red02);
 }
 
 h3 {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 .font-s {
-    font-size: 0.8rem;
+  font-size: 0.8rem;
 }
 
 .font-arial * {
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -89,6 +87,61 @@ body {
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  background-color: #555;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.row-r {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.row-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.rb {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.rbb {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.marg-l-20 {
+  margin-left: 10px;
+}
 
 .page-container {
   padding-top: 20px;
