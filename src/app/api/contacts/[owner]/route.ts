@@ -2,7 +2,7 @@ import { connectDatabase, getDocumentsByFilter } from "../../../../services/mong
 
 export async function GET(
     request: Request,
-    { params }: { params: { owner: string } }
+    { params }: { params: any }
 ) {
     const owner = params.owner;
 
