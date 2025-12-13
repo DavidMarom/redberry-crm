@@ -4,7 +4,7 @@ export async function GET(
     request: Request,
     { params }: { params: any }
 ) {
-    const owner = params.owner;
+    const { owner } = await params;
 
     const client = await connectDatabase();
     const documents = await getDocumentsByFilter(
