@@ -11,9 +11,9 @@ import { useQuery } from "react-query";
 export default function Home() {
   const user = getFromStorage("user");
   const { data, isLoading, isFetching, error } = useQuery("contacts", () => getContactsByOwner(user.uid));
-  const notes = data ?
-    data?.map((contact: any) => { if (contact.status === "Awaiting Call") { return contact.name + ' - ' + contact.note } }) :
-    [];
+  const notes = Array.isArray(data)
+    ? data.map((contact: any) => { if (contact.status === "Awaiting Call") { return contact.name + ' - ' + contact.note } })
+    : [];
 
   return (
     <div className="page-container2">

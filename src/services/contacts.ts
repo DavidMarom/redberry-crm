@@ -3,7 +3,7 @@ import http from '@/services/http';
 export function getContactsByOwner(ownerId: string) {
     return http.get(`contacts/${ownerId}`)
         .then((response: any) => response.data)
-        .catch((error: any) => error)
+        .catch((error: any) => { throw error; })
 }
 
 export function addContact(contact: any) {
