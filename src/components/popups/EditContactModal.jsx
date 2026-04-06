@@ -4,7 +4,7 @@ import React from 'react'
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { contactFormSchema } from '@/types';
-import { updateContact2 } from '@/services/contacts';
+import { updateContact } from '@/services/contacts';
 import useContactsStore from '../../store/contacts';
 import { ModalHeader, ModalBody, ModalFooter, Button, Input } from "@nextui-org/react";
 import { useMutation, useQueryClient } from "react-query";
@@ -15,7 +15,7 @@ export const EditContactModal = (props) => {
     const { control, handleSubmit, formState: { errors }, setError } = useForm({ resolver: zodResolver(contactFormSchema) });
     const onClose = props.onClose;
     const setIsEditModal = props.setIsEditModal;
-    const updateMutation = useMutation((contact) => updateContact2(contact), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
+    const updateMutation = useMutation((contact) => updateContact(contact), { onSuccess: () => { queryClient.invalidateQueries('contacts') } })
 
     const onSubmit = (data) => {
         const updatedContact = { ...contactToEdit, ...data };

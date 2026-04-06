@@ -9,18 +9,20 @@ export default function Footer() {
         <><Container>
             <div className="footer-text">© 2024 Redberry CRM</div>
 
-            <NavContainer>
-                <Link href='/Tos'>
-                    <p>Terms</p>
-                </Link>
-                <Link href='/Blog'>
-                    <p>Blog</p>
-                </Link>
-            </NavContainer>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+                <NavContainer>
+                    <Link href='/Tos'>
+                        <p>Terms</p>
+                    </Link>
+                    <Link href='/Blog'>
+                        <p>Blog</p>
+                    </Link>
+                </NavContainer>
 
-            <div className="row w-12">
-                <Link href="https://www.linkedin.com/showcase/redberrycrm" passHref target='_blank'><FaLinkedinIn /></Link>
-                <Link href="https://www.facebook.com/profile.php?id=61560983933363" passHref target='_blank'><FaFacebookF /></Link>
+                <div className="row w-12">
+                    <Link href="https://www.linkedin.com/showcase/redberrycrm" passHref target='_blank'><FaLinkedinIn /></Link>
+                    <Link href="https://www.facebook.com/profile.php?id=61560983933363" passHref target='_blank'><FaFacebookF /></Link>
+                </div>
             </div>
         </Container >
         </>

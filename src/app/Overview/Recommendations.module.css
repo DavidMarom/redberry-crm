@@ -1,0 +1,14 @@
+.prioritizeBtn {
+    background-color: #006FEE;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.prioritizeBtn:hover {
+    background-color: #005BC4;
+}
