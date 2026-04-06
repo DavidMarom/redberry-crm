@@ -1,25 +1,22 @@
 import http from '@/services/http';
+import { ContactType } from '@/types';
 
-export function getContactsByOwner(ownerId: string) {
-    return http.get(`contacts/${ownerId}`)
-        .then((response: any) => response.data)
-        .catch((error: any) => { throw error; })
+export async function getContactsByOwner(ownerId: string) {
+    const response = await http.get(`contacts/${ownerId}`);
+    return response.data;
 }
 
-export function addContact(contact: any) {
-    return http.post(`contacts`, contact)
-        .then((response: any) => response.data)
-        .catch((error: any) => error)
+export async function addContact(contact: ContactType) {
+    const response = await http.post(`contacts`, contact);
+    return response.data;
 }
 
-export function deleteContact(contactId: string) {
-    return http.delete(`contacts`, { data: { _id: contactId } })
-        .then((res) => res.data)
-        .catch((error) => error);
+export async function deleteContact(contactId: string) {
+    const response = await http.delete(`contacts`, { data: { _id: contactId } });
+    return response.data;
 }
 
-export function updateContact2(contact: any) {
-    return http.patch(`contacts`, { ...contact })
-        .then((res) => res.data)
-        .catch((error) => error);
+export async function updateContact(contact: ContactType) {
+    const response = await http.patch(`contacts`, { ...contact });
+    return response.data;
 }
