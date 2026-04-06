@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { getRecommendation } from '@/services/openai';
 import { Card01 } from '@/components';
-import { Button } from "@nextui-org/react";
+import styles from './Recommendations.module.css';
 
 
 export const Recommendations = ({ notes }: { notes: any }) => {
@@ -17,16 +17,15 @@ export const Recommendations = ({ notes }: { notes: any }) => {
             <p>Get recommendations based on your notes for contacts under "Awaiting Call"</p>
             <br />
             {recommendation === '' ?
-                <Button
-                    color="primary"
-
+                <button
+                    className={styles.prioritizeBtn}
                     onClick={() => {
                         setRecommendation("Loading...")
                         getRecommendation(filteredArray).then((res) => { setRecommendation(res.content.replace(/(?:\r\n|\r|\n)/g, '<br>')) })
-
-                    }}>
+                    }}
+                >
                     Prioritize my tasks!
-                </Button> : null}
+                </button>: null}
             <div dangerouslySetInnerHTML={{ __html: recommendation }} />
         </Card01>
     )

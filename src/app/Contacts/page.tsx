@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { getContactsByOwner, addContact, deleteContact, updateContact2 } from "../../services/contacts";
+import { getContactsByOwner, addContact, deleteContact, updateContact } from "../../services/contacts";
 import { getFromStorage } from '@/utils/utils';
 import { ContactType } from '@/types';
 import { CreateNewPopup } from "./CreateNewPopup";
@@ -39,7 +39,7 @@ const ContactsPage = () => {
         onSuccess: () => { queryClient.invalidateQueries('contacts') }
     })
 
-    const editMutation = useMutation((contact: any) => updateContact2(contact), {
+    const editMutation = useMutation((contact: any) => updateContact(contact), {
         onMutate: async (contact: any) => {
             await queryClient.cancelQueries('contacts')
             const previousContacts = queryClient.getQueryData('contacts')
