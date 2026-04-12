@@ -1,11 +1,15 @@
 require('dotenv').config();
 
-const accountSid = process.env.PUBLIC_TWILIO_ACCOUNT_SID;
-const authToken = process.env.PUBLIC_TWILIO_AUTH_TOKEN;
-
-const client = require('twilio')(accountSid, authToken);
-
 export async function POST(request: Request) {
+    const accountSid = process.env.PUBLIC_TWILIO_ACCOUNT_SID;
+    const authToken = process.env.PUBLIC_TWILIO_AUTH_TOKEN;
+    if (!accountSid || !authToken) {
+        return new Response(JSON.stringify({ error: 'Twilio credentials are not configured' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
+    const client = require('twilio')(accountSid, authToken);
     const { message, toPhone } = await request.json();
 
 

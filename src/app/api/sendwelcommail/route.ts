@@ -1,9 +1,14 @@
 require('dotenv').config();
 
-const apiKey = process.env.PUBLIC_MANDRIL;
-const mailchimpClient = require("@mailchimp/mailchimp_transactional")(apiKey);
-
 export async function POST(request: Request) {
+    const apiKey = process.env.PUBLIC_MANDRIL;
+    if (!apiKey) {
+        return new Response(JSON.stringify({ error: 'Mailchimp API key is not configured' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
+    const mailchimpClient = require("@mailchimp/mailchimp_transactional")(apiKey);
     const { mail, name } = await request.json();
     const run = async () => {
         const response = await mailchimpClient.messages.send({

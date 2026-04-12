@@ -17,7 +17,10 @@ import { MongoClient, ObjectId } from "mongodb";
 // }
 
 export async function connectDatabase() {
-    const dbConnection: any = process.env.PUBLIC_DB_CONNECTION;
+    const dbConnection = process.env.PUBLIC_DB_CONNECTION;
+    if (!dbConnection) {
+        throw new Error('Missing required environment variable: PUBLIC_DB_CONNECTION');
+    }
     return await MongoClient.connect(dbConnection);
 }
 

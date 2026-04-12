@@ -3,10 +3,10 @@ import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getNotesByOwner, addNote, deleteNote } from '@/services/notes';
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.PUBLIC_OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true,
-});
+const openaiApiKey = process.env.PUBLIC_OPENAI_API_KEY;
+const openai = openaiApiKey
+  ? new OpenAI({ apiKey: openaiApiKey, dangerouslyAllowBrowser: true })
+  : null;
 
 export function useNotes(uid: string | null) {
   const queryClient = useQueryClient();
@@ -65,6 +65,10 @@ export function useNotes(uid: string | null) {
 
   const prioritize = async () => {
     if (!data || data.length < 2) return;
+    if (!openai) {
+      console.error('OpenAI API key is not configured');
+      return;
+    }
     setIsPrioritizing(true);
     try {
       const noteList = data.map((n: any) => `ID: ${n._id}\nText: ${n.text}`).join('\n\n');
