@@ -26,6 +26,10 @@ const NotesPage = () => {
     isSubmitting,
     deleteNote,
     isDeleting,
+    prioritize,
+    isPrioritizing,
+    isPrioritized,
+    resetPriority,
   } = useNotes(uid);
 
   return (
@@ -38,14 +42,30 @@ const NotesPage = () => {
           {notes && <span className={styles.badge}>{notes.length}</span>}
         </div>
 
-        <div className={styles.searchBar}>
-          <LuSearch style={{ color: '#888', flexShrink: 0 }} />
-          <input
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Search notes…"
-            className={styles.searchInput}
-          />
+        <div className={styles.headerActions}>
+          <div className={styles.searchBar}>
+            <LuSearch style={{ color: '#888', flexShrink: 0 }} />
+            <input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search notes…"
+              className={styles.searchInput}
+            />
+          </div>
+
+          {isPrioritized ? (
+            <button onClick={resetPriority} className={styles.prioritizeBtn}>
+              Reset order
+            </button>
+          ) : (
+            <button
+              onClick={prioritize}
+              disabled={isPrioritizing || !notes || notes.length < 2}
+              className={`${styles.prioritizeBtn} ${isPrioritizing ? styles.prioritizeBtnLoading : ''}`}
+            >
+              {isPrioritizing ? 'Prioritizing…' : 'Prioritize'}
+            </button>
+          )}
         </div>
       </div>
 
