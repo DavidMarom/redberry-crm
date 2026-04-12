@@ -1,73 +1,77 @@
 "use client";
 
-import React, { useState } from 'react';
-import { getNotesByOwner, addNote, deleteNote } from "../../services/notes";
-import { useQuery, useMutation, useQueryClient } from "react-query";
-import Image from "next/image";
-import { LuArrowRight } from "react-icons/lu";
+import { LuSearch } from 'react-icons/lu';
 import { Loader } from '@/components';
+import { useNotes } from './useNotes';
+import { NOTE_COLORS } from './constants';
+import NoteCard from './NoteCard';
+import AddNoteCard from './AddNoteCard';
+import NotesEmptyState from './NotesEmptyState';
+import styles from './notes.module.css';
 
 const NotesPage = () => {
-    const queryClient = useQueryClient();
-    const user = localStorage.getItem("user");
-    const uid = user ? JSON.parse(user).uid : null;
-    const { data, isLoading, isFetching, error } = useQuery("notes", () => getNotesByOwner(uid));
-    const [input, setInput] = useState("");
+  const user = localStorage.getItem('user');
+  const uid = user ? JSON.parse(user).uid : null;
 
-    const deleteMutation = useMutation((id: string) => deleteNote(id), {
-        onMutate: async (id: string) => {
-            await queryClient.cancelQueries('notes')
-            const previousNotes = queryClient.getQueryData('notes')
-            queryClient.setQueryData('notes', (old: any) => old.filter((item: any) => item._id != id))
-            return { previousNotes }
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('notes')
-        }
-    })
+  const {
+    notes,
+    filteredNotes,
+    isLoading,
+    isFetching,
+    input,
+    setInput,
+    search,
+    setSearch,
+    submitNote,
+    isSubmitting,
+    deleteNote,
+    isDeleting,
+  } = useNotes(uid);
 
-    const addMutation = useMutation((note: any) => addNote(note), {
-        onMutate: async (note: any) => {
-            await queryClient.cancelQueries('notes')
-            const previousNotes = queryClient.getQueryData('notes')
-            queryClient.setQueryData('notes', (old: any) => [...old, note])
-            return { previousNotes }
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('notes');
-            setInput("");
-        }
-    })
-    
-    const handleChange = (event: any) => { setInput(event.target.value) }
+  return (
+    <div className={`full-width ${styles.page}`}>
+      {(isFetching || isLoading) && <Loader />}
 
-    return (
-        <div className='full-width'>
-            {(isFetching || isLoading) && <Loader />}
-            <h1>Notes</h1>
-            <div className='notes-grid-container '>
-                <div className='grid-item'>
-                    <textarea onChange={handleChange} value={input} />
-                    <div className='row-r'>
-                        <button onClick={() => addMutation.mutate({ text: input, owner: uid })}>
-                            <LuArrowRight style={{ color: 'white', backgroundColor: '#6FC21C', width: '46px', height: '30px', borderRadius: '5px', gap: '10px', padding: '5px' }} />
-                        </button>
-                    </div>
-                </div>
-                {
-                    data && data.map((note: any, idx: number) => (
-                        <div className='grid-item' key={idx}>
-
-                            <button className="row-r" onClick={() => deleteMutation.mutate(note._id)}><Image src="icons/trash.svg" alt="Delete" width={18} height={18} /></button>
-
-                            {deleteMutation.isError && <div>Something went wrong</div>}
-                            <div>{note.text}</div>
-                        </div>
-                    ))
-                }
-            </div>
+      <div className={styles.header}>
+        <div className={styles.headerTitle}>
+          <h1>Notes</h1>
+          {notes && <span className={styles.badge}>{notes.length}</span>}
         </div>
-    );
+
+        <div className={styles.searchBar}>
+          <LuSearch style={{ color: '#888', flexShrink: 0 }} />
+          <input
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Search notes…"
+            className={styles.searchInput}
+          />
+        </div>
+      </div>
+
+      <div className="notes-grid-container">
+        <AddNoteCard
+          value={input}
+          onChange={setInput}
+          onSubmit={submitNote}
+          isSubmitting={isSubmitting}
+        />
+        {filteredNotes.map((note: any, idx: number) => (
+          <NoteCard
+            key={note._id ?? idx}
+            text={note.text}
+            color={NOTE_COLORS[idx % NOTE_COLORS.length]}
+            onDelete={() => deleteNote(note._id)}
+            isDeleting={isDeleting}
+          />
+        ))}
+      </div>
+
+      {!isLoading && notes && filteredNotes.length === 0 && (
+        <NotesEmptyState hasSearch={!!search} />
+      )}
+    </div>
+  );
 };
 
 export default NotesPage;
