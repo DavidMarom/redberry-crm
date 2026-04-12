@@ -1,12 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getNotesByOwner, addNote, deleteNote } from '@/services/notes';
-import OpenAI from 'openai';
-
-const openaiApiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
-const openai = openaiApiKey
-  ? new OpenAI({ apiKey: openaiApiKey, dangerouslyAllowBrowser: true })
-  : null;
 
 export function useNotes(uid: string | null) {
   const queryClient = useQueryClient();
@@ -65,30 +59,18 @@ export function useNotes(uid: string | null) {
 
   const prioritize = async () => {
     if (!data || data.length < 2) return;
-    if (!openai) {
-      console.error('OpenAI API key is not configured');
-      return;
-    }
     setIsPrioritizing(true);
     try {
-      const noteList = data.map((n: any) => `ID: ${n._id}\nText: ${n.text}`).join('\n\n');
-      const response = await openai.chat.completions.create({
-        model: 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content:
-              'You are a productivity assistant. Reorder the given notes from most to least urgent/important based on their content. Respond with ONLY a JSON array of IDs in priority order, no explanation.',
-          },
-          {
-            role: 'user',
-            content: noteList,
-          },
-        ],
-        response_format: { type: 'json_object' },
+      const response = await fetch('/api/openai-notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ notes: data.map((n: any) => ({ _id: n._id, text: n.text })) }),
       });
-
-      const parsed = JSON.parse(response.choices[0].message.content ?? '{}');
+      if (!response.ok) {
+        console.error('Failed to prioritize notes:', await response.text());
+        return;
+      }
+      const parsed = await response.json();
       const ids: string[] = parsed.ids ?? parsed.order ?? Object.values(parsed)[0];
       if (Array.isArray(ids)) setPrioritizedIds(ids);
     } finally {
