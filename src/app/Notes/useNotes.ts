@@ -4,7 +4,7 @@ import { getNotesByOwner, addNote, deleteNote } from '@/services/notes';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
-  apiKey: process.env.PUBLIC_OPENAI_API_KEY,
+  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   dangerouslyAllowBrowser: true,
 });
 
@@ -53,10 +53,10 @@ export function useNotes(uid: string | null) {
 
   const baseNotes = prioritizedIds
     ? [...(data ?? [])].sort((a, b) => {
-        const ai = prioritizedIds.indexOf(a._id);
-        const bi = prioritizedIds.indexOf(b._id);
-        return (ai === -1 ? Infinity : ai) - (bi === -1 ? Infinity : bi);
-      })
+      const ai = prioritizedIds.indexOf(a._id);
+      const bi = prioritizedIds.indexOf(b._id);
+      return (ai === -1 ? Infinity : ai) - (bi === -1 ? Infinity : bi);
+    })
     : (data ?? []);
 
   const filteredNotes = baseNotes.filter((note: any) =>
