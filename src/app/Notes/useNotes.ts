@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getNotesByOwner, addNote, deleteNote } from '@/services/notes';
 import OpenAI from 'openai';
 
-const openaiApiKey = process.env.PUBLIC_OPENAI_API_KEY;
+const openaiApiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 const openai = openaiApiKey
   ? new OpenAI({ apiKey: openaiApiKey, dangerouslyAllowBrowser: true })
   : null;
