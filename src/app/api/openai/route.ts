@@ -1,8 +1,15 @@
 import OpenAI from 'openai';
 require('dotenv').config();
-const openai = new OpenAI({ apiKey: process.env.PUBLIC_OPENAI_API_KEY });
 
 export async function POST(request: Request) {
+    const apiKey = process.env.PUBLIC_OPENAI_API_KEY;
+    if (!apiKey) {
+        return new Response(JSON.stringify({ error: 'OpenAI API key is not configured' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
+    const openai = new OpenAI({ apiKey });
     const { notesArray } = await request.json();
     console.log(notesArray);
     const date = new Date();
