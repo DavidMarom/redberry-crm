@@ -1,59 +1,26 @@
 "use client";
 
 import React, { useState } from "react";
-import { getContactsByOwner, addContact, deleteContact, updateContact } from "../../services/contacts";
 import { getFromStorage } from '@/utils/utils';
-import { ContactType } from '@/types';
 import { CreateNewPopup } from "./CreateNewPopup";
 import { EditPopup } from "./EditPopup";
 import { Button } from "@nextui-org/react";
-import { useQuery, useMutation, useQueryClient } from "react-query";
 import { Loader } from '@/components';
 import ContactTable from './ContactTableView';
 import ContactBoard from './ContactBoardView';
 import { TbSwitchHorizontal } from "react-icons/tb";
+import { useContacts } from './useContacts';
 
 
 const ContactsPage = () => {
-    const queryClient = useQueryClient();
-    const { data, isLoading, isFetching, error } = useQuery("contacts", () => getContactsByOwner(user.uid));
     const user = getFromStorage("user");
-
-    const deleteMutation = useMutation((id: string) => deleteContact(id), {
-        onMutate: async (id: string) => {
-            await queryClient.cancelQueries('contacts')
-            const previousContacts = queryClient.getQueryData('contacts')
-            queryClient.setQueryData('contacts', (old: any) => old.filter((item: any) => item._id != id))
-            return { previousContacts }
-        },
-        onSuccess: () => { queryClient.invalidateQueries('contacts') }
-    })
-
-    const addMutation = useMutation((contact: ContactType) => addContact(contact), {
-        onMutate: async (contact: ContactType) => {
-            await queryClient.cancelQueries('contacts')
-            const previousContacts = queryClient.getQueryData('contacts')
-            queryClient.setQueryData('contacts', (old: any) => [...old, contact])
-            return { previousContacts }
-        },
-        onSuccess: () => { queryClient.invalidateQueries('contacts') }
-    })
-
-    const editMutation = useMutation((contact: any) => updateContact(contact), {
-        onMutate: async (contact: any) => {
-            await queryClient.cancelQueries('contacts')
-            const previousContacts = queryClient.getQueryData('contacts')
-            queryClient.setQueryData('contacts', (old: any) => old.map((item: any) => item._id == contact._id ? contact : item))
-            return { previousContacts }
-        },
-        onSuccess: () => { queryClient.invalidateQueries('contacts') }
-    })
+    const { contacts, isLoading, isFetching, addContact, deleteContact, editContact } = useContacts(user.uid);
 
     const [isCreateNewPopup, setIsCreateNewPopup] = useState(false);
     const [isEditModal, setIsEditModal] = useState(null);
     const [contactView, setContactView] = useState(window.innerWidth > 1024 ? "Table" : "Board")
 
-    const handleDelete = (id: string) => { deleteMutation.mutate(id); };
+    const handleDelete = (id: string) => { deleteContact(id); };
     const handleCancel = () => { console.log("Action cancelled") };
     const handleWhatsappClick = (phone: string) => {
         const updatedPhone = phone.replace(/^0|[^0-9]/g, '')
@@ -61,8 +28,8 @@ const ContactsPage = () => {
         window.location.href = whatsappLink;
     };
 
-    const submitHandler = (formData: any) => { addMutation.mutate({ ...formData, owner: user.uid }); setIsCreateNewPopup(false); };
-    const editHandler = (formData: any) => { editMutation.mutate(formData); setIsEditModal(null); }
+    const submitHandler = (formData: any) => { addContact({ ...formData, owner: user.uid }); setIsCreateNewPopup(false); };
+    const editHandler = (formData: any) => { editContact(formData); setIsEditModal(null); }
 
     const screenSize = window.innerWidth;
 
@@ -71,6 +38,7 @@ const ContactsPage = () => {
             {(isFetching || isLoading) && <Loader />}
             {isCreateNewPopup && <CreateNewPopup submitHandler={submitHandler} close={() => setIsCreateNewPopup(false)} />}
             {isEditModal && <EditPopup data={isEditModal} submitHandler={editHandler} close={() => setIsEditModal(null)} />}
+
             <div className="rb margin-bottom-20">
                 <div className="rbb">
                     <h1>Contacts</h1>
@@ -85,8 +53,8 @@ const ContactsPage = () => {
             </div>
 
             {contactView == "Board" || screenSize < 1024 ?
-                <ContactBoard data={data} handleWhatsappClick={handleWhatsappClick} handleCancel={handleCancel} handleDelete={handleDelete} setIsEditModal={setIsEditModal} /> :
-                <ContactTable data={data} handleWhatsappClick={handleWhatsappClick} handleCancel={handleCancel} handleDelete={handleDelete} setIsEditModal={setIsEditModal} />
+                <ContactBoard data={contacts} handleWhatsappClick={handleWhatsappClick} handleCancel={handleCancel} handleDelete={handleDelete} setIsEditModal={setIsEditModal} /> :
+                <ContactTable data={contacts} handleWhatsappClick={handleWhatsappClick} handleCancel={handleCancel} handleDelete={handleDelete} setIsEditModal={setIsEditModal} />
             }
         </div >
     );
