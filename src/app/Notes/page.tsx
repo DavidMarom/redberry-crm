@@ -33,7 +33,10 @@ const NotesPage = () => {
             queryClient.setQueryData('notes', (old: any) => [...old, note])
             return { previousNotes }
         },
-        onSuccess: () => { queryClient.invalidateQueries('notes') }
+        onSuccess: () => {
+            queryClient.invalidateQueries('notes');
+            setInput("");
+        }
     })
     
     const handleChange = (event: any) => { setInput(event.target.value) }

@@ -1,5 +1,5 @@
 import http from '@/services/http';
-import { store } from '@/store/user';
+import { getAuth } from 'firebase/auth';
 
 export function getNotesByOwner(ownerId: string) {
     return http.get(`notes/${ownerId}`)
@@ -7,11 +7,10 @@ export function getNotesByOwner(ownerId: string) {
         .catch((error: any) => error)
 }
 
-export function addNote(note: any) {
-    const token = store().jwt;
+export async function addNote(note: any) {
+    const token = await getAuth().currentUser?.getIdToken();
     return http.post(`notes`, note, { headers: { Authorization: `Bearer ${token}` } })
         .then((response: any) => response.data)
-        .catch((error: any) => error)
 }
 
 export function deleteNote(noteId: string) {
