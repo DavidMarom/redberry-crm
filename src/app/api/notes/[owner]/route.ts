@@ -1,8 +1,8 @@
 import { connectDatabase, getDocumentsByFilter } from "../../../../services/mongo";
 import { ContactGetType } from "../../apiTypes";
 
-export async function GET(request: Request, params: any) {
-    const owner = params.params.owner;
+export async function GET(request: Request, { params }: { params: Promise<{ owner: string }> }) {
+    const { owner } = await params;
     const client = await connectDatabase();
     const documents = await getDocumentsByFilter(client, 'notes', { owner: owner });
     client.close();
